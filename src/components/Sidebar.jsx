@@ -47,7 +47,7 @@ const Sidebar = () => {
                         Amadi Jason 
                     </h1>
                     <div className="flex items-center">
-                        <p className="title">Full-Stack Developer</p>
+                        <p className="title">Software Developer</p>
                     </div>
                     <br />
                     <ul className="social-list py-4">
