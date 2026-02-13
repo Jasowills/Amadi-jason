@@ -162,7 +162,11 @@ const Resume = ({ active }) => {
             </div>
             <div className="flex flex-wrap gap-3">
               <div className="icon-box" title="TypeScript">
-                <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.typescriptlang.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
                     alt="TypeScript"
@@ -173,7 +177,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="JavaScript">
-                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
                     alt="JavaScript"
@@ -184,7 +192,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="Python">
-                <a href="https://www.python.org/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.python.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
                     alt="Python"
@@ -195,7 +207,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="Rust">
-                <a href="https://www.rust-lang.org/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.rust-lang.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg"
                     alt="Rust"
@@ -227,7 +243,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="React Native">
-                <a href="https://reactnative.dev/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://reactnative.dev/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
                     alt="React Native"
@@ -261,7 +281,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="Tailwind CSS">
-                <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://tailwindcss.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
                     alt="Tailwind CSS"
@@ -284,7 +308,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="Redux">
-                <a href="https://redux.js.org/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://redux.js.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redux/redux-original.svg"
                     alt="Redux"
@@ -315,7 +343,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="Express.js">
-                <a href="https://expressjs.com" target="_blank" rel="noreferrer">
+                <a
+                  href="https://expressjs.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg"
                     alt="Express.js"
@@ -347,7 +379,11 @@ const Resume = ({ active }) => {
             </div>
             <div className="flex flex-wrap gap-3">
               <div className="icon-box" title="MongoDB">
-                <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.mongodb.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
                     alt="MongoDB"
@@ -358,7 +394,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="PostgreSQL">
-                <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.postgresql.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
                     alt="PostgreSQL"
@@ -369,7 +409,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="SQL">
-                <a href="https://www.w3schools.com/sql/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.w3schools.com/sql/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg"
                     alt="SQL"
@@ -389,7 +433,11 @@ const Resume = ({ active }) => {
             </div>
             <div className="flex flex-wrap gap-3">
               <div className="icon-box" title="AWS">
-                <a href="https://aws.amazon.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://aws.amazon.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
                     alt="AWS"
@@ -400,7 +448,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="Azure DevOps">
-                <a href="https://azure.microsoft.com/en-us/products/devops" target="_blank" rel="noreferrer">
+                <a
+                  href="https://azure.microsoft.com/en-us/products/devops"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuredevops/azuredevops-original.svg"
                     alt="Azure DevOps"
@@ -423,7 +475,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="Docker">
-                <a href="https://www.docker.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.docker.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
                     alt="Docker"
@@ -454,7 +510,11 @@ const Resume = ({ active }) => {
             </div>
             <div className="flex flex-wrap gap-3">
               <div className="icon-box" title="Linux">
-                <a href="https://www.linux.org/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.linux.org/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
                     alt="Linux"
@@ -465,7 +525,11 @@ const Resume = ({ active }) => {
                 </a>
               </div>
               <div className="icon-box" title="Bash">
-                <a href="https://www.gnu.org/software/bash/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://www.gnu.org/software/bash/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg"
                     alt="Bash"
