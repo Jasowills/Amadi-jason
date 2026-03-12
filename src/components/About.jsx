@@ -1,15 +1,9 @@
 import React from "react";
 import {
-    IoConstructOutline,
     IoCodeOutline,
     IoPhonePortraitOutline,
-    IoDocumentTextOutline,
-    IoCloseOutline,
-    IoSettings,
-    IoSettingsOutline,
     IoServerOutline,
     IoDesktopOutline,
-    IoGlobeOutline,
 } from "react-icons/io5";
 
 const About = ({ active }) => {
@@ -27,7 +21,8 @@ const About = ({ active }) => {
                 </p>
                 <p>
                     Proficient in modern web technologies including React, React Native, Node.js, and the MERN stack. I
-                    have experience developing Document Management Systems, mobile applications, and Web3 solutions. My
+                    have experience developing document management systems, mobile applications, and cloud-backed
+                    platforms. My
                     approach focuses on performance optimization, maintainability, and delivering exceptional user
                     experiences that meet client requirements.
                 </p>
@@ -72,12 +67,12 @@ const About = ({ active }) => {
                     </li>
                     <li className="service-item">
                         <div className="service-icon-box">
-                            <IoGlobeOutline style={{ color: "hsl(123, 100%, 72%)", fontSize: "24px" }} />
+                            <IoServerOutline style={{ color: "hsl(123, 100%, 72%)", fontSize: "24px" }} />
                         </div>
                         <div className="service-content-box">
-                            <h4 className="h4 service-item-title">Web3 Development</h4>
+                            <h4 className="h4 service-item-title">Cloud & Infrastructure</h4>
                             <p className="service-item-text">
-                                Building decentralized applications with Solidity and Solana blockchain technologies.
+                                Working with deployment flows, backend infrastructure, cloud services, and production-ready application delivery.
                             </p>
                         </div>
                     </li>

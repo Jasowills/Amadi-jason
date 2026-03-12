@@ -10,7 +10,7 @@ const Resume = ({ active }) => {
         <a
           download="Amadi_Jason_Resume.pdf"
           target="_blank"
-          href="https://docs.google.com/document/d/1mG4VK4aWVfwfT3rkc6cT4VVvudSlzKNf/export?format=pdf"
+          href="https://docs.google.com/document/d/1ejOxjd0hENymYgeU6_QekUU74BtmB3c2/edit?usp=drive_link&ouid=117838185954459190342&rtpof=true&sd=true"
           className="icon-box my-2 sm:my-3 mx-3 h-7 w-7 cursor-pointer"
         >
           <IoDownloadOutline className="invert h-5 w-5" />
