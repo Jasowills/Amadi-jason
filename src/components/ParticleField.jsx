@@ -1,6 +1,6 @@
-import { useRef, useMemo, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { useRef, useMemo, useEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 
 function Particles({ count = 180, mousePos, isDark }) {
   const mesh = useRef();
@@ -28,7 +28,8 @@ function Particles({ count = 180, mousePos, isDark }) {
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
       posArray[i3] += velocities[i3] + Math.sin(time * 0.1 + i * 0.5) * 0.002;
-      posArray[i3 + 1] += velocities[i3 + 1] + Math.cos(time * 0.08 + i * 0.3) * 0.002;
+      posArray[i3 + 1] +=
+        velocities[i3 + 1] + Math.cos(time * 0.08 + i * 0.3) * 0.002;
       posArray[i3 + 2] += velocities[i3 + 2];
 
       // Wrap boundaries
@@ -42,8 +43,16 @@ function Particles({ count = 180, mousePos, isDark }) {
     // Subtle mouse-driven rotation
     const mx = mousePos.current.x;
     const my = mousePos.current.y;
-    mesh.current.rotation.y = THREE.MathUtils.lerp(mesh.current.rotation.y, mx * 0.15, 0.02);
-    mesh.current.rotation.x = THREE.MathUtils.lerp(mesh.current.rotation.x, my * 0.1, 0.02);
+    mesh.current.rotation.y = THREE.MathUtils.lerp(
+      mesh.current.rotation.y,
+      mx * 0.15,
+      0.02,
+    );
+    mesh.current.rotation.x = THREE.MathUtils.lerp(
+      mesh.current.rotation.x,
+      my * 0.1,
+      0.02,
+    );
   });
 
   return (
@@ -58,7 +67,7 @@ function Particles({ count = 180, mousePos, isDark }) {
       </bufferGeometry>
       <pointsMaterial
         size={isDark ? 0.06 : 0.05}
-        color={isDark ? '#B5FF48' : '#3D6600'}
+        color={isDark ? "#B5FF48" : "#3D6600"}
         transparent
         opacity={isDark ? 0.6 : 0.35}
         sizeAttenuation
@@ -69,7 +78,7 @@ function Particles({ count = 180, mousePos, isDark }) {
   );
 }
 
-export default function ParticleField({ className = '', isDark = true }) {
+export default function ParticleField({ className = "", isDark = true }) {
   const mousePos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -79,8 +88,8 @@ export default function ParticleField({ className = '', isDark = true }) {
         y: -(e.clientY / window.innerHeight) * 2 + 1,
       };
     };
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
@@ -89,7 +98,7 @@ export default function ParticleField({ className = '', isDark = true }) {
         camera={{ position: [0, 0, 8], fov: 60 }}
         dpr={[1, 1.5]}
         gl={{ antialias: false, alpha: true }}
-        style={{ pointerEvents: 'none' }}
+        style={{ pointerEvents: "none" }}
       >
         <Particles mousePos={mousePos} isDark={isDark} />
       </Canvas>

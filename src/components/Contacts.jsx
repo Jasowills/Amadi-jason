@@ -1,12 +1,12 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   IoMailOutline,
   IoLogoLinkedin,
   IoLogoGithub,
   IoLocationOutline,
-} from 'react-icons/io5';
+} from "react-icons/io5";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,7 +15,7 @@ export default function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const elements = sectionRef.current?.querySelectorAll('[data-reveal]');
+      const elements = sectionRef.current?.querySelectorAll("[data-reveal]");
       elements?.forEach((el, i) => {
         gsap.fromTo(
           el,
@@ -25,12 +25,12 @@ export default function Contact() {
             opacity: 1,
             duration: 1,
             delay: i * 0.1,
-            ease: 'power3.out',
+            ease: "power3.out",
             scrollTrigger: {
               trigger: el,
-              start: 'top 88%',
+              start: "top 88%",
             },
-          }
+          },
         );
       });
     }, sectionRef);

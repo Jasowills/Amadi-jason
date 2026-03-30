@@ -1,7 +1,7 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import image from '../assets/pic.png';
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import image from "../assets/pic.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +12,7 @@ export default function About() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Reveal elements
-      const elements = sectionRef.current?.querySelectorAll('[data-reveal]');
+      const elements = sectionRef.current?.querySelectorAll("[data-reveal]");
       elements?.forEach((el, i) => {
         gsap.fromTo(
           el,
@@ -22,13 +22,13 @@ export default function About() {
             opacity: 1,
             duration: 1,
             delay: i * 0.1,
-            ease: 'power3.out',
+            ease: "power3.out",
             scrollTrigger: {
               trigger: el,
-              start: 'top 90%',
-              toggleActions: 'play none none none',
+              start: "top 90%",
+              toggleActions: "play none none none",
             },
-          }
+          },
         );
       });
 
@@ -36,11 +36,11 @@ export default function About() {
       if (imageRef.current) {
         gsap.to(imageRef.current, {
           yPercent: -8,
-          ease: 'none',
+          ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
+            start: "top bottom",
+            end: "bottom top",
             scrub: true,
           },
         });
@@ -93,12 +93,15 @@ export default function About() {
             the <em className="italic text-accent">web</em>.
           </h2>
 
-          <div data-reveal className="space-y-6 font-body text-sm leading-[1.8] opacity-50">
+          <div
+            data-reveal
+            className="space-y-6 font-body text-sm leading-[1.8] opacity-50"
+          >
             <p>
               I&rsquo;m a software engineer based in Lagos, focused on building
-              web applications that are fast, accessible, and built to last.
-              I work across the full stack — from designing component systems
-              and crafting interfaces to architecting APIs and databases.
+              web applications that are fast, accessible, and built to last. I
+              work across the full stack — from designing component systems and
+              crafting interfaces to architecting APIs and databases.
             </p>
             <p>
               My toolkit centers on React, Node.js, TypeScript, and cloud

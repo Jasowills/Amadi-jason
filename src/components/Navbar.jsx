@@ -1,18 +1,18 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { useTheme } from '../hooks/useTheme';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useTheme } from "../hooks/useTheme";
 import {
   IoSunnyOutline,
   IoMoonOutline,
   IoMenuOutline,
   IoCloseOutline,
-} from 'react-icons/io5';
+} from "react-icons/io5";
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Expertise', href: '#expertise' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
+  { label: "About", href: "#about" },
+  { label: "Expertise", href: "#expertise" },
+  { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -23,12 +23,12 @@ export default function Navbar() {
 
   // Focus trap for mobile menu
   const handleMenuKeyDown = useCallback((e) => {
-    if (e.key === 'Escape') {
+    if (e.key === "Escape") {
       setMenuOpen(false);
       return;
     }
-    if (e.key !== 'Tab') return;
-    const focusable = menuRef.current?.querySelectorAll('button');
+    if (e.key !== "Tab") return;
+    const focusable = menuRef.current?.querySelectorAll("button");
     if (!focusable?.length) return;
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -43,14 +43,16 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Lock body scroll when menu is open
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
   const scrollTo = (href) => {
@@ -59,7 +61,7 @@ export default function Navbar() {
     if (el) {
       const offset = 80;
       const y = el.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
@@ -68,13 +70,13 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-surface-50/80 dark:bg-surface-950/80 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.04]'
-            : 'bg-transparent'
+            ? "bg-surface-50/80 dark:bg-surface-950/80 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.04]"
+            : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12 py-5">
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="font-display text-lg tracking-[0.05em] hover:text-accent transition-colors duration-300"
           >
             AMADI JASON
@@ -96,7 +98,11 @@ export default function Navbar() {
               className="ml-2 p-2 rounded-full opacity-50 hover:opacity-100 hover:text-accent transition-all duration-300"
               aria-label="Toggle theme"
             >
-              {isDark ? <IoSunnyOutline size={17} /> : <IoMoonOutline size={17} />}
+              {isDark ? (
+                <IoSunnyOutline size={17} />
+              ) : (
+                <IoMoonOutline size={17} />
+              )}
             </button>
           </div>
 
@@ -107,7 +113,11 @@ export default function Navbar() {
               className="p-2 opacity-60"
               aria-label="Toggle theme"
             >
-              {isDark ? <IoSunnyOutline size={17} /> : <IoMoonOutline size={17} />}
+              {isDark ? (
+                <IoSunnyOutline size={17} />
+              ) : (
+                <IoMoonOutline size={17} />
+              )}
             </button>
             <button
               onClick={() => setMenuOpen(true)}
@@ -128,7 +138,7 @@ export default function Navbar() {
         aria-modal="true"
         onKeyDown={handleMenuKeyDown}
         className={`fixed inset-0 z-[100] transition-all duration-500 ${
-          menuOpen ? 'visible opacity-100' : 'invisible opacity-0'
+          menuOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
         <div className="absolute inset-0 bg-surface-50/95 dark:bg-surface-950/95 backdrop-blur-2xl" />
@@ -146,8 +156,8 @@ export default function Navbar() {
               onClick={() => scrollTo(link.href)}
               className="font-display text-3xl tracking-wide opacity-70 hover:opacity-100 hover:text-accent transition-all duration-300"
               style={{
-                transitionDelay: menuOpen ? `${i * 60}ms` : '0ms',
-                transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+                transitionDelay: menuOpen ? `${i * 60}ms` : "0ms",
+                transform: menuOpen ? "translateY(0)" : "translateY(20px)",
               }}
             >
               {link.label}

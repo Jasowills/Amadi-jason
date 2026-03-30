@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ThemeProvider } from './hooks/useTheme';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Expertise from './components/Expertise';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Contact from './components/Contacts';
+import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ThemeProvider } from "./hooks/useTheme";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Expertise from "./components/Expertise";
+import Projects from "./components/Projects";
+import Experience from "./components/Experience";
+import Contact from "./components/Contacts";
 
 gsap.registerPlugin(ScrollTrigger);
 

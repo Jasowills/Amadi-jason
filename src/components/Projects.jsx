@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { IoLogoGithub, IoOpenOutline } from 'react-icons/io5';
-import { projects } from '../data/projects';
+import { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { IoLogoGithub, IoOpenOutline } from "react-icons/io5";
+import { projects } from "../data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,9 +21,9 @@ export default function Projects() {
           opacity: 1,
           duration: 1,
           stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: headingRef.current, start: 'top 85%' },
-        }
+          ease: "power3.out",
+          scrollTrigger: { trigger: headingRef.current, start: "top 85%" },
+        },
       );
     }, headingRef);
     return () => ctx.revert();
@@ -40,10 +40,10 @@ export default function Projects() {
         opacity: 1,
         duration: 0.5,
         stagger: 0.08,
-        ease: 'power3.out',
+        ease: "power3.out",
         overwrite: true,
-        scrollTrigger: { trigger: cardsRef.current, start: 'top 85%' },
-      }
+        scrollTrigger: { trigger: cardsRef.current, start: "top 85%" },
+      },
     );
   }, []);
 

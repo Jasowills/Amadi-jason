@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { projects as fallbackProjects } from '../data/projects';
+import { useState, useEffect } from "react";
+import { projects as fallbackProjects } from "../data/projects";
 
-const GITHUB_USERNAME = 'Jasowills';
-const GITHUB_API = 'https://api.github.com';
+const GITHUB_USERNAME = "Jasowills";
+const GITHUB_API = "https://api.github.com";
 
 /**
  * Fetches repos from GitHub REST API, sorted by most recently pushed.
@@ -23,8 +23,8 @@ export function useGitHubRepos() {
           `${GITHUB_API}/users/${GITHUB_USERNAME}/repos?sort=pushed&direction=desc&per_page=30&type=owner`,
           {
             signal: controller.signal,
-            headers: { Accept: 'application/vnd.github.v3+json' },
-          }
+            headers: { Accept: "application/vnd.github.v3+json" },
+          },
         );
 
         if (!res.ok) throw new Error(`GitHub API ${res.status}`);
@@ -36,12 +36,12 @@ export function useGitHubRepos() {
             (r) =>
               !r.fork &&
               r.name !== GITHUB_USERNAME && // exclude profile config repo
-              r.name !== 'docs' // exclude docs repo
+              r.name !== "docs", // exclude docs repo
           )
           .slice(0, 8)
           .map((r) => ({
             title: formatRepoName(r.name),
-            description: r.description || '',
+            description: r.description || "",
             tech: [r.language].filter(Boolean),
             github: r.html_url,
             live: r.homepage || null,
@@ -52,7 +52,7 @@ export function useGitHubRepos() {
 
         setRepos(filtered);
       } catch (err) {
-        if (err.name !== 'AbortError') {
+        if (err.name !== "AbortError") {
           setError(err.message);
           // Fall back to static data
           setRepos(
@@ -61,7 +61,7 @@ export function useGitHubRepos() {
               stars: 0,
               language: p.tech[0] || null,
               pushedAt: null,
-            }))
+            })),
           );
         }
       } finally {
@@ -78,7 +78,5 @@ export function useGitHubRepos() {
 
 /** Converts repo-name-slug to Title Case */
 function formatRepoName(name) {
-  return name
-    .replace(/[-_]/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return name.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }

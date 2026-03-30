@@ -1,9 +1,9 @@
-import { useRef, useEffect, lazy, Suspense } from 'react';
-import gsap from 'gsap';
-import { useTheme } from '../hooks/useTheme';
+import { useRef, useEffect, lazy, Suspense } from "react";
+import gsap from "gsap";
+import { useTheme } from "../hooks/useTheme";
 
-const ParticleField = lazy(() => import('./ParticleField'));
-import { IoLogoLinkedin, IoLogoGithub } from 'react-icons/io5';
+const ParticleField = lazy(() => import("./ParticleField"));
+import { IoLogoLinkedin, IoLogoGithub } from "react-icons/io5";
 
 export default function Hero() {
   const sectionRef = useRef(null);
@@ -18,7 +18,7 @@ export default function Hero() {
     const el = document.querySelector(id);
     if (el) {
       const y = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
@@ -27,45 +27,45 @@ export default function Hero() {
 
     // Surname letters stagger in
     tl.fromTo(
-      surnameRef.current?.querySelectorAll('.letter') || [],
+      surnameRef.current?.querySelectorAll(".letter") || [],
       { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.9, stagger: 0.04, ease: 'power4.out' }
+      { y: 0, opacity: 1, duration: 0.9, stagger: 0.04, ease: "power4.out" },
     );
 
     // Accent line grows from left
     tl.fromTo(
       lineRef.current,
       { scaleX: 0 },
-      { scaleX: 1, duration: 1.4, ease: 'power4.inOut' },
-      '-=0.5'
+      { scaleX: 1, duration: 1.4, ease: "power4.inOut" },
+      "-=0.5",
     );
 
     // First name slides up
     tl.fromTo(
       firstNameRef.current,
       { y: 100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.1, ease: 'power4.out' },
-      '-=0.9'
+      { y: 0, opacity: 1, duration: 1.1, ease: "power4.out" },
+      "-=0.9",
     );
 
     // Top metadata fades in
     tl.fromTo(
       metaTopRef.current?.children || [],
       { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out' },
-      '-=0.6'
+      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" },
+      "-=0.6",
     );
 
     // Bottom bar staggers up
     tl.fromTo(
       bottomRef.current?.children || [],
       { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power3.out' },
-      '-=0.5'
+      { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: "power3.out" },
+      "-=0.5",
     );
   }, []);
 
-  const surname = 'Amadi';
+  const surname = "Amadi";
 
   return (
     <section
@@ -99,7 +99,7 @@ export default function Hero() {
               className="font-body font-medium uppercase tracking-[0.35em] md:tracking-[0.55em] lg:tracking-[0.75em]
                 text-lg md:text-2xl lg:text-3xl opacity-60 mb-3 md:mb-5"
             >
-              {surname.split('').map((char, i) => (
+              {surname.split("").map((char, i) => (
                 <span
                   key={i}
                   className="letter inline-block will-change-transform"
@@ -120,8 +120,8 @@ export default function Hero() {
               ref={firstNameRef}
               className="font-display text-accent will-change-transform leading-[0.82]"
               style={{
-                fontSize: 'clamp(4.5rem, 17vw, 19rem)',
-                letterSpacing: '-0.03em',
+                fontSize: "clamp(4.5rem, 17vw, 19rem)",
+                letterSpacing: "-0.03em",
               }}
             >
               Jason<span className="opacity-15">.</span>
@@ -138,9 +138,9 @@ export default function Hero() {
           {/* Tagline */}
           <p className="font-body text-sm max-w-[280px] opacity-40 leading-relaxed">
             Crafting scalable web applications from architecture to interface.
-            Currently at{' '}
+            Currently at{" "}
             <button
-              onClick={() => scrollTo('#about')}
+              onClick={() => scrollTo("#about")}
               className="text-accent opacity-100 hover:underline underline-offset-4 cursor-pointer"
             >
               Marklite
@@ -150,7 +150,7 @@ export default function Hero() {
 
           {/* Scroll indicator */}
           <button
-            onClick={() => scrollTo('#about')}
+            onClick={() => scrollTo("#about")}
             className="group flex flex-col items-center gap-3 cursor-pointer
               opacity-30 hover:opacity-70 transition-opacity duration-500"
           >

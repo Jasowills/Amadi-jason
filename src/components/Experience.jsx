@@ -1,7 +1,7 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { experience, certifications } from '../data/experience';
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { experience, certifications } from "../data/experience";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,14 +21,14 @@ export default function Experience() {
             opacity: 1,
             duration: 1,
             stagger: 0.1,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: headingRef.current, start: 'top 85%' },
-          }
+            ease: "power3.out",
+            scrollTrigger: { trigger: headingRef.current, start: "top 85%" },
+          },
         );
       }
 
       // Timeline items
-      const items = sectionRef.current?.querySelectorAll('[data-timeline]');
+      const items = sectionRef.current?.querySelectorAll("[data-timeline]");
       items?.forEach((item) => {
         gsap.fromTo(
           item,
@@ -37,18 +37,18 @@ export default function Experience() {
             y: 0,
             opacity: 1,
             duration: 0.9,
-            ease: 'power3.out',
+            ease: "power3.out",
             scrollTrigger: {
               trigger: item,
-              start: 'top 88%',
-              toggleActions: 'play none none none',
+              start: "top 88%",
+              toggleActions: "play none none none",
             },
-          }
+          },
         );
       });
 
       // Certs
-      const certSection = sectionRef.current?.querySelector('[data-certs]');
+      const certSection = sectionRef.current?.querySelector("[data-certs]");
       if (certSection) {
         gsap.fromTo(
           certSection.children,
@@ -58,9 +58,9 @@ export default function Experience() {
             opacity: 1,
             duration: 0.7,
             stagger: 0.08,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: certSection, start: 'top 88%' },
-          }
+            ease: "power3.out",
+            scrollTrigger: { trigger: certSection, start: "top 88%" },
+          },
         );
       }
     }, sectionRef);
@@ -69,7 +69,11 @@ export default function Experience() {
   }, []);
 
   return (
-    <section id="experience" ref={sectionRef} className="py-32 md:py-40 section-padding">
+    <section
+      id="experience"
+      ref={sectionRef}
+      className="py-32 md:py-40 section-padding"
+    >
       <div className="max-w-7xl mx-auto">
         <div ref={headingRef}>
           <span className="font-body text-xs tracking-[0.3em] uppercase text-accent mb-4 block">
@@ -118,9 +122,7 @@ export default function Experience() {
 
         {/* Certifications */}
         <div className="mt-24 md:mt-32">
-          <h3 className="font-display text-display-md mb-10">
-            Certifications
-          </h3>
+          <h3 className="font-display text-display-md mb-10">Certifications</h3>
           <div data-certs className="grid sm:grid-cols-2 gap-4">
             {certifications.map((cert) => (
               <div
