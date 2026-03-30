@@ -1,85 +1,137 @@
-import React from "react";
-import {
-    IoCodeOutline,
-    IoPhonePortraitOutline,
-    IoServerOutline,
-    IoDesktopOutline,
-} from "react-icons/io5";
+import { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import image from '../assets/pic.png';
 
-const About = ({ active }) => {
-    return (
-        <article className={`about ${active ? "active" : ""}`} data-page="about">
-            <header>
-                <h2 className="h2 article-title">About me</h2>
-            </header>
+gsap.registerPlugin(ScrollTrigger);
 
-            <section className="about-text">
-                <p>
-                    I'm Jason, a passionate Full-Stack Developer with expertise in building scalable, client-focused web
-                    applications. With experience in both frontend and backend technologies, I specialize in creating
-                    comprehensive solutions from concept to deployment.
-                </p>
-                <p>
-                    Proficient in modern web technologies including React, React Native, Node.js, and the MERN stack. I
-                    have experience developing document management systems, mobile applications, and cloud-backed
-                    platforms. My
-                    approach focuses on performance optimization, maintainability, and delivering exceptional user
-                    experiences that meet client requirements.
-                </p>
-            </section>
+export default function About() {
+  const sectionRef = useRef(null);
+  const imageRef = useRef(null);
 
-            <section className="service">
-                <h3 className="h3 service-title">What I'm doing</h3>
-                <ul className="service-list">
-                    <li className="service-item">
-                        <div className="service-icon-box">
-                            <IoDesktopOutline style={{ color: "hsl(123, 100%, 72%)", fontSize: "24px" }} />
-                        </div>
-                        <div className="service-content-box">
-                            <h4 className="h4 service-item-title">Frontend Development</h4>
-                            <p className="service-item-text">
-                                Building responsive, interactive user interfaces with React, React Native, and Tailwind
-                                CSS.
-                            </p>
-                        </div>
-                    </li>
-                    <li className="service-item">
-                        <div className="service-icon-box">
-                            <IoCodeOutline style={{ color: "hsl(123, 100%, 72%)", fontSize: "24px" }} />
-                        </div>
-                        <div className="service-content-box">
-                            <h4 className="h4 service-item-title">Backend Development</h4>
-                            <p className="service-item-text">
-                                Developing robust server-side applications using Node.js, Express.js, and NestJS.
-                            </p>
-                        </div>
-                    </li>
-                    <li className="service-item">
-                        <div className="service-icon-box">
-                            <IoPhonePortraitOutline style={{ color: "hsl(123, 100%, 72%)", fontSize: "24px" }} />
-                        </div>
-                        <div className="service-content-box">
-                            <h4 className="h4 service-item-title">Mobile Development</h4>
-                            <p className="service-item-text">
-                                Creating cross-platform mobile applications using React Native for iOS and Android.
-                            </p>
-                        </div>
-                    </li>
-                    <li className="service-item">
-                        <div className="service-icon-box">
-                            <IoServerOutline style={{ color: "hsl(123, 100%, 72%)", fontSize: "24px" }} />
-                        </div>
-                        <div className="service-content-box">
-                            <h4 className="h4 service-item-title">Cloud & Infrastructure</h4>
-                            <p className="service-item-text">
-                                Working with deployment flows, backend infrastructure, cloud services, and production-ready application delivery.
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </section>
-        </article>
-    );
-};
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Reveal elements
+      const elements = sectionRef.current?.querySelectorAll('[data-reveal]');
+      elements?.forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            delay: i * 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
 
-export default About;
+      // Parallax on image
+      if (imageRef.current) {
+        gsap.to(imageRef.current, {
+          yPercent: -8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      id="about"
+      ref={sectionRef}
+      className="py-32 md:py-44 px-6 md:px-10 lg:px-16 xl:px-20"
+    >
+      {/* Section label */}
+      <div data-reveal className="flex items-center gap-6 mb-16 md:mb-24">
+        <span className="font-body text-[11px] tracking-[0.3em] uppercase opacity-40">
+          (02) — About
+        </span>
+        <div className="flex-1 h-px bg-current opacity-[0.06]" />
+      </div>
+
+      {/* Main layout — asymmetric grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6">
+        {/* Image — spans 5 cols, offset from left */}
+        <div
+          data-reveal
+          className="lg:col-span-5 lg:col-start-1 overflow-hidden"
+        >
+          <div className="aspect-[3/4] overflow-hidden">
+            <img
+              ref={imageRef}
+              src={image}
+              alt="Amadi Jason"
+              className="w-full h-[115%] object-cover will-change-transform"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        {/* Text — spans 5 cols, pushed right with vertical offset */}
+        <div className="lg:col-span-5 lg:col-start-7 lg:pt-24 xl:pt-32">
+          <h2
+            data-reveal
+            className="font-display text-display-lg mb-10 leading-[1.05]"
+          >
+            I build things for
+            <br />
+            the <em className="italic text-accent">web</em>.
+          </h2>
+
+          <div data-reveal className="space-y-6 font-body text-sm leading-[1.8] opacity-50">
+            <p>
+              I&rsquo;m a software engineer based in Lagos, focused on building
+              web applications that are fast, accessible, and built to last.
+              I work across the full stack — from designing component systems
+              and crafting interfaces to architecting APIs and databases.
+            </p>
+            <p>
+              My toolkit centers on React, Node.js, TypeScript, and cloud
+              infrastructure. I care about clean code, thoughtful architecture,
+              and shipping products that actually solve problems.
+            </p>
+          </div>
+
+          {/* Micro stats */}
+          <div
+            data-reveal
+            className="mt-12 pt-8 border-t border-current/[0.06]
+              grid grid-cols-2 gap-8"
+          >
+            <div>
+              <span className="block font-display text-3xl md:text-4xl text-accent leading-none mb-2">
+                10+
+              </span>
+              <span className="font-body text-[11px] tracking-[0.2em] uppercase opacity-35">
+                Projects shipped
+              </span>
+            </div>
+            <div>
+              <span className="block font-display text-3xl md:text-4xl text-accent leading-none mb-2">
+                3+
+              </span>
+              <span className="font-body text-[11px] tracking-[0.2em] uppercase opacity-35">
+                Years building
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
