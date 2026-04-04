@@ -6,7 +6,7 @@ export const projects = [
       "An AI workflow documentation platform for recording browser flows, generating operational documents, organizing outputs, and supporting shared workspace collaboration.",
     tech: ["React", "TypeScript", "NestJS", "Supabase", "Chrome Extension"],
     github: "https://github.com/Jasowills/docflow",
-    live: null,
+    live: "https://docflow-ops.vercel.app",
     featured: true,
   },
   {
