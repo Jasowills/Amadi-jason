@@ -16,7 +16,7 @@ export const projects = [
       "Real-time video conferencing application with WebRTC peer-to-peer connections, screen sharing, and chat functionality.",
     tech: ["React", "NestJS", "WebRTC", "Socket.io", "TypeScript"],
     github: "https://github.com/Jasowills/Neuron-meet",
-    live: null,
+    live: "https://neuron-meet.vercel.app",
     featured: true,
   },
   {
