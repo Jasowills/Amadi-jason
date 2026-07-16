@@ -30,6 +30,16 @@ export const projects = [
     featured: true,
   },
   {
+    title: "Folio",
+    category: "fullstack",
+    description:
+      "AI-powered resume builder with 40+ ATS-optimized templates, real-time AI chat assistant for resume refinement, PDF export, guest analysis reports, and interview preparation with video practice sessions.",
+    tech: ["React", "TypeScript", "NestJS", "MongoDB", "Groq", "OpenRouter"],
+    github: "https://github.com/Jasowills/folio",
+    live: "https://folio-gray-pi.vercel.app",
+    featured: true,
+  },
+  {
     title: "Jename",
     category: "fullstack",
     description:
