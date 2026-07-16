@@ -18,6 +18,7 @@ export default {
       fontFamily: {
         display: ['"Playfair Display"', "serif"],
         body: ['"Space Grotesk"', "sans-serif"],
+        logo: ['"Fraunces"', "serif"],
       },
       fontSize: {
         "display-xl": [

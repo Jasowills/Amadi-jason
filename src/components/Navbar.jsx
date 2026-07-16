@@ -67,65 +67,71 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-surface-50/80 dark:bg-surface-950/80 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.04]"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12 py-5">
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-display text-lg tracking-[0.05em] hover:text-accent transition-colors duration-300"
+      <nav className="fixed top-0 left-0 right-0 z-50">
+        <div className="flex justify-center">
+          <div
+            className={`transition-all duration-500 ${
+              scrolled
+                ? "w-[92%] md:max-w-4xl mt-3 md:mt-4 rounded-2xl shadow-xl bg-surface-50/80 dark:bg-surface-950/80 backdrop-blur-xl border border-black/[0.06] dark:border-white/[0.06]"
+                : "w-full bg-surface-50/80 dark:bg-surface-950/80 backdrop-blur-xl border-b border-black/[0.04] dark:border-white/[0.04]"
+            }`}
           >
-            AMADI JASON
-          </button>
-
-          {/* Desktop */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            <div className="flex items-center justify-between px-6 md:px-10 py-3 md:py-4">
               <button
-                key={link.label}
-                onClick={() => scrollTo(link.href)}
-                className="font-body text-[13px] tracking-[0.15em] uppercase opacity-50 hover:opacity-100 hover:text-accent transition-all duration-300"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="group"
               >
-                {link.label}
+                <span className="font-logo font-black italic text-accent text-xl md:text-2xl tracking-tight hover:opacity-80 transition-opacity">
+                  JA
+                </span>
               </button>
-            ))}
-            <button
-              onClick={toggleTheme}
-              className="ml-2 p-2 rounded-full opacity-50 hover:opacity-100 hover:text-accent transition-all duration-300"
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <IoSunnyOutline size={17} />
-              ) : (
-                <IoMoonOutline size={17} />
-              )}
-            </button>
-          </div>
 
-          {/* Mobile toggles */}
-          <div className="flex md:hidden items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className="p-2 opacity-60"
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <IoSunnyOutline size={17} />
-              ) : (
-                <IoMoonOutline size={17} />
-              )}
-            </button>
-            <button
-              onClick={() => setMenuOpen(true)}
-              className="p-2 opacity-60"
-              aria-label="Open menu"
-            >
-              <IoMenuOutline size={22} />
-            </button>
+              {/* Desktop */}
+              <div className="hidden md:flex items-center gap-8">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.label}
+                    onClick={() => scrollTo(link.href)}
+                    className="font-body text-[13px] tracking-[0.15em] uppercase opacity-50 hover:opacity-100 hover:text-accent transition-all duration-300"
+                  >
+                    {link.label}
+                  </button>
+                ))}
+                <button
+                  onClick={toggleTheme}
+                  className="ml-2 p-2 rounded-full opacity-50 hover:opacity-100 hover:text-accent transition-all duration-300"
+                  aria-label="Toggle theme"
+                >
+                  {isDark ? (
+                    <IoSunnyOutline size={17} />
+                  ) : (
+                    <IoMoonOutline size={17} />
+                  )}
+                </button>
+              </div>
+
+              {/* Mobile toggles */}
+              <div className="flex md:hidden items-center gap-3">
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 opacity-60"
+                  aria-label="Toggle theme"
+                >
+                  {isDark ? (
+                    <IoSunnyOutline size={17} />
+                  ) : (
+                    <IoMoonOutline size={17} />
+                  )}
+                </button>
+                <button
+                  onClick={() => setMenuOpen(true)}
+                  className="p-2 opacity-60"
+                  aria-label="Open menu"
+                >
+                  <IoMenuOutline size={22} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
