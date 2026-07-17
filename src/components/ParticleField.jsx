@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useState, Component } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -78,8 +78,39 @@ function Particles({ count = 180, mousePos, isDark }) {
   );
 }
 
+// Error boundary to catch WebGL context creation failures
+class WebGLErrorBoundary extends Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) return null;
+    return this.props.children;
+  }
+}
+
+function isWebGLAvailable() {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch {
+    return false;
+  }
+}
+
 export default function ParticleField({ className = "", isDark = true }) {
   const mousePos = useRef({ x: 0, y: 0 });
+  const [webglSupported, setWebglSupported] = useState(true);
+
+  useEffect(() => {
+    setWebglSupported(isWebGLAvailable());
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -92,16 +123,20 @@ export default function ParticleField({ className = "", isDark = true }) {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  if (!webglSupported) return null;
+
   return (
     <div className={`absolute inset-0 pointer-events-none ${className}`}>
-      <Canvas
-        camera={{ position: [0, 0, 8], fov: 60 }}
-        dpr={[1, 1.5]}
-        gl={{ antialias: false, alpha: true }}
-        style={{ pointerEvents: "none" }}
-      >
-        <Particles mousePos={mousePos} isDark={isDark} />
-      </Canvas>
+      <WebGLErrorBoundary>
+        <Canvas
+          camera={{ position: [0, 0, 8], fov: 60 }}
+          dpr={[1, 1.5]}
+          gl={{ antialias: false, alpha: true }}
+          style={{ pointerEvents: "none" }}
+        >
+          <Particles mousePos={mousePos} isDark={isDark} />
+        </Canvas>
+      </WebGLErrorBoundary>
     </div>
   );
 }
