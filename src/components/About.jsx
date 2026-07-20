@@ -54,7 +54,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="py-32 md:py-44 px-6 md:px-10 lg:px-16 xl:px-20"
+      className="py-32 md:py-44 px-6 md:px-10 lg:px-16 xl:px-20 bg-surface-50 dark:bg-surface-950"
     >
       {/* Section label */}
       <div data-reveal className="flex items-center gap-6 mb-16 md:mb-24">
@@ -76,7 +76,7 @@ export default function About() {
               ref={imageRef}
               src={image}
               alt="Amadi Jason"
-              className="w-full h-[115%] object-cover will-change-transform"
+              className="w-full h-[115%] object-cover"
               loading="lazy"
             />
           </div>

@@ -36,4 +36,7 @@ export const certifications = [
   "JavaScript Algorithms & Data Structures — freeCodeCamp (2023)",
   "Frontend Development Libraries — freeCodeCamp (2023)",
   "Backend Development & APIs — freeCodeCamp (2024)",
+  "Rust Programming — Udemy",
+  "Solana Blockchain Development — Udemy",
+  "Solidity & Ethereum Smart Contracts — Udemy",
 ];

@@ -70,7 +70,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen flex flex-col overflow-hidden"
+      className="relative h-screen flex flex-col overflow-hidden bg-surface-50 dark:bg-surface-950"
     >
       <Suspense fallback={null}>
         <ParticleField isDark={isDark} />
@@ -102,7 +102,7 @@ export default function Hero() {
               {surname.split("").map((char, i) => (
                 <span
                   key={i}
-                  className="letter inline-block will-change-transform"
+                  className="letter inline-block"
                 >
                   {char}
                 </span>
@@ -112,13 +112,13 @@ export default function Hero() {
             {/* Accent line — full width */}
             <div
               ref={lineRef}
-              className="h-[2px] bg-accent w-full mb-3 md:mb-5 origin-left will-change-transform"
+              className="h-[2px] bg-accent w-full mb-3 md:mb-5 origin-left"
             />
 
             {/* First name — massive serif statement */}
             <h1
               ref={firstNameRef}
-              className="font-display text-accent will-change-transform leading-[0.82]"
+              className="font-display text-accent leading-[0.82]"
               style={{
                 fontSize: "clamp(4.5rem, 17vw, 19rem)",
                 letterSpacing: "-0.03em",

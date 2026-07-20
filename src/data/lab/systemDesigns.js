@@ -1,0 +1,198 @@
+export const systemDesigns = [
+  {
+    id: "ai-agent-platform",
+    title: "AI Agent Platform",
+    category: "ai",
+    problem:
+      "Enterprise teams need a unified platform to orchestrate multiple LLM-powered agents that can reason over proprietary data, maintain conversational state across sessions, and deliver responses with sub-second time-to-first-token latency. I've seen teams struggle with this because the non-deterministic nature of LLM outputs clashes hard with the reliability expectations of production systems. The token cost problem compounds fast once you're running multiple agents per request, so you need a thoughtful approach to caching and provider selection from day one.",
+    technologies: [
+      "Node.js",
+      "TypeScript",
+      "Redis",
+      "PostgreSQL",
+      "Pinecone",
+      "OpenAI API",
+      "WebSockets",
+      "Docker",
+    ],
+    keyDecisions: [
+      "Streaming-first response architecture. Every LLM call returns a ReadableStream and the WebSocket layer forwards chunks as they arrive, which eliminates the perception of latency and lets clients start rendering partial responses immediately. I learned this the hard way after building a non-streaming version that felt sluggish even when the actual generation time was reasonable.",
+      "Modular agent registry with dependency injection. Each agent (retrieval, summarization, code-generation, etc.) is registered as a named module with declared input/output schemas, so you can compose multi-step pipelines at runtime without hardcoding orchestration logic. This pattern saved us countless times when swapping in a better retrieval strategy without touching the rest of the pipeline.",
+      "Embedding cache layer backed by Redis with TTL-based invalidation. Repeated queries against the same document corpus hit cached embeddings instead of re-calling the vectorizer, which on typical workloads cut our embedding API costs by roughly 60 percent. The tricky part was getting the invalidation right when documents get re-indexed.",
+      "Provider-agnostic LLM abstraction. A thin adapter layer normalizes request/response shapes across OpenAI, Anthropic, and Azure OpenAI, letting you hot-swap providers based on latency SLAs, cost thresholds, or availability without changing agent code. We used this constantly when one provider would go down or rate-limit us during peak traffic.",
+    ],
+    scalability: [
+      "Agent workers are stateless containers behind a load balancer. Horizontal scaling is driven by WebSocket connection count and queue depth, with Kubernetes HPA scaling pods when P95 processing latency exceeds configured thresholds. Statelessness is the whole game here; if agents held local state, scaling would be a nightmare.",
+      "Pinecone index is sharded by tenant and document domain, with metadata filtering pushing query-scope reduction to the index layer rather than post-filtering in application code. This matters a lot when you have dozens of tenants with millions of documents each, because post-filtering at the app level just doesn't scale.",
+      "Redis Cluster holds session state, embedding caches, and rate-limit counters. Hot keys are mitigated with client-side caching and key-spacing strategies to avoid slot contention, which became a real problem for us once a single tenant started dominating cache reads.",
+    ],
+    failureScenarios: [
+      "LLM provider outage. The adapter layer implements automatic failover to a secondary provider with circuit-breaker thresholds (5 consecutive failures trip the breaker, half-open probe every 30s). Fallback providers are ordered by cost and latency so degradation is economically bounded. I've been through two major OpenAI outages and this saved us both times.",
+      "Embedding cache invalidation storm. When a large document batch is re-indexed, a background job pre-warms the cache with a controlled concurrency limit (semaphore-capped at 50 parallel embeddings) to prevent thundering-herd API calls. We learned this lesson after a re-indexing job spiked our embedding costs by 10x in a single hour.",
+      "Empty RAG context. When the vector similarity search returns no results above the configured threshold, the system falls back to a zero-context prompt template that explicitly tells the LLM it has no retrieved context, rather than hallucinating from parametric memory alone. This is a subtle but critical safeguard against confident-sounding wrong answers.",
+    ],
+    architecture: {
+      nodes: [
+        "API Gateway",
+        "WebSocket Server",
+        "Agent Orchestrator",
+        "Agent Registry",
+        "RAG Pipeline",
+        "Embedding Service",
+        "Vector DB (Pinecone)",
+        "LLM Adapter Layer",
+        "Redis (Cache/Sessions)",
+        "PostgreSQL (Metadata)",
+      ],
+      description:
+        "Client requests arrive through an API Gateway and establish WebSocket connections to the streaming server. The Agent Orchestrator resolves which agent pipeline to invoke from the Registry, then fans out to the RAG Pipeline for retrieval and the LLM Adapter Layer for generation. Retrieved chunks are embedded via the Embedding Service (with Redis-cached results) and matched against Pinecone. The winning context is injected into the LLM prompt, and token streams are forwarded back over the WebSocket connection in real time. Session state and embedding caches live in Redis, while agent metadata, audit logs, and tenant configuration persist in PostgreSQL. This separation keeps the hot path fast and the durable data safely stored.",
+    },
+  },
+  {
+    id: "realtime-fleet-tracking",
+    title: "Real-Time Fleet Tracking Platform",
+    category: "realtime",
+    problem:
+      "A logistics company operating 12,000 plus vehicles needs live GPS visibility across all fleets with sub-5-second data freshness, route deviation alerts, and historical trip analytics. The system must ingest around 50,000 location events per second during peak hours while serving a concurrent dashboard used by dispatchers across 200 plus browser sessions, each rendering hundreds of moving markers without frame drops. Getting the write path and read path right here is everything, because mixing them will kill your dashboard performance fast.",
+    technologies: [
+      "Node.js",
+      "TypeScript",
+      "Kafka",
+      "PostgreSQL",
+      "PostGIS",
+      "Redis",
+      "WebSockets",
+      "React",
+      "Azure",
+    ],
+    keyDecisions: [
+      "Kafka as the central event bus rather than direct WebSocket ingestion. Decoupling producers (vehicle telematics units) from consumers (dashboards, analytics, alerting) means each can scale independently and message replay is trivial when adding new consumers or recovering from consumer failures. I've seen teams try direct ingestion and it always falls apart once you add a second consumer.",
+      "PostGIS for geospatial queries instead of a dedicated geospatial service. Using ST_DWithin, ST_LineFromText, and GiST-indexed geometry columns keeps geofencing and nearest-vehicle queries inside the existing database topology, avoiding the operational burden of a separate system. PostGIS is battle-tested and the performance is good enough for this scale.",
+      "Separate read and write paths. Writes flow from Kafka consumers into partitioned PostgreSQL tables, while reads are served from Redis-cached materialized views that refresh on a 2-second cadence, ensuring dashboards never contend with write-side locks. This was the single most important architectural decision for keeping the dashboard smooth under heavy load.",
+    ],
+    scalability: [
+      "Kafka topics are partitioned by vehicle region (geo-hash prefix), so adding regions adds partitions, and consumer groups scale horizontally within each region without cross-partition rebalancing overhead. This geographic partitioning strategy made it trivial for us to onboard new regions without re-architecting anything.",
+      "PostGIS GiST indexes are periodically rebuilt with BRIN (Block Range Indexes) on the location_history table to keep index size manageable as rows grow into the billions, trading minor point-query precision for dramatically faster range scans. At our scale, the GiST index alone was consuming 400GB before we made this switch.",
+      "Dashboard reads hit Redis-published snapshots at 2-second intervals. WebSocket servers only broadcast deltas (vehicle ID plus new lat/lng) to connected clients, reducing per-frame payload to roughly 40 bytes per vehicle. This delta approach is what keeps the dashboard rendering smoothly even with thousands of moving markers.",
+    ],
+    failureScenarios: [
+      "GPS device disconnect. The platform tags a vehicle's last-known position with a stale timestamp, and after 120 seconds without an update, the dashboard renders a pulsing amber indicator and the alerting service notifies dispatchers via a separate notification channel. Dispatchers hate surprises, so making staleness visually obvious was a UX requirement from day one.",
+      "Kafka consumer lag. A monitoring consumer tracks lag per partition, and when lag exceeds 10,000 messages, PagerDuty is alerted and a dedicated lag-recovery consumer group is spun up with increased parallelism to drain the backlog before it triggers downstream SLA breaches. We hit this once during a Black Friday surge and the recovery group saved us.",
+      "Primary database failover. PostgreSQL streaming replication promotes a read replica automatically via PgBouncer, and the write path buffers unflushed events in Kafka (retained for 72 hours) so no location data is lost during the failover window. Kafka's retention policy is your safety net here; without it, you'd lose data during any database hiccup.",
+    ],
+    architecture: {
+      nodes: [
+        "Vehicle Telematics Units",
+        "Kafka Ingestion Cluster",
+        "Kafka (Location Events Topic)",
+        "PostGIS (Location History)",
+        "Redis (Position Cache)",
+        "WebSocket Server Fleet",
+        "Dashboard (React)",
+        "Alerting Service",
+        "Analytics Pipeline",
+      ],
+      description:
+        "Vehicle telematics units publish GPS events to Kafka, which serves as the durable, replayable backbone of the system. Kafka consumers write enriched events into PostGIS tables while a separate cache-updater process publishes latest positions to Redis at 2-second intervals. WebSocket servers subscribe to Redis Pub/Sub and broadcast deltas to connected dashboard clients. The alerting service consumes the same Kafka topic in parallel, evaluating geofence rules and route-deviation heuristics against each incoming event. Historical analytics are built from daily Kafka compacted snapshots loaded into columnar storage for batch queries. This architecture keeps the hot path (real-time tracking) completely isolated from the cold path (analytics), which is essential for reliability.",
+    },
+  },
+  {
+    id: "multi-tenant-saas",
+    title: "Multi-Tenant SaaS Platform",
+    category: "saas",
+    problem:
+      "A B2B SaaS product needs to support hundreds of tenant organizations with strict data isolation, role-based access control, per-tenant feature flags, and integrated billing, all while maintaining a single deployable artifact and operational surface. The challenge is enforcing strong tenant boundaries without the cost and complexity of database-per-tenant, while still allowing tenants to negotiate custom retention policies and data residency requirements. I've worked on systems where a single RLS misconfiguration leaked data across tenants, so getting this right is not optional.",
+    technologies: [
+      "Node.js",
+      "NestJS",
+      "PostgreSQL",
+      "Redis",
+      "Azure",
+      "Stripe",
+      "JWT",
+      "OAuth2",
+    ],
+    keyDecisions: [
+      "Shared database with row-level security (RLS) over database-per-tenant. PostgreSQL RLS policies are injected at connection time via a session variable (app.tenant_id), ensuring every query is automatically scoped to the requesting tenant. This avoids the N-connection-pool problem and keeps migrations atomic across all tenants, which is a huge operational win.",
+      "RBAC with a role hierarchy. Roles (owner, admin, editor, viewer) inherit permissions from their parent, so the permission-check middleware evaluates a single flattened permission set per request rather than walking a role tree on every authorization check. This flattened approach is faster and way easier to reason about during audits.",
+      "Middleware-based tenant context injection. Every inbound request passes through a NestJS guard that extracts the tenant ID from the JWT, validates it against the Redis session cache, and sets app.tenant_id on the database connection pool checkout. This makes tenant context invisible to business-logic controllers, which is exactly where it should live.",
+      "Feature-gate registry stored in PostgreSQL with Redis caching. Each tenant's plan maps to a feature set, and the registry is loaded into Redis on plan changes and checked with O(1) lookup at the middleware layer, adding negligible latency to feature-gated endpoints. We tried checking feature flags on every request directly from PostgreSQL and it was a bottleneck; Redis fixed that instantly.",
+    ],
+    scalability: [
+      "Connection pooling is tiered by tenant plan. Enterprise tenants receive dedicated pool slots (min 10, max 50 connections) via PgBouncer server-side pooling, while starter-plan tenants share a pooled bucket, preventing noisy-neighbor connection exhaustion. This tiered approach lets us offer premium SLAs without over-provisioning for smaller customers.",
+      "Redis holds active sessions, feature gates, and rate-limit counters. Hot tenants are pinned to dedicated Redis cluster shards via key-prefix hashing to avoid cross-shard fanout on session validation. We discovered this was necessary after a single enterprise tenant's session traffic started degrading performance for everyone else.",
+      "Reporting and analytics queries are routed to read replicas via a query routing middleware that detects read-only transactions and sends them to a replica pool, keeping the primary focused on writes. This simple optimization doubled our write throughput during peak hours.",
+    ],
+    failureScenarios: [
+      "Tenant data leakage. RLS policies are enforced at the database level, so even a misconfigured controller cannot return cross-tenant data. An integration test suite runs RLS violation checks against every API endpoint on each deployment to catch policy gaps early. I added this test suite after a near-miss incident, and it has caught three potential leaks since.",
+      "Stripe webhook idempotency. Every billing webhook is stored by Stripe event ID in a deduplication table before processing, and duplicate deliveries (common during Stripe retries) are silently dropped, preventing double-provisioning of plan features or over-crediting. Stripe retries webhooks aggressively during outages, so without deduplication you will double-bill customers.",
+      "Session token revocation on plan changes. When a tenant downgrades or an admin is removed, all active JWTs for that tenant are invalidated by incrementing a token version in Redis. The auth guard rejects any token whose version is older than the current tenant version, ensuring immediate access revocation without waiting for JWT expiry. This was a hard-won lesson after a customer complained about a removed admin still having access for 24 hours.",
+    ],
+    architecture: {
+      nodes: [
+        "API Gateway (Azure APIM)",
+        "NestJS Application Server",
+        "Auth Service (JWT/OAuth2)",
+        "Tenant Guard Middleware",
+        "RBAC Middleware",
+        "Feature Gate Registry",
+        "PostgreSQL (RLS-enabled)",
+        "Redis (Sessions/Cache)",
+        "Stripe Billing Integration",
+        "Background Job Queue",
+      ],
+      description:
+        "Inbound requests hit Azure API Gateway, which handles TLS termination, rate limiting, and JWT validation before forwarding to the NestJS server. The Tenant Guard middleware extracts the tenant ID from the JWT and sets the PostgreSQL session variable, while the RBAC middleware flattens the user's role hierarchy into a permission set. Controllers execute queries against the shared PostgreSQL database, which enforces row-level security transparently. Feature gates are checked via Redis with O(1) lookups before invoking feature-specific logic. Stripe webhooks flow through a dedicated endpoint that deduplicates events before the Background Job Queue processes billing state transitions. Read-heavy analytics queries are routed to PostgreSQL read replicas to keep the primary responsive for writes. The whole thing runs as a single deployable, which keeps our operational surface manageable even as the tenant count grows.",
+    },
+  },
+  {
+    id: "production-cloud-deployment",
+    title: "Production Cloud Deployment Pipeline",
+    category: "cloud",
+    problem:
+      "A growing engineering team needs a reproducible, auditable infrastructure provisioning and deployment workflow across staging, pre-production, and production environments on Azure. The existing manual processes cause configuration drift between environments, take 2 to 3 hours to produce new infrastructure, and produce deployment rollback windows of 15 plus minutes, which is unacceptable for a platform with strict uptime SLAs. I lived through this pain at my last company, and it nearly cost us a major customer when a manual misconfiguration brought down production for 40 minutes.",
+    technologies: [
+      "Azure",
+      "Terraform",
+      "Ansible",
+      "Docker",
+      "Kubernetes",
+      "Helm",
+      "GitHub Actions",
+      "Prometheus",
+      "Grafana",
+    ],
+    keyDecisions: [
+      "Terraform for all declarative infrastructure. Every Azure resource (VNets, AKS clusters, databases, DNS zones) is defined in Terraform modules with remote state stored in Azure Blob Storage with state locking. This eliminates manual provisioning entirely and gives every change an auditable diff, which is essential for compliance and debugging.",
+      "Helm charts for Kubernetes application packaging. Each microservice is wrapped in a Helm chart with environment-specific values files (values-staging.yaml, values-production.yaml), making promotion between environments a single values override rather than a template rewrite. This convention saved us from countless deployment bugs caused by environment-specific hardcoding.",
+      "Blue-green deployments via Azure Traffic Manager. Production traffic is shifted between blue and green AKS service endpoints at the DNS level, and health checks on the new environment must pass for 120 seconds before Traffic Manager shifts weights, giving the team a safe rollback window. I always advocate for blue-green over rolling deployments in production because the rollback story is so much cleaner.",
+      "Ansible for post-provisioning configuration. Tasks that Terraform cannot express (seeding databases, generating TLS certificates, configuring monitoring exporters) are handled by Ansible playbooks invoked as Terraform local-exec provisioners, keeping the full provisioning sequence in one pipeline. This hybrid approach acknowledges that Terraform and Ansible solve different problems and uses each where it excels.",
+    ],
+    scalability: [
+      "Kubernetes HPA scales pod replicas based on CPU utilization and custom Prometheus metrics (request queue depth), with Cluster Autoscaler provisioning new nodes when pending pods cannot be scheduled. The combination of HPA and Cluster Autoscaler means you get both fine-grained pod scaling and coarse-grained node scaling without manual intervention.",
+      "Terraform modules are composed hierarchically: a base networking module, a cluster module, and a services module are combined per environment. Adding a new environment (e.g., canary) requires only a new values file and a workspace reference, which is exactly the kind of simplicity you want when you're under pressure to ship a new environment quickly.",
+      "Helm values files encode per-environment resource requests, replica counts, and feature flags, so environment-specific tuning lives in one declarative file per stage rather than scattered across templates. This centralized approach makes it trivial to compare configurations across environments and spot inconsistencies.",
+    ],
+    failureScenarios: [
+      "Infrastructure drift detection. Every GitHub Actions run executes terraform plan against the real infrastructure and compares the output to the committed state. Unexpected drift fails the build and opens an incident ticket, catching manual console changes before they compound. We caught a senior engineer's emergency console change within 10 minutes using this approach.",
+      "Pod disruption budgets. Kubernetes PDBs are defined for every service (minAvailable: 50%), ensuring node drains for patching or scaling events never terminate more than half of a service's replicas simultaneously, preserving availability during maintenance windows. Skipping PDBs is a mistake I see teams make constantly, and it always bites them during their first node upgrade.",
+      "Canary deployments with automatic rollback. The pipeline deploys a canary (2 percent of traffic) to production first, and Prometheus monitors error rate and P99 latency against the baseline. If either metric breaches the configured threshold within 5 minutes, Traffic Manager reverts to the blue environment automatically without human intervention. This automated rollback has saved us from at least three bad deployments that would have otherwise required manual intervention in the middle of the night.",
+    ],
+    architecture: {
+      nodes: [
+        "GitHub Actions (CI/CD)",
+        "Terraform (Azure Resource Manager)",
+        "Ansible (Post-Provisioning)",
+        "Azure Container Registry",
+        "Azure Kubernetes Service",
+        "Helm Release Manager",
+        "Azure Traffic Manager",
+        "Prometheus",
+        "Grafana",
+        "Azure Blob Storage (Terraform State)",
+      ],
+      description:
+        "A developer push triggers GitHub Actions, which runs lint, tests, and Docker image builds before pushing images to Azure Container Registry. The pipeline then executes Terraform plan to compute infrastructure diffs, and Terraform apply provisions or updates Azure resources with remote state in Blob Storage. Ansible playbooks run post-provisioning tasks (database migrations, certificate rotation). Helm deploys the new image to AKS, initially targeting a canary replica set receiving 2 percent of traffic via Azure Traffic Manager weighted routing. Prometheus monitors the canary for 5 minutes; if metrics pass thresholds, Traffic Manager shifts 100 percent of traffic to the new release. Grafana dashboards visualize deployment status, infrastructure health, and rollback events across all environments. The whole pipeline from merge to production takes about 12 minutes now, down from the 2 to 3 hours it used to take with manual provisioning.",
+    },
+  },
+];

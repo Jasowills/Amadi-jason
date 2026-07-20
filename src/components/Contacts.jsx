@@ -42,7 +42,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="py-32 md:py-40 section-padding relative min-h-[70vh] flex items-center"
+      className="py-32 md:py-40 section-padding relative min-h-[70vh] flex items-center bg-surface-50 dark:bg-surface-950"
     >
       <div className="max-w-7xl mx-auto w-full">
         <span

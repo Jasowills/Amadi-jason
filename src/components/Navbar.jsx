@@ -12,6 +12,8 @@ const navLinks = [
   { label: "Expertise", href: "#expertise" },
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Education", href: "#education" },
+  { label: "Lab", href: "/lab" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -57,6 +59,10 @@ export default function Navbar() {
 
   const scrollTo = (href) => {
     setMenuOpen(false);
+    if (href === "/lab") {
+      window.location.href = "/lab";
+      return;
+    }
     const el = document.querySelector(href);
     if (el) {
       const offset = 80;

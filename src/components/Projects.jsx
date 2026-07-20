@@ -48,7 +48,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="py-32 md:py-40 section-padding">
+    <section id="projects" className="py-32 md:py-40 section-padding bg-surface-50 dark:bg-surface-950">
       <div className="max-w-7xl mx-auto">
         <div ref={headingRef}>
           <div className="flex items-center gap-6 mb-16 md:mb-20">

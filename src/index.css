@@ -14,10 +14,14 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #0A0A0A;
+    transition: background-color 0.5s ease;
   }
 
   body {
     font-family: "Space Grotesk", sans-serif;
+    background-color: #0A0A0A;
+    transition: background-color 0.5s ease;
   }
 
   ::selection {
@@ -54,6 +58,11 @@
   }
 }
 
+/* Prevent stacking context flickering during GSAP animations */
+section {
+  isolation: isolate;
+}
+
 /* ─── Scroll indicator animation ─── */
 @keyframes scroll-line {
   0% {
@@ -72,4 +81,41 @@
 /* ─── Perspective utility for 3D text reveals ─── */
 .perspective-\[1000px\] {
   perspective: 1000px;
+}
+
+/* ─── Engineering Lab animations ─── */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes grid-flow {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -40; }
+}
+
+.animate-grid-flow {
+  animation: grid-flow 3s linear infinite;
+}
+
+@keyframes grid-flow-slow {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -60; }
+}
+
+.animate-grid-flow-slow {
+  animation: grid-flow-slow 8s linear infinite;
+}
+
+@keyframes fade-pulse {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.08; }
+}
+
+.animate-fade-pulse {
+  animation: fade-pulse 4s ease-in-out infinite;
 }

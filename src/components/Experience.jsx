@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { experience, certifications } from "../data/experience";
+import { experience } from "../data/experience";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,23 +46,6 @@ export default function Experience() {
           },
         );
       });
-
-      // Certs
-      const certSection = sectionRef.current?.querySelector("[data-certs]");
-      if (certSection) {
-        gsap.fromTo(
-          certSection.children,
-          { y: 30, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            stagger: 0.08,
-            ease: "power3.out",
-            scrollTrigger: { trigger: certSection, start: "top 88%" },
-          },
-        );
-      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -72,7 +55,7 @@ export default function Experience() {
     <section
       id="experience"
       ref={sectionRef}
-      className="py-32 md:py-40 section-padding"
+      className="py-32 md:py-40 section-padding bg-surface-50 dark:bg-surface-950"
     >
       <div className="max-w-7xl mx-auto">
         <div ref={headingRef}>
@@ -115,22 +98,6 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Certifications */}
-        <div className="mt-24 md:mt-32">
-          <h3 className="font-display text-display-md mb-10">Certifications</h3>
-          <div data-certs className="grid sm:grid-cols-2 gap-4">
-            {certifications.map((cert) => (
-              <div
-                key={cert}
-                className="p-5 border border-black/[0.06] dark:border-white/[0.06] rounded-sm
-                  text-sm opacity-60 leading-relaxed font-body"
-              >
-                {cert}
               </div>
             ))}
           </div>

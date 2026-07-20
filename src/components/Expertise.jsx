@@ -50,14 +50,19 @@ const expertise = [
     icon: IoServerOutline,
     title: "Cloud & DevOps",
     description:
-      "Managing cloud infrastructure, automated provisioning, and production-ready deployment pipelines.",
+      "Managing cloud infrastructure, container orchestration, automated provisioning, and production-ready deployment pipelines.",
     technologies: [
       "Microsoft Azure",
-      "Azure DevOps",
-      "MongoDB",
-      "SQL",
-      "Git",
-      "Vercel",
+      "Docker",
+      "Kubernetes",
+      "Helm",
+      "Ansible",
+      "Terraform",
+      "Nginx",
+      "Linux",
+      "Networking",
+      "Bash",
+      "Redis",
     ],
   },
 ];
@@ -160,7 +165,7 @@ export default function Expertise() {
     <section
       id="expertise"
       ref={sectionRef}
-      className="relative overflow-hidden"
+      className="relative overflow-hidden bg-surface-50 dark:bg-surface-950"
     >
       <div className="section-padding pt-32 md:pt-40 pb-12" ref={headingRef}>
         <div className="max-w-7xl mx-auto">

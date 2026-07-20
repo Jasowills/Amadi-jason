@@ -6,7 +6,7 @@ export const projects = [
       "A full-stack observability platform with real-time service monitoring, uptime tracking, incident management, deployment tracking, error ingestion with AI root cause analysis, a browser SDK, and a public status page.",
     tech: ["React", "TypeScript", "NestJS", "GraphQL", "PostgreSQL", "Tailwind CSS"],
     github: "https://github.com/Jasowills/watchDog",
-    live: null,
+    live: "https://sonar-dev.vercel.app",
     featured: true,
   },
   {
