@@ -60,6 +60,16 @@ export const projects = [
     featured: false,
   },
   {
+    title: "klyq",
+    category: "fullstack",
+    description:
+      "A real-time social platform built for meaningful conversations. Live feed with likes and comments arriving the instant they happen, follows-only timelines with no algorithm, and a monochrome x-style interface with a WebGL signal wall.",
+    tech: ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Socket.io", "Three.js"],
+    github: "https://github.com/Jasowills/klyq",
+    live: null,
+    featured: false,
+  },
+  {
     title: "MedPay Tracka",
     category: "backend",
     description:
