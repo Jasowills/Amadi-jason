@@ -91,12 +91,12 @@ export const projects = [
   },
   {
     title: "Wayfarer",
-    category: "backend",
+    category: "fullstack",
     description:
-      "Backend API for a public bus transportation booking system handling trip management, booking flows, and rider operations.",
-    tech: ["Node.js", "Express", "PostgreSQL", "REST API"],
-    github: "https://github.com/Jasowills/Wayfarer-backend",
-    live: null,
+      "A global bus and rail booking platform with a heritage rail-poster aesthetic — search and compare trips, book seats, manage bookings, and administer operators. Demo login: demo@wayfarer.com / password123.",
+    tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "Express"],
+    github: "https://github.com/Jasowills/Wayfarer",
+    live: "https://wayfarer-seven-zeta.vercel.app",
     featured: false,
   },
 ];
