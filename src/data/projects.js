@@ -1,5 +1,15 @@
 export const projects = [
   {
+    title: "Pulse",
+    category: "backend",
+    description:
+      "A real-time data synchronization library for .NET. Subscribes to typed, filtered change feeds from MongoDB, PostgreSQL, and SQL Server and streams live updates to clients over SignalR — with initial snapshots, automatic reconnect and resync, and persistent resume tokens.",
+    tech: ["C#", ".NET", "SignalR", "MongoDB", "PostgreSQL", "SQL Server"],
+    github: "https://github.com/Jasowills/pulse",
+    live: null,
+    featured: true,
+  },
+  {
     title: "Sonar",
     category: "fullstack",
     description:
