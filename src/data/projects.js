@@ -61,12 +61,12 @@ export const projects = [
   },
   {
     title: "Resortify",
-    category: "backend",
+    category: "frontend",
     description:
-      "A hotel reservation system covering bookings, room availability, and customer reservations with a full admin dashboard.",
-    tech: ["Node.js", "Express", "PostgreSQL", "REST API"],
+      "A hotel reservation system with a polished editorial landing page, live tide widget, and interactive 3D room viewer with real interior scans — bookings, availability, and a full admin dashboard.",
+    tech: ["React", "TypeScript", "Vite", "Three.js", "NestJS", "MongoDB"],
     github: "https://github.com/Jasowills/Resortify-hotel-reservation-system",
-    live: null,
+    live: "https://resortify-hotel.vercel.app",
     featured: false,
   },
   {
