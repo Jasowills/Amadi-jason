@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { IoLogoGithub, IoOpenOutline } from "react-icons/io5";
@@ -62,60 +62,37 @@ export default function Projects() {
           </h2>
         </div>
 
-        <div ref={cardsRef} className="space-y-5">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {projects.map((project) => (
-            <div
+            <article
               key={project.title}
-              className="group p-6 md:p-8 lg:p-10
+              className="group flex flex-col
                 border border-black/[0.06] dark:border-white/[0.06] rounded-sm
-                bg-surface-100/30 dark:bg-white/[0.015]
-                hover:border-accent/20 hover:bg-surface-100/50 dark:hover:bg-white/[0.03]
-                transition-all duration-500"
+                bg-surface-100/30 dark:bg-white/[0.015] overflow-hidden
+                hover:border-accent/25 transition-colors duration-500"
             >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-[11px] tracking-[0.2em] uppercase text-accent opacity-60">
-                      {project.category}
-                    </span>
-                    {project.featured && (
-                      <span className="text-[10px] tracking-[0.15em] uppercase px-2 py-0.5 bg-accent/10 text-accent rounded-sm">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="font-display text-2xl md:text-3xl mb-3 group-hover:text-accent transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="opacity-50 leading-relaxed max-w-2xl mb-6 text-sm">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-3 py-1 text-[11px] tracking-[0.1em] uppercase
-                          border border-black/[0.06] dark:border-white/[0.06]
-                          opacity-45 rounded-sm font-body"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-5 md:pt-2 shrink-0">
+              <div className="relative aspect-[16/10] overflow-hidden bg-black/[0.04] dark:bg-white/[0.03]">
+                <img
+                  src={project.image}
+                  alt={`${project.title} preview`}
+                  loading="lazy"
+                  className="w-full h-full object-cover object-top
+                    group-hover:scale-[1.04] transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
                   {project.github && (
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm opacity-40 hover:opacity-100 hover:text-accent transition-all duration-300"
+                      aria-label={`${project.title} source code on GitHub`}
+                      className="flex items-center gap-2 text-[11px] tracking-[0.15em] uppercase font-body
+                        px-4 py-2.5 border border-white/30 text-white bg-black/40 backdrop-blur-sm
+                        hover:border-accent hover:text-accent transition-colors duration-300"
                     >
-                      <IoLogoGithub size={18} />
-                      <span className="hidden sm:inline font-body text-xs tracking-wider uppercase">
-                        Code
-                      </span>
+                      <IoLogoGithub size={14} />
+                      Code
                     </a>
                   )}
                   {project.live && (
@@ -123,17 +100,49 @@ export default function Projects() {
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm opacity-40 hover:opacity-100 hover:text-accent transition-all duration-300"
+                      aria-label={`${project.title} live site`}
+                      className="flex items-center gap-2 text-[11px] tracking-[0.15em] uppercase font-body
+                        px-4 py-2.5 border border-white/30 text-white bg-black/40 backdrop-blur-sm
+                        hover:border-accent hover:text-accent transition-colors duration-300"
                     >
-                      <IoOpenOutline size={18} />
-                      <span className="hidden sm:inline font-body text-xs tracking-wider uppercase">
-                        Live
-                      </span>
+                      <IoOpenOutline size={14} />
+                      Live
                     </a>
                   )}
                 </div>
+                <div className="absolute top-4 left-4 flex items-center gap-2">
+                  <span className="text-[10px] tracking-[0.2em] uppercase px-2.5 py-1 bg-black/50 backdrop-blur-sm text-white/80 rounded-sm font-body">
+                    {project.category}
+                  </span>
+                  {project.featured && (
+                    <span className="text-[10px] tracking-[0.15em] uppercase px-2.5 py-1 bg-accent/90 text-surface-950 rounded-sm font-body">
+                      Featured
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
+
+              <div className="flex flex-col flex-1 p-6 lg:p-7">
+                <h3 className="font-display text-2xl mb-3 group-hover:text-accent transition-colors duration-300">
+                  {project.title}
+                </h3>
+                <p className="opacity-50 leading-relaxed mb-6 text-sm">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-3 py-1 text-[11px] tracking-[0.1em] uppercase
+                        border border-black/[0.06] dark:border-white/[0.06]
+                        opacity-45 rounded-sm font-body"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
           ))}
         </div>
 

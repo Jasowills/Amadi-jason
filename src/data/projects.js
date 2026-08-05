@@ -1,6 +1,7 @@
 export const projects = [
   {
     title: "Pulse",
+    image: "/projects/pulse.png",
     category: "backend",
     description:
       "A real-time data synchronization library for .NET. Subscribes to typed, filtered change feeds from MongoDB, PostgreSQL, and SQL Server and streams live updates to clients over SignalR — with initial snapshots, automatic reconnect and resync, and persistent resume tokens.",
@@ -11,6 +12,7 @@ export const projects = [
   },
   {
     title: "Sonar",
+    image: "/projects/sonar.png",
     category: "fullstack",
     description:
       "A full-stack observability platform with real-time service monitoring, uptime tracking, incident management, deployment tracking, error ingestion with AI root cause analysis, a browser SDK, and a public status page.",
@@ -21,6 +23,7 @@ export const projects = [
   },
   {
     title: "DocFlow",
+    image: "/projects/docflow.png",
     category: "fullstack",
     description:
       "An AI workflow documentation platform for recording browser flows, generating operational documents, organizing outputs, and supporting shared workspace collaboration.",
@@ -31,6 +34,7 @@ export const projects = [
   },
   {
     title: "Neuron Meet",
+    image: "/projects/neuron-meet.png",
     category: "fullstack",
     description:
       "Real-time video conferencing application with WebRTC peer-to-peer connections, screen sharing, and chat functionality.",
@@ -41,6 +45,7 @@ export const projects = [
   },
   {
     title: "Folio",
+    image: "/projects/folio.png",
     category: "fullstack",
     description:
       "AI-powered resume builder with 40+ ATS-optimized templates, real-time AI chat assistant for resume refinement, PDF export, guest analysis reports, and interview preparation with video practice sessions.",
@@ -51,6 +56,7 @@ export const projects = [
   },
   {
     title: "Jename",
+    image: "/projects/jename.png",
     category: "fullstack",
     description:
       "A modern e-commerce platform for an art and jewelry brand, built with Payload CMS, Next.js, and a custom storefront featuring product management, artist profiles, and contact flows.",
@@ -61,6 +67,7 @@ export const projects = [
   },
   {
     title: "Resortify",
+    image: "/projects/resortify.png",
     category: "frontend",
     description:
       "A hotel reservation system with a polished editorial landing page, live tide widget, and interactive 3D room viewer with real interior scans — bookings, availability, and a full admin dashboard.",
@@ -71,6 +78,7 @@ export const projects = [
   },
   {
     title: "klyq",
+    image: "/projects/klyq.png",
     category: "fullstack",
     description:
       "A real-time social platform built for meaningful conversations. Live feed with likes and comments arriving the instant they happen, follows-only timelines with no algorithm, and a monochrome x-style interface with a WebGL signal wall.",
@@ -81,6 +89,7 @@ export const projects = [
   },
   {
     title: "MedPay Tracka",
+    image: "/projects/medpay-tracka.png",
     category: "backend",
     description:
       "Financial tracking backend API for managing income, expenses, analytics, and reporting in personal finance applications.",
@@ -91,6 +100,7 @@ export const projects = [
   },
   {
     title: "Wayfarer",
+    image: "/projects/wayfarer.png",
     category: "fullstack",
     description:
       "A global bus and rail booking platform with a heritage rail-poster aesthetic — search and compare trips, book seats, manage bookings, and administer operators. Demo login: demo@wayfarer.com / password123.",
