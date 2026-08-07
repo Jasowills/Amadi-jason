@@ -84,7 +84,10 @@ export default function Experience() {
                   <h3 className="font-display text-xl md:text-2xl mt-1">
                     {item.role}
                   </h3>
-                  <p className="font-body text-sm opacity-40">{item.company}</p>
+                  <p className="font-body text-sm opacity-40">
+                    {item.company}
+                    {item.location ? ` — ${item.location}` : ""}
+                  </p>
                 </div>
 
                 <ul className="space-y-2.5">

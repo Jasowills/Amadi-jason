@@ -126,7 +126,7 @@ export default function About() {
             </div>
             <div>
               <span className="block font-display text-3xl md:text-4xl text-accent leading-none mb-2">
-                3+
+                4+
               </span>
               <span className="font-body text-[11px] tracking-[0.2em] uppercase opacity-35">
                 Years building
