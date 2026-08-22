@@ -61,8 +61,8 @@ export const projects = [
     description:
       "A modern e-commerce platform for an art and jewelry brand, built with Payload CMS, Next.js, and a custom storefront featuring product management, artist profiles, and contact flows.",
     tech: ["Next.js", "TypeScript", "Payload CMS", "React"],
-    github: "https://github.com/Jasowills/Jename",
-    live: null,
+    github: null,
+    live: "https://jenamee.com",
     featured: true,
   },
   {
