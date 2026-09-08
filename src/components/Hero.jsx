@@ -1,8 +1,29 @@
-import { useRef, useEffect, lazy, Suspense } from "react";
+import { useRef, useEffect, useState, lazy, Suspense } from "react";
 import gsap from "gsap";
 import { useTheme } from "../hooks/useTheme";
 
 const ParticleField = lazy(() => import("./ParticleField"));
+
+function DeferredParticleField({ isDark }) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Defer heavy WebGL until after LCP / idle — avoids 863KB render-blocking cost
+    const cb = () => setReady(true);
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(cb, { timeout: 2500 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = setTimeout(cb, 1800);
+    return () => clearTimeout(t);
+  }, []);
+  if (!ready) return null;
+  return (
+    <Suspense fallback={null}>
+      <ParticleField isDark={isDark} />
+    </Suspense>
+  );
+}
 import { IoLogoLinkedin, IoLogoGithub } from "react-icons/io5";
 
 export default function Hero() {
@@ -72,9 +93,7 @@ export default function Hero() {
       ref={sectionRef}
       className="relative h-screen flex flex-col overflow-hidden bg-surface-50 dark:bg-surface-950"
     >
-      <Suspense fallback={null}>
-        <ParticleField isDark={isDark} />
-      </Suspense>
+      <DeferredParticleField isDark={isDark} />
 
       <div className="relative z-10 flex-1 grid grid-rows-[auto_1fr_auto] px-6 md:px-10 lg:px-16 xl:px-20">
         {/* ── Top metadata ── */}

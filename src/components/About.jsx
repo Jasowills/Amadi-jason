@@ -1,9 +1,7 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import image from "../assets/pic.png";
-
-gsap.registerPlugin(ScrollTrigger);
+import imageWebp from "../assets/pic.webp";
+import imagePng from "../assets/pic.png";
 
 export default function About() {
   const sectionRef = useRef(null);
@@ -72,13 +70,16 @@ export default function About() {
           className="lg:col-span-5 lg:col-start-1 overflow-hidden"
         >
           <div className="aspect-[3/4] overflow-hidden">
-            <img
-              ref={imageRef}
-              src={image}
-              alt="Amadi Jason"
-              className="w-full h-[115%] object-cover"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet={imageWebp} type="image/webp" />
+              <img
+                ref={imageRef}
+                src={imagePng}
+                alt="Amadi Jason"
+                className="w-full h-[115%] object-cover"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </div>
 

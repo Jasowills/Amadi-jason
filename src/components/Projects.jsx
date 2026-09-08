@@ -1,10 +1,7 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { IoLogoGithub, IoOpenOutline } from "react-icons/io5";
 import { projects } from "../data/projects";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Projects() {
   const headingRef = useRef(null);
@@ -72,13 +69,16 @@ export default function Projects() {
                 hover:border-accent/25 transition-colors duration-500"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-black/[0.04] dark:bg-white/[0.03]">
-                <img
-                  src={project.image}
-                  alt={`${project.title} preview`}
-                  loading="lazy"
-                  className="w-full h-full object-cover object-top
-                    group-hover:scale-[1.04] transition-transform duration-700 ease-out"
-                />
+                <picture>
+                  <source srcSet={project.image} type="image/webp" />
+                  <img
+                    src={project.imageFallback}
+                    alt={`${project.title} preview`}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top
+                      group-hover:scale-[1.04] transition-transform duration-700 ease-out"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
                   {project.github && (

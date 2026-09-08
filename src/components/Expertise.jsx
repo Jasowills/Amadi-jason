@@ -1,14 +1,11 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   IoDesktopOutline,
   IoCodeOutline,
   IoPhonePortraitOutline,
   IoServerOutline,
 } from "react-icons/io5";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const expertise = [
   {

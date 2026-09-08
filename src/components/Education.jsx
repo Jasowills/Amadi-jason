@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   IoSchoolOutline,
   IoDocumentTextOutline,
@@ -8,8 +7,6 @@ import {
   IoCheckmarkCircleOutline,
 } from "react-icons/io5";
 import { certifications } from "../data/experience";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const education = [
   {

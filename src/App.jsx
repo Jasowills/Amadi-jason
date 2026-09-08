@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ThemeProvider } from "./hooks/useTheme";
@@ -10,7 +10,8 @@ import Projects from "./components/Projects";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
 import Contact from "./components/Contacts";
-import EngineeringLab from "./pages/EngineeringLab";
+
+const EngineeringLab = lazy(() => import("./pages/EngineeringLab"));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,7 +43,9 @@ export default function App() {
   if (route === "lab") {
     return (
       <ThemeProvider>
-        <EngineeringLab />
+        <Suspense fallback={null}>
+          <EngineeringLab />
+        </Suspense>
       </ThemeProvider>
     );
   }
@@ -50,20 +53,22 @@ export default function App() {
   return (
     <ThemeProvider>
       <a
-        href="#about"
+        href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-accent focus:text-surface-950 focus:rounded-sm focus:text-sm focus:font-body"
       >
         Skip to content
       </a>
       <div className="bg-surface-50 text-surface-800 dark:bg-surface-950 dark:text-surface-100 min-h-screen overflow-x-hidden">
         <Navbar />
-        <Hero />
-        <About />
-        <Expertise />
-        <Projects />
-        <Experience />
-        <Education />
-        <Contact />
+        <main id="main-content">
+          <Hero />
+          <About />
+          <Expertise />
+          <Projects />
+          <Experience />
+          <Education />
+          <Contact />
+        </main>
       </div>
     </ThemeProvider>
   );

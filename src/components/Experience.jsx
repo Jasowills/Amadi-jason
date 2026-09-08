@@ -1,9 +1,6 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { experience } from "../data/experience";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
   const sectionRef = useRef(null);

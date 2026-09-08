@@ -1,14 +1,11 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   IoMailOutline,
   IoLogoLinkedin,
   IoLogoGithub,
   IoLocationOutline,
 } from "react-icons/io5";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
   const sectionRef = useRef(null);
