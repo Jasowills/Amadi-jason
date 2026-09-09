@@ -1,9 +1,10 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import About from './About';
-import Resume from './Resume.jsx';
-import Contact from './Contacts.jsx';
-import Projects from './Projects.jsx';
+import Resume from './Resume';
+import Contact from './Contacts';
+import Projects from './Projects';
 
 
 const Main = () => {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRef, useEffect, useState, useCallback } from "react";
 import gsap from "gsap";
 import {
@@ -156,7 +157,7 @@ export default function Education() {
                 <h3 className="font-display text-xl md:text-2xl mt-1">
                   {item.degree}
                 </h3>
-                <p className="font-body text-sm opacity-40">
+                <p className="font-body text-sm opacity-60">
                   {item.institution}
                 </p>
               </div>

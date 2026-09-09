@@ -56,7 +56,7 @@ export default function About() {
     >
       {/* Section label */}
       <div data-reveal className="flex items-center gap-6 mb-16 md:mb-24">
-        <span className="font-body text-[11px] tracking-[0.3em] uppercase opacity-40">
+        <span className="font-body text-[11px] tracking-[0.3em] uppercase opacity-70">
           (02) — About
         </span>
         <div className="flex-1 h-px bg-current opacity-[0.06]" />
@@ -121,7 +121,7 @@ export default function About() {
               <span className="block font-display text-3xl md:text-4xl text-accent leading-none mb-2">
                 10+
               </span>
-              <span className="font-body text-[11px] tracking-[0.2em] uppercase opacity-35">
+              <span className="font-body text-[11px] tracking-[0.2em] uppercase opacity-70">
                 Projects shipped
               </span>
             </div>
@@ -129,7 +129,7 @@ export default function About() {
               <span className="block font-display text-3xl md:text-4xl text-accent leading-none mb-2">
                 4+
               </span>
-              <span className="font-body text-[11px] tracking-[0.2em] uppercase opacity-35">
+              <span className="font-body text-[11px] tracking-[0.2em] uppercase opacity-70">
                 Years building
               </span>
             </div>

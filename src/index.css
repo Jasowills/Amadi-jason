@@ -78,6 +78,61 @@ section {
   background: currentColor;
 }
 
+/* ─── Hero entrance (compositor-only: zero main-thread/TBT cost) ─── */
+@keyframes hero-letter-in {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-line-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(100px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-hero-letter {
+  opacity: 0;
+  animation: hero-letter-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.animate-hero-line {
+  transform: scaleX(0);
+  animation: hero-line-grow 1.4s cubic-bezier(0.76, 0, 0.24, 1) 0.5s forwards;
+}
+.animate-hero-rise {
+  opacity: 0;
+  animation: hero-rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+}
+.animate-hero-fade {
+  opacity: 0;
+  animation: hero-fade 0.7s ease-out 0.9s forwards;
+}
+.animate-hero-fade-up {
+  opacity: 0;
+  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1.1s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-letter,
+  .animate-hero-line,
+  .animate-hero-rise,
+  .animate-hero-fade,
+  .animate-hero-fade-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ─── Perspective utility for 3D text reveals ─── */
 .perspective-\[1000px\] {
   perspective: 1000px;

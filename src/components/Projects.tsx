@@ -49,7 +49,7 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto">
         <div ref={headingRef}>
           <div className="flex items-center gap-6 mb-16 md:mb-20">
-            <span className="font-body text-[11px] tracking-[0.3em] uppercase opacity-40">
+            <span className="font-body text-[11px] tracking-[0.3em] uppercase opacity-70">
               (04) — Projects
             </span>
             <div className="flex-1 h-px bg-current opacity-[0.06]" />
@@ -135,7 +135,7 @@ export default function Projects() {
                       key={t}
                       className="px-3 py-1 text-[11px] tracking-[0.1em] uppercase
                         border border-black/[0.06] dark:border-white/[0.06]
-                        opacity-45 rounded-sm font-body"
+                        opacity-70 rounded-sm font-body"
                     >
                       {t}
                     </span>

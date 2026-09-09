@@ -55,7 +55,7 @@ export default function SystemDesign() {
           <h2 className="font-display text-display-lg mb-6">
             Architectures I&rsquo;ve <em className="italic text-accent">designed</em>
           </h2>
-          <p className="font-body text-sm opacity-40 max-w-xl mb-10 leading-relaxed">
+          <p className="font-body text-sm opacity-60 max-w-xl mb-10 leading-relaxed">
             Each system represents a real engineering challenge — the decisions,
             trade-offs, and patterns behind production-grade platforms.
           </p>

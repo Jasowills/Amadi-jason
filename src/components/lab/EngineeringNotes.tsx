@@ -64,7 +64,7 @@ export default function EngineeringNotes() {
           <h2 className="font-display text-display-lg mb-6">
             How I <em className="italic text-accent">think</em>
           </h2>
-          <p className="font-body text-sm opacity-40 max-w-xl mb-10 leading-relaxed">
+          <p className="font-body text-sm opacity-60 max-w-xl mb-10 leading-relaxed">
             Technical notes on backend, frontend, architecture, and security —
             patterns, principles, and practical knowledge.
           </p>

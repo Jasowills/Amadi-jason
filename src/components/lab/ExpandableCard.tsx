@@ -34,7 +34,7 @@ export default function ExpandableCard({
         <div className="flex-1 min-w-0">
           <h4 className="font-display text-lg md:text-xl mb-1">{title}</h4>
           {subtitle && (
-            <p className="font-body text-sm opacity-40 leading-relaxed">
+            <p className="font-body text-sm opacity-60 leading-relaxed">
               {subtitle}
             </p>
           )}

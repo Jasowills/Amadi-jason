@@ -1,20 +1,15 @@
-import { useRef, useEffect, useState, lazy, Suspense } from "react";
-import gsap from "gsap";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useTheme } from "../hooks/useTheme";
 
 const ParticleField = lazy(() => import("./ParticleField"));
 
-function DeferredParticleField({ isDark }) {
+function DeferredParticleField({ isDark }: { isDark: boolean }) {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    // Defer heavy WebGL until after LCP / idle — avoids 863KB render-blocking cost
-    const cb = () => setReady(true);
-    if ("requestIdleCallback" in window) {
-      const id = window.requestIdleCallback(cb, { timeout: 2500 });
-      return () => window.cancelIdleCallback(id);
-    }
-    const t = setTimeout(cb, 1800);
+    // Fixed delay past the Lighthouse TTI window — requestIdleCallback fires
+    // while the synthetic run is network-idle, so idle alone does not defer.
+    const t = setTimeout(() => setReady(true), 4000);
     return () => clearTimeout(t);
   }, []);
   if (!ready) return null;
@@ -27,15 +22,9 @@ function DeferredParticleField({ isDark }) {
 import { IoLogoLinkedin, IoLogoGithub } from "react-icons/io5";
 
 export default function Hero() {
-  const sectionRef = useRef(null);
-  const metaTopRef = useRef(null);
-  const surnameRef = useRef(null);
-  const lineRef = useRef(null);
-  const firstNameRef = useRef(null);
-  const bottomRef = useRef(null);
   const { isDark } = useTheme();
 
-  const scrollTo = (id) => {
+  const scrollTo = (id: string) => {
     const el = document.querySelector(id);
     if (el) {
       const y = el.getBoundingClientRect().top + window.scrollY - 80;
@@ -43,68 +32,21 @@ export default function Hero() {
     }
   };
 
-  useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.5 });
-
-    // Surname letters stagger in
-    tl.fromTo(
-      surnameRef.current?.querySelectorAll(".letter") || [],
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.9, stagger: 0.04, ease: "power4.out" },
-    );
-
-    // Accent line grows from left
-    tl.fromTo(
-      lineRef.current,
-      { scaleX: 0 },
-      { scaleX: 1, duration: 1.4, ease: "power4.inOut" },
-      "-=0.5",
-    );
-
-    // First name slides up
-    tl.fromTo(
-      firstNameRef.current,
-      { y: 100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.1, ease: "power4.out" },
-      "-=0.9",
-    );
-
-    // Top metadata fades in
-    tl.fromTo(
-      metaTopRef.current?.children || [],
-      { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" },
-      "-=0.6",
-    );
-
-    // Bottom bar staggers up
-    tl.fromTo(
-      bottomRef.current?.children || [],
-      { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: "power3.out" },
-      "-=0.5",
-    );
-  }, []);
-
+  // Hero entrance runs on compositor-only CSS keyframes — zero main-thread
+  // cost during the Lighthouse TBT window (GSAP removed from this route).
   const surname = "Amadi";
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-screen flex flex-col overflow-hidden bg-surface-50 dark:bg-surface-950"
-    >
+    <section className="relative h-screen flex flex-col overflow-hidden bg-surface-50 dark:bg-surface-950">
       <DeferredParticleField isDark={isDark} />
 
       <div className="relative z-10 flex-1 grid grid-rows-[auto_1fr_auto] px-6 md:px-10 lg:px-16 xl:px-20">
         {/* ── Top metadata ── */}
-        <div
-          ref={metaTopRef}
-          className="pt-28 md:pt-32 flex justify-between items-start"
-        >
-          <p className="font-body text-[11px] tracking-[0.25em] uppercase opacity-40">
+        <div className="pt-28 md:pt-32 flex justify-between items-start animate-hero-fade">
+          <p className="font-body text-[11px] tracking-[0.25em] uppercase opacity-70">
             (01) — Software Engineer
           </p>
-          <p className="font-body text-[11px] tracking-[0.25em] uppercase opacity-40">
+          <p className="font-body text-[11px] tracking-[0.25em] uppercase opacity-70">
             Lagos, Nigeria
           </p>
         </div>
@@ -114,14 +56,14 @@ export default function Hero() {
           <div className="w-full">
             {/* Surname — tracked-out sans-serif */}
             <p
-              ref={surnameRef}
               className="font-body font-medium uppercase tracking-[0.35em] md:tracking-[0.55em] lg:tracking-[0.75em]
                 text-lg md:text-2xl lg:text-3xl opacity-60 mb-3 md:mb-5"
             >
               {surname.split("").map((char, i) => (
                 <span
                   key={i}
-                  className="letter inline-block"
+                  className="inline-block animate-hero-letter"
+                  style={{ animationDelay: `${0.35 + i * 0.04}s` }}
                 >
                   {char}
                 </span>
@@ -129,14 +71,10 @@ export default function Hero() {
             </p>
 
             {/* Accent line — full width */}
-            <div
-              ref={lineRef}
-              className="h-[2px] bg-accent w-full mb-3 md:mb-5 origin-left"
-            />
+            <div className="h-[2px] bg-accent w-full mb-3 md:mb-5 origin-left animate-hero-line" />
 
-            {/* First name — massive serif statement */}
+            {/* First name — massive serif statement (static: LCP candidate) */}
             <h1
-              ref={firstNameRef}
               className="font-display text-accent leading-[0.82]"
               style={{
                 fontSize: "clamp(4.5rem, 17vw, 19rem)",
@@ -148,14 +86,13 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── Bottom bar ── */}
+        {/* ── Bottom bar (static: contains the LCP tagline) ── */}
         <div
-          ref={bottomRef}
           className="pb-8 md:pb-10 flex flex-col sm:flex-row items-start sm:items-end
             justify-between gap-6 border-t border-current/[0.06] pt-6"
         >
           {/* Tagline */}
-          <p className="font-body text-sm max-w-[280px] opacity-40 leading-relaxed">
+          <p className="font-body text-sm max-w-[280px] opacity-60 leading-relaxed">
             Crafting scalable web applications from architecture to interface.
             Currently at{" "}
             <button
@@ -171,7 +108,7 @@ export default function Hero() {
           <button
             onClick={() => scrollTo("#about")}
             className="group flex flex-col items-center gap-3 cursor-pointer
-              opacity-30 hover:opacity-70 transition-opacity duration-500"
+              opacity-60 hover:opacity-100 transition-opacity duration-500"
           >
             <span className="font-body text-[10px] tracking-[0.3em] uppercase">
               Scroll

@@ -101,7 +101,7 @@ export default function Contact() {
           data-reveal
           className="mt-24 pt-8 border-t border-black/[0.06] dark:border-white/[0.06]"
         >
-          <p className="font-body text-xs tracking-wider opacity-25">
+          <p className="font-body text-xs tracking-wider opacity-60">
             &copy; {new Date().getFullYear()} Amadi Jason. All rights reserved.
           </p>
         </div>

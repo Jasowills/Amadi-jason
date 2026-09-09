@@ -149,7 +149,7 @@ export default function Expertise() {
             key={tech}
             className="px-3 py-1.5 text-[11px] tracking-[0.15em] uppercase
               border border-black/[0.06] dark:border-white/[0.06]
-              opacity-50 rounded-sm font-body"
+              opacity-70 rounded-sm font-body"
           >
             {tech}
           </span>
