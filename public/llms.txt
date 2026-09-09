@@ -1,0 +1,52 @@
+# Amadi Jason
+
+> Professional portfolio of Amadi Jason, a Software Engineer based in Lagos, Nigeria.
+> Full-stack web development (React, TypeScript, NestJS, Go), real-time systems,
+> telematics infrastructure, and applied AI. Open to roles and collaboration.
+
+## About
+
+- [About](https://amadi-jason.vercel.app/#about): background, profile, and what I do.
+- [Expertise](https://amadi-jason.vercel.app/#expertise): frontend, backend, real-time systems, DevOps.
+- [Experience](https://amadi-jason.vercel.app/#experience): work history and roles.
+- [Education](https://amadi-jason.vercel.app/#education): CS50 (Harvard) and certifications.
+- [Contact](https://amadi-jason.vercel.app/#contact): email, LinkedIn, and GitHub links.
+
+## Projects
+
+Selected work, newest first. Source code is on GitHub unless noted.
+
+- [TIDE](https://github.com/Jasowills/TIDE): open-source telematics infrastructure in Go.
+  Turns raw vehicle signals into state, events, and actions through a single pipeline
+  (validate, dedup, durable log, state engine, versioned rules, NATS JetStream, webhooks)
+  with deterministic replay and FleetSim simulation.
+- [Pulse](https://github.com/Jasowills/pulse): real-time data synchronization library for .NET
+  over SignalR with typed change feeds from MongoDB, PostgreSQL, and SQL Server.
+- [Sonar](https://github.com/Jasowills/watchDog): full-stack observability platform with
+  monitoring, incidents, deployments, error ingestion, and a public status page.
+  Live demo: [sonar-dev.vercel.app](https://sonar-dev.vercel.app).
+- [DocFlow](https://github.com/Jasowills/docflow): AI workflow documentation platform that
+  records browser flows and generates guides, test cases, and release notes.
+  Live demo: [docflow-ops.vercel.app](https://docflow-ops.vercel.app).
+- [Folio](https://github.com/Jasowills/folio): AI-powered resume builder with ATS-optimized
+  templates and interview preparation.
+- [Jename](https://jenamee.com): e-commerce platform for an art and jewelry brand
+  (Next.js, Payload CMS). Live site: [jenamee.com](https://jenamee.com).
+- [Resortify](https://github.com/Jasowills/Resortify-hotel-reservation-system): hotel
+  reservation system with 3D room viewer and admin dashboard.
+- [klyq](https://github.com/Jasowills/klyq): real-time social platform with live feed,
+  follows-only timelines, and WebGL visuals. Live demo: [klyq.vercel.app](https://klyq.vercel.app).
+- [Wayfarer](https://github.com/Jasowills/Wayfarer): bus and rail booking platform.
+  Live demo: [wayfarer-seven-zeta.vercel.app](https://wayfarer-seven-zeta.vercel.app).
+- All repositories: [github.com/Jasowills](https://github.com/Jasowills).
+
+## Engineering Lab
+
+- [Engineering Lab](https://amadi-jason.vercel.app/lab): system design notes, DevOps playbooks,
+  SRE knowledge base, ADRs, and architecture decision records.
+
+## Contact
+
+- [LinkedIn](https://ng.linkedin.com/in/jason-amadi-86b306303)
+- [GitHub](https://github.com/Jasowills)
+- [Contact section](https://amadi-jason.vercel.app/#contact)
