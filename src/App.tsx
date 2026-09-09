@@ -20,31 +20,35 @@ function LazySection({ children }: { children: ReactNode }) {
     const io = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        // Guard: an empty (zero-height) placeholder sitting exactly on the
-        // viewport edge reports intersecting in Chrome — require the
-        // section to be genuinely inside the viewport before mounting.
-        if (
-          entry.isIntersecting &&
-          entry.boundingClientRect.top < window.innerHeight - 50
-        ) {
+        // Apple-style preload: mount when section is 400px from viewport.
+        // Removes the load-vs-scroll jank of the previous 0px/10% guard —
+        // section code is ready before it enters view, so ScrollTrigger
+        // can measure correctly and no height-pop occurs mid-scroll.
+        // Still deferred past initial TBT window (hero is 100vh, so the
+        // 400px margin keeps the first section out of the initial IO).
+        if (entry.isIntersecting) {
           setVisible(true);
           io.disconnect();
         }
       },
-      // Zero margin + 10% threshold: a section touching the viewport edge
-      // (e.g. About right below the 100vh hero) must NOT mount on initial
-      // load — otherwise its JS + gsap-vendor parse inside the TBT window.
-      // Sections own scroll-reveal animations, so mounting at 10% visible
-      // is seamless for real users.
-      { rootMargin: "0px 0px", threshold: 0.1 },
+      { rootMargin: "0px 0px 400px 0px", threshold: 0 },
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  // Give unmounted placeholders intrinsic height so the page is scrollable;
-  // without it scrollHeight === 100vh (hero only) and the IO can never fire.
+  // Intrinsic placeholder keeps page scrollable (hero is 100vh) and avoids
+  // layout-shift jank — estimated height is close to final section height
+  // so replacing placeholder with real content doesn't jump scroll.
+  // Apple sites use similar estimated placeholders + early preload.
   return (
-    <div ref={ref} style={visible ? undefined : { minHeight: "40vh" }}>
+    <div
+      ref={ref}
+      style={
+        visible
+          ? undefined
+          : { minHeight: "70vh", contentVisibility: "auto" as const }
+      }
+    >
       {visible ? children : null}
     </div>
   );

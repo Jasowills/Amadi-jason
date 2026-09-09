@@ -30,16 +30,16 @@ export default function About() {
         );
       });
 
-      // Parallax on image
+      // Parallax on image — Apple-style subtle, smoothed scrub
       if (imageRef.current) {
         gsap.to(imageRef.current, {
-          yPercent: -8,
+          yPercent: -6,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top bottom",
             end: "bottom top",
-            scrub: true,
+            scrub: 0.8,
           },
         });
       }

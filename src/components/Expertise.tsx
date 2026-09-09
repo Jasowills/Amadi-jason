@@ -93,7 +93,7 @@ export default function Expertise() {
         );
       }
 
-      // Horizontal scroll on desktop
+      // Horizontal scroll on desktop — Apple-style pinned scrub
       const mm = gsap.matchMedia();
       mm.add("(min-width: 768px)", () => {
         if (!section || !track) return;
@@ -107,7 +107,9 @@ export default function Expertise() {
             start: "top top",
             end: () => `+=${totalScroll}`,
             pin: true,
-            scrub: 1,
+            pinSpacing: true,
+            anticipatePin: 1,
+            scrub: 1.5,
             invalidateOnRefresh: true,
           },
         });
