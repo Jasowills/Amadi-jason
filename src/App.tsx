@@ -41,7 +41,13 @@ function LazySection({ children }: { children: ReactNode }) {
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  return <div ref={ref}>{visible ? children : null}</div>;
+  // Give unmounted placeholders intrinsic height so the page is scrollable;
+  // without it scrollHeight === 100vh (hero only) and the IO can never fire.
+  return (
+    <div ref={ref} style={visible ? undefined : { minHeight: "40vh" }}>
+      {visible ? children : null}
+    </div>
+  );
 }
 
 const About = lazy(() => import("./components/About"));
