@@ -19,7 +19,14 @@ function LazySection({ children }: { children: ReactNode }) {
     }
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        const entry = entries[0];
+        // Guard: an empty (zero-height) placeholder sitting exactly on the
+        // viewport edge reports intersecting in Chrome — require the
+        // section to be genuinely inside the viewport before mounting.
+        if (
+          entry.isIntersecting &&
+          entry.boundingClientRect.top < window.innerHeight - 50
+        ) {
           setVisible(true);
           io.disconnect();
         }
