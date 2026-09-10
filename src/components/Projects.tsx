@@ -8,40 +8,37 @@ export default function Projects() {
   const cardsRef = useRef(null);
 
   useEffect(() => {
-    if (!headingRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        headingRef.current.children,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: headingRef.current, start: "top 85%" },
-        },
-      );
-    }, headingRef);
+      if (headingRef.current) {
+        gsap.fromTo(
+          headingRef.current.children,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: { trigger: headingRef.current, start: "top 85%" },
+          },
+        );
+      }
+      if (cardsRef.current) {
+        gsap.fromTo(
+          cardsRef.current.children,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: { trigger: cardsRef.current, start: "top 85%" },
+          },
+        );
+      }
+    });
     return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
-    if (!cardsRef.current) return;
-    const cards = cardsRef.current.children;
-    gsap.fromTo(
-      cards,
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        stagger: 0.08,
-        ease: "power3.out",
-        overwrite: true,
-        scrollTrigger: { trigger: cardsRef.current, start: "top 85%" },
-      },
-    );
   }, []);
 
   return (
