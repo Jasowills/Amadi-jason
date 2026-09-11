@@ -41,8 +41,10 @@ export default function ADR() {
             How I <em className="italic text-accent">decide</em>
           </h2>
           <p className="font-body text-sm opacity-60 max-w-xl mb-10 leading-relaxed">
-            Documented engineering decisions — the problem, the choice, the
-            reasoning, and the trade-offs accepted.
+            I don&apos;t decide in Slack threads — I write ADRs so future me can&apos;t lie
+            about why past me did it. Each one is a bet with receipts: the problem,
+            the choice, why I made it, and what I knowingly gave up. Chess taught me
+            to annotate the blunder, not just the brilliancy.
           </p>
         </div>
 

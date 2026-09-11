@@ -56,8 +56,9 @@ export default function SystemDesign() {
             Architectures I&rsquo;ve <em className="italic text-accent">designed</em>
           </h2>
           <p className="font-body text-sm opacity-60 max-w-xl mb-10 leading-relaxed">
-            Each system represents a real engineering challenge — the decisions,
-            trade-offs, and patterns behind production-grade platforms.
+            These aren&apos;t textbook boxes and arrows. Each one is a system I sketched,
+            argued over, shipped into Lagos traffic, and debugged when it fell over at 2am.
+            The diagrams are clean — the stories behind them aren&apos;t.
           </p>
         </div>
 

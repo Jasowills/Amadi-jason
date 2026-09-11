@@ -65,8 +65,10 @@ export default function EngineeringNotes() {
             How I <em className="italic text-accent">think</em>
           </h2>
           <p className="font-body text-sm opacity-60 max-w-xl mb-10 leading-relaxed">
-            Technical notes on backend, frontend, architecture, and security —
-            patterns, principles, and practical knowledge.
+            Notes I wish I had when I started — the backend traps, frontend papercuts,
+            auth gotchas, and the one-line principles that saved me from repeating my
+            own mistakes. Written like I&apos;d explain it to a teammate at the whiteboard
+            in Lagos, not like docs.
           </p>
         </div>
 

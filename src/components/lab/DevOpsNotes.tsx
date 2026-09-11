@@ -44,8 +44,10 @@ export default function DevOpsNotes() {
             How I <em className="italic text-accent">deploy</em>
           </h2>
           <p className="font-body text-sm opacity-60 max-w-xl mb-10 leading-relaxed">
-            Infrastructure, containers, CI/CD, and cloud architecture — the
-            operational side of building production systems.
+            From 3-hour manual provisions to 12-minute GitOps. From SSH and hope to
+            Helm + ArgoCD where Git is the truth and the cluster obeys. How I ship to
+            Azure without holding my breath — Terraform, Docker, K8s, and the rituals
+            that keep drift from creeping in via the console at 1am.
           </p>
         </div>
 

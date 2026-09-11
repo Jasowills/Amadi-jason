@@ -57,7 +57,7 @@ export default function About() {
       {/* Section label */}
       <div data-reveal className="flex items-center gap-6 mb-16 md:mb-24">
         <span className="font-body text-[11px] tracking-[0.3em] uppercase opacity-70">
-          (02) — About
+          About
         </span>
         <div className="flex-1 h-px bg-current opacity-[0.06]" />
       </div>
@@ -89,25 +89,24 @@ export default function About() {
             data-reveal
             className="font-display text-display-lg mb-10 leading-[1.05]"
           >
-            I build things for
+            Position before
             <br />
-            the <em className="italic text-accent">web</em>.
+            <em className="italic text-accent">material.</em>
           </h2>
 
           <div
             data-reveal
-            className="space-y-6 font-body text-sm leading-[1.8] opacity-50"
+            className="space-y-6 font-body text-sm leading-[1.8] opacity-60"
           >
             <p>
-              I&rsquo;m a software engineer based in Lagos, focused on building
-              web applications that are fast, accessible, and built to last. I
-              work across the full stack — from designing component systems and
-              crafting interfaces to architecting APIs and databases.
+              I learned that on a chessboard before I ever touched infra — a good
+              position makes the next ten moves easy. I build systems the same way.
             </p>
             <p>
-              My toolkit centers on React, Node.js, TypeScript, and cloud
-              infrastructure. I care about clean code, thoughtful architecture,
-              and shipping products that actually solve problems.
+              I&rsquo;m a software engineer in Lagos. At{" "}
+              <span className="text-accent font-medium">Marklite</span> I own reliability
+              and product — React + NestJS on the surface, Azure + Terraform and NATS
+              underneath. After hours I open-source tooling for messy, real-world fleets.
             </p>
           </div>
 

@@ -48,11 +48,16 @@ export default function Contact() {
         >
           Contact
         </span>
-        <h2 data-reveal className="font-display text-display-lg mb-16">
+        <h2 data-reveal className="font-display text-display-lg mb-6">
           Let&rsquo;s build
           <br />
-          something <em className="italic text-accent">great</em>
+          something <em className="italic text-accent">that lasts</em>
         </h2>
+        <p data-reveal className="font-body text-sm leading-[1.7] opacity-60 max-w-[52ch] mb-16">
+          Fastest is email — I read everything. Lagos is UTC+1, I usually reply
+          within a day, sometimes from a chess.com tab. If you have a fleet
+          problem, a weird API, or a Sicilian line to debate, write.
+        </p>
 
         <div data-reveal className="grid sm:grid-cols-2 gap-10 md:gap-16">
           <div className="space-y-6">

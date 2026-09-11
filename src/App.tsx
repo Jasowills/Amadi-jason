@@ -45,6 +45,7 @@ function LazySection({
 }
 
 const About = lazy(() => import("./components/About"));
+const Thinking = lazy(() => import("./components/Thinking"));
 const Expertise = lazy(() => import("./components/Expertise"));
 const Projects = lazy(() => import("./components/Projects"));
 const Experience = lazy(() => import("./components/Experience"));
@@ -126,6 +127,9 @@ export default function App() {
           <Suspense fallback={null}>
             <LazySection minHeight="90vh">
               <About />
+            </LazySection>
+            <LazySection minHeight="70vh">
+              <Thinking />
             </LazySection>
             <LazySection minHeight="65vh">
               <Expertise />

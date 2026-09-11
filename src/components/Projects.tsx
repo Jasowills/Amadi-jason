@@ -45,15 +45,18 @@ export default function Projects() {
     <section id="projects" className="py-32 md:py-40 section-padding bg-surface-50 dark:bg-surface-950">
       <div className="max-w-7xl mx-auto">
         <div ref={headingRef}>
-          <div className="flex items-center gap-6 mb-16 md:mb-20">
+          <div className="flex items-center gap-6 mb-4">
             <span className="font-body text-[11px] tracking-[0.3em] uppercase opacity-70">
-              (04) — Projects
+              Projects
             </span>
             <div className="flex-1 h-px bg-current opacity-[0.06]" />
           </div>
-          <h2 className="font-display text-display-lg mb-12">
+          <h2 className="font-display text-display-lg mb-4">
             Selected <em className="italic text-accent">work</em>
           </h2>
+          <p className="font-body text-sm leading-[1.7] opacity-60 max-w-[60ch] mb-12">
+            Systems that had to be right before they were fast — and the tradeoffs that made them so.
+          </p>
         </div>
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">

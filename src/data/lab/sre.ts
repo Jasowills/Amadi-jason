@@ -7,7 +7,7 @@ export const sreSections = [
         id: "slis",
         title: "SLIs (Service Level Indicators)",
         summary:
-          "SLIs are how you measure whether your service is actually working from the user's perspective. They're the numbers that matter.",
+          "How I know if the fleet dashboard is actually useful, not just up — p99 where the dispatcher feels it, not the average I want to show.",
         details: [
           "Latency: how long does it take to serve a request? Measure at the load balancer or app layer. p99 under 200ms for APIs is a solid target. p50 is nice to know but p99 is where users feel the pain.",
           "Throughput: valid requests per second. Use request counters to track it. This tells you traffic patterns and whether you're approaching capacity limits.",
@@ -19,7 +19,7 @@ export const sreSections = [
         id: "slos",
         title: "SLOs (Service Level Objectials)",
         summary:
-          "SLOs are your internal reliability targets. They define how reliable you need to be to keep users happy without burning out your team.",
+          "My internal promise — tight enough that users trust it, loose enough that I can still ship. I set these per service, not per slide deck.",
         details: [
           "Pick targets that are ambitious but actually achievable. Setting 99.99% when you're at 99.5% just creates noise, not motivation. I've seen teams set impossible SLOs and then ignore them entirely.",
           "99.9% availability means about 43.8 minutes of downtime per month. That's roughly the threshold where most users stop noticing degradation.",
@@ -32,7 +32,7 @@ export const sreSections = [
         id: "slas",
         title: "SLAs (Service Level Agreements)",
         summary:
-          "SLAs are the contracts that tie your reliability commitments to financial consequences. This is where SLOs meet legal.",
+          "SLA is where the SLO meets the contract and the invoice. I keep SLA looser than SLO — that buffer has saved me from a breach after a 3-minute wobble.",
         details: [
           "SLAs are external contracts; SLOs are internal targets. Your SLA should always be more conservative than your SLO to give yourself a buffer.",
           "If your SLO is 99.9%, your SLA might guarantee 99.5%. That buffer absorbs brief incidents without breaching the contract. I've seen teams learn this the hard way.",

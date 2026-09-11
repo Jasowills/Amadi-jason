@@ -41,8 +41,10 @@ export default function SREKnowledge() {
             How I <em className="italic text-accent">operate</em>
           </h2>
           <p className="font-body text-sm opacity-60 max-w-xl mb-10 leading-relaxed">
-            Reliability engineering, observability, incident management, and the
-            practices that keep production systems running.
+            Uptime isn&apos;t a badge — it&apos;s a habit. How I keep 10+ services up for
+            a B2B fleet that can&apos;t afford downtime, sleep through most nights, and
+            still get paged — but for the right reasons. Monitors that earn trust,
+            incidents that teach, and the 2am checklist I wish I&apos;d written sooner.
           </p>
         </div>
 

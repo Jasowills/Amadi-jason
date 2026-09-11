@@ -9,7 +9,7 @@ export const adrs = [
     decision:
       "Use PostgreSQL as the sole primary database for all core application data. We will implement row-level security (RLS) policies at the database layer to enforce tenant isolation, and leverage PostGIS extensions for the geospatial query capabilities our field operations features require.",
     reason:
-      "PostgreSQL gives us a mature relational model that natively supports complex joins, aggregations, and the transactional guarantees this domain demands. ACID compliance ensures billing and audit operations stay consistent under concurrent writes, which I consider non-negotiable for financial data. Row-level security pushes tenant isolation into the database itself, eliminating an entire class of multi-tenancy bugs that I have watched plague teams that try to handle it at the application layer. The extensible ecosystem, including PostGIS for geospatial queries, pg_trgm for fuzzy search, and pg_cron for scheduled jobs, saves us from spinning up auxiliary services that a document store would require.",
+      "I picked Postgres because I was tired of getting paged for tenant leaks. RLS puts the bouncer in the DB — one place to get isolation right, not a dozen app checks I can forget. ACID for billing is non-negotiable, and PostGIS lets me ask 'which vans are near Yaba?' without adding another service to babysit at 2am. I’ve used document stores where they fit; here the relationships and reports would have fought us the whole way.",
     tradeoffs: {
       pros: [
         "ACID transactions guarantee consistency across billing, audit logs, and entity state changes even under high concurrency, which is critical for a financial platform",
@@ -33,7 +33,7 @@ export const adrs = [
     decision:
       "Start with a modular monolith structured around clearly defined domain boundaries. Each module encapsulates its own data access, business logic, and API surface, communicating with other modules through internal interfaces rather than network calls. The architecture should be explicitly designed so that modules can be extracted into separate services later if and when scaling or organizational needs warrant it.",
     reason:
-      "At our current team size and scale, the operational overhead of running and debugging a distributed system far outweighs the theoretical benefits. A modular monolith gives us a simpler deployment model, faster local development cycle, and easier debugging path while we focus on product-market fit, which I believe is the right priority at this stage. Domain boundaries will evolve as the product matures, and starting monolithic lets those boundaries emerge organically from real usage patterns rather than being guessed upfront. The modular structure preserves the option to extract services later with minimal refactoring.",
+      "At our size, microservices are a tax I wasn’t ready to pay. A modular monolith let me ship, debug in one process, and see where the real seams were — like letting a Sicilian structure reveal its plan instead of forcing theory on move 2. Boundaries will emerge from usage; I’d rather extract a clean module later than debug a premature network partition at 1am.",
     tradeoffs: {
       pros: [
         "Single deployment unit simplifies CI/CD pipelines, reduces infrastructure costs, and eliminates cross-service dependency management during early development when things change fast",
@@ -81,7 +81,7 @@ export const adrs = [
     decision:
       "Adopt Kubernetes on Azure (AKS) as the container orchestration platform. We will package each service as a Helm chart with environment-specific value overrides, and use ArgoCD for GitOps-based continuous deployment. Namespace-level resource quotas and network policies will enforce multi-tenant isolation within the cluster.",
     reason:
-      "Kubernetes is the industry standard for container orchestration, and it provides declarative configuration that makes infrastructure reproducible across environments, which is exactly what we need as the team grows. Auto-scaling via Horizontal Pod Autoscaler handles traffic spikes without manual intervention, and self-healing replaces crashed containers automatically, reducing the on-call burden. The Helm ecosystem provides templated, version-controlled deployment manifests that simplify multi-service management, and AKS specifically offers managed control plane operations that reduce the operational burden on our small platform team while retaining full Kubernetes API compatibility.",
+      "I used to deploy with SSH and hope — it breaks around service five. K8s on AKS with Helm + ArgoCD made git the source of truth: every deploy a commit, every rollback a revert, every diff auditable. HPA handles spikes, self-heal handles the 3am crash. The YAML tax is real, but so is sleeping through the night, and the managed control plane buys my small team back hours.",
     tradeoffs: {
       pros: [
         "Declarative, GitOps-driven deployments ensure environment consistency and provide full audit trails of infrastructure changes via Git history, which I consider essential for compliance",

@@ -44,7 +44,7 @@ export default function Hero() {
         {/* ── Top metadata ── */}
         <div className="pt-28 md:pt-32 flex justify-between items-start animate-hero-fade">
           <p className="font-body text-[11px] tracking-[0.25em] uppercase opacity-70">
-            (01) — Software Engineer
+            Software Engineer
           </p>
           <p className="font-body text-[11px] tracking-[0.25em] uppercase opacity-70">
             Lagos, Nigeria
@@ -91,17 +91,17 @@ export default function Hero() {
           className="pb-8 md:pb-10 flex flex-col sm:flex-row items-start sm:items-end
             justify-between gap-6 border-t border-current/[0.06] pt-6"
         >
-          {/* Tagline */}
-          <p className="font-body text-sm max-w-[280px] opacity-60 leading-relaxed">
-            Crafting scalable web applications from architecture to interface.
-            Currently at{" "}
+          {/* Tagline — personalised */}
+          <p className="font-body text-sm max-w-[320px] opacity-60 leading-relaxed">
+            I build fleet and observability systems that survive bad networks and real
+            drivers. Currently at{" "}
             <button
               onClick={() => scrollTo("#about")}
               className="text-accent opacity-100 hover:underline underline-offset-4 cursor-pointer"
             >
               Marklite
-            </button>
-            .
+            </button>{" "}
+            — after hours I open-source quietly.
           </p>
 
           {/* Scroll indicator */}

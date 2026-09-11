@@ -7,7 +7,7 @@ export const devopsSections = [
         id: "azure-vnets",
         title: "Azure Virtual Networks",
         summary:
-          "VNets are how you carve up your Azure network into isolated, secure segments. Get comfortable with subnets, NSGs, and peering early, because every other Azure service depends on getting networking right.",
+          "How I stop one misconfigured subnet from taking down the whole fleet platform — VNets, NSGs, peering, the boring that saves you at 1am.",
         details: [
           "VNets give you an isolated logical network boundary in Azure. Resources talk to each other over private IPs, and you control what traffic flows where.",
           "Subnets break a VNet into smaller CIDR blocks. Some subnets can be delegated to specific Azure services like AKS, App Service, or SQL Managed Instance, which is something you'll use more than you expect.",
@@ -24,7 +24,7 @@ export const devopsSections = [
         id: "load-balancers",
         title: "Load Balancers",
         summary:
-          "Load balancers keep your traffic flowing evenly across backends. Azure gives you L4 (Load Balancer) and L7 (Application Gateway) options, and picking the right one depends on what you're actually serving.",
+          "How I keep dispatchers connected when a backend dies — L4 for raw TCP, L7 for HTTP with WAF and path rules. Pick wrong and you debug at midnight.",
         details: [
           "Azure Load Balancer is Layer 4 (TCP/UDP). It's fast, high-throughput, and great for distributing traffic across VMs, containers, or IP-based backends. I use it for non-HTTP workloads.",
           "Application Gateway is Layer 7 (HTTP/HTTPS). It handles SSL termination, URL path routing, session affinity, and WAF. If you're doing anything with web traffic, this is usually what you want.",
