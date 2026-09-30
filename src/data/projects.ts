@@ -1,5 +1,17 @@
 export const projects = [
   {
+    title: "PRISM",
+    image: "/projects/prism.webp",
+    imageFallback: "/projects/prism.png",
+    category: "backend",
+    description:
+      "Independent payment reconciliation for Flutterwave and Paystack. Durable webhook evidence, independent API verification, and deterministic rules that turn four disagreeing signals — webhook, provider API, merchant ledger, intent — into typed, explainable findings. Live test-mode verified end to end.",
+    tech: ["TypeScript", "NestJS", "PostgreSQL", "Redis", "BullMQ", "Docker", "Flutterwave", "Paystack"],
+    github: "https://github.com/Jasowills/prism",
+    live: null,
+    featured: true,
+  },
+  {
     title: "TIDE",
     image: "/projects/tide.webp",
     imageFallback: "/projects/tide.png",
