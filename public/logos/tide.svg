@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="TIDE logo: a location ping with expanding rings above three layered teal tide lines">
+  <rect width="64" height="64" rx="14" fill="#10293B"/>
+  <!-- location ping, warm coral -->
+  <circle cx="41" cy="17" r="8.4" fill="none" stroke="#F0756A" stroke-width="1.5" stroke-opacity="0.38"/>
+  <circle cx="41" cy="17" r="5.1" fill="none" stroke="#F0756A" stroke-width="1.7" stroke-opacity="0.75"/>
+  <circle cx="41" cy="17" r="2.4" fill="#F0756A"/>
+  <!-- layered tide lines, one teal at three weights -->
+  <path d="M8,32.5 C16,28.9 24,36.1 32,32.5 C40,28.9 48,36.1 56,32.5" fill="none" stroke="#35B6A9" stroke-width="2.1" stroke-linecap="round" stroke-opacity="0.4"/>
+  <path d="M8,41.5 C16,37.9 24,45.1 32,41.5 C40,37.9 48,45.1 56,41.5" fill="none" stroke="#35B6A9" stroke-width="2.3" stroke-linecap="round" stroke-opacity="0.68"/>
+  <path d="M8,50.5 C16,46.9 24,54.1 32,50.5 C40,46.9 48,54.1 56,50.5" fill="none" stroke="#35B6A9" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

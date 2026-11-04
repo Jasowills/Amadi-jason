@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="80" fill="#0A0A0A"/>
-  <text x="256" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="280" letter-spacing="-0.05em" fill="#B5FF48">JA</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ja, Jason Amadi">
+  <style>
+    .tile { fill: #F7F7F5; }
+    .letters { fill: #1A1A1A; }
+    @media (prefers-color-scheme: dark) {
+      .tile { fill: #17171A; }
+      .letters { fill: #EDEDED; }
+    }
+  </style>
+  <rect class="tile" width="64" height="64" rx="14"/>
+  <text class="letters" x="32" y="44" font-family="Caveat, 'Brush Script MT', cursive" font-size="34" text-anchor="middle">ja</text>
 </svg>

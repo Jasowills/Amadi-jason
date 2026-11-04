@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Pulse logo: a steady pulse line running between a source and a client endpoint with a soft resync ring">
+  <rect width="64" height="64" rx="14" fill="#2B0F1A"/>
+  <!-- resync ring around the client endpoint -->
+  <circle cx="52.5" cy="33" r="6" fill="none" stroke="#E56B8C" stroke-width="1.5" stroke-opacity="0.45"/>
+  <!-- heartbeat line -->
+  <path d="M11.5,33 H21.5 L26.2,19.5 L32,46.5 L36.8,33 H52.5" fill="none" stroke="#E56B8C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- endpoints -->
+  <circle cx="11.5" cy="33" r="3.3" fill="#F2A9C0"/>
+  <circle cx="52.5" cy="33" r="3.3" fill="#F2A9C0"/>
+</svg>
