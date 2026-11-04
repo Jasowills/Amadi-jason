@@ -1,52 +1,36 @@
-# Amadi Jason
+# Jason Amadi
 
-> Professional portfolio of Amadi Jason, a Software Engineer based in Lagos, Nigeria.
-> Full-stack web development (React, TypeScript, NestJS, Go), real-time systems,
-> telematics infrastructure, and applied AI. Open to roles and collaboration.
+> Software engineer in Lagos, Nigeria. Builds the plumbing other systems depend on:
+> ingestion pipelines, platforms, and the infrastructure underneath. Open to full-time
+> roles in distributed systems, data infrastructure, platform, and DevOps.
 
 ## About
 
-- [About](https://amadi-jason.vercel.app/#about): background, profile, and what I do.
-- [Expertise](https://amadi-jason.vercel.app/#expertise): frontend, backend, real-time systems, DevOps.
-- [Experience](https://amadi-jason.vercel.app/#experience): work history and roles.
-- [Education](https://amadi-jason.vercel.app/#education): CS50 (Harvard) and certifications.
-- [Contact](https://amadi-jason.vercel.app/#contact): email, LinkedIn, and GitHub links.
+- [Home](https://amadi-jason.vercel.app/): intro, coverage board of what I work across,
+  five projects with chess annotations, ADRs, work history, chess, and contact.
+- [ADR-001: Why Postgres, not Mongo, for the core](https://amadi-jason.vercel.app/notes/adr-001)
+- [ADR-002: Monolith first, microservices when earned](https://amadi-jason.vercel.app/notes/adr-002)
+- [ADR-004: Kubernetes on AKS, because SSH and hope doesn't scale](https://amadi-jason.vercel.app/notes/adr-004)
 
 ## Projects
 
-Selected work, newest first. Source code is on GitHub unless noted.
+Selected work, newest first. Source code is on GitHub.
 
-- [TIDE](https://github.com/Jasowills/TIDE): open-source telematics infrastructure in Go.
-  Turns raw vehicle signals into state, events, and actions through a single pipeline
-  (validate, dedup, durable log, state engine, versioned rules, NATS JetStream, webhooks)
-  with deterministic replay and FleetSim simulation.
-- [Pulse](https://github.com/Jasowills/pulse): real-time data synchronization library for .NET
-  over SignalR with typed change feeds from MongoDB, PostgreSQL, and SQL Server.
-- [Sonar](https://github.com/Jasowills/watchDog): full-stack observability platform with
-  monitoring, incidents, deployments, error ingestion, and a public status page.
-  Live demo: [sonar-dev.vercel.app](https://sonar-dev.vercel.app).
-- [DocFlow](https://github.com/Jasowills/docflow): AI workflow documentation platform that
-  records browser flows and generates guides, test cases, and release notes.
-  Live demo: [docflow-ops.vercel.app](https://docflow-ops.vercel.app).
-- [Folio](https://github.com/Jasowills/folio): AI-powered resume builder with ATS-optimized
-  templates and interview preparation.
-- [Jename](https://jenamee.com): e-commerce platform for an art and jewelry brand
-  (Next.js, Payload CMS). Live site: [jenamee.com](https://jenamee.com).
-- [Resortify](https://github.com/Jasowills/Resortify-hotel-reservation-system): hotel
-  reservation system with 3D room viewer and admin dashboard.
-- [klyq](https://github.com/Jasowills/klyq): real-time social platform with live feed,
-  follows-only timelines, and WebGL visuals. Live demo: [klyq.vercel.app](https://klyq.vercel.app).
-- [Wayfarer](https://github.com/Jasowills/Wayfarer): bus and rail booking platform.
-  Live demo: [wayfarer-seven-zeta.vercel.app](https://wayfarer-seven-zeta.vercel.app).
-- All repositories: [github.com/Jasowills](https://github.com/Jasowills).
+- [PRISM](https://github.com/jasowills/prism): Payment reconciliation that turns four disagreeing signals into explainable findings.
+- [TIDE](https://github.com/jasowills/TIDE): Telematics infrastructure, from raw vehicle signals to state, events and actions. Go, NATS JetStream, PostgreSQL with PostGIS.
+- [TRACE](https://github.com/jasowills/TRACE): An MCP server that follows synthetic events through an ingestion pipeline and proves where they went wrong. TypeScript, MCP SDK, Redis Streams, PostgreSQL.
+- [Pulse](https://github.com/jasowills/pulse): Typed, live change feeds from your database to your clients, on .NET. C#, SignalR.
+- [Sonar](https://github.com/jasowills/watchDog): Observability with AI root cause analysis and a public status page. Live at https://sonar-dev.vercel.app.
 
-## Engineering Lab
+## Work
 
-- [Engineering Lab](https://amadi-jason.vercel.app/lab): system design notes, DevOps playbooks,
-  SRE knowledge base, ADRs, and architecture decision records.
+- Software and DevOps Engineer, Marklite, Lagos, from January 2025. Fleet management on React, TypeScript, Azure Functions and Node.
+- Software Engineer, Freelance, Lagos, January 2023 to December 2024.
+- Frontend Developer, HNG Tech, Lagos, September 2022 to October 2022.
 
 ## Contact
 
-- [LinkedIn](https://ng.linkedin.com/in/jason-amadi-86b306303)
-- [GitHub](https://github.com/Jasowills)
-- [Contact section](https://amadi-jason.vercel.app/#contact)
+- Email: jasowills01@gmail.com
+- GitHub: https://github.com/jasowills
+- LinkedIn: https://www.linkedin.com/in/jason-amadi/
+- Chess: https://www.chess.com/member/jasowills

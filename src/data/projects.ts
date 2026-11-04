@@ -1,134 +1,155 @@
-export const projects = [
+import type { BoardColumnId } from "./domains";
+
+export type ProjectId = "prism" | "tide" | "trace" | "pulse" | "sonar";
+export type Annotation = "!" | "!?" | "!!";
+
+export interface Project {
+  id: ProjectId;
+  name: string;
+  oneLiner: string;
+  description: string;
+  stack: string[];
+  mark: Annotation;
+  logo: string;
+  accent: string;
+  repoUrl: string | null;
+  liveUrl: string | null;
+}
+
+export const projects: readonly Project[] = [
   {
-    title: "PRISM",
-    image: "/projects/prism.webp",
-    imageFallback: "/projects/prism.png",
-    category: "backend",
+    id: "prism",
+    name: "PRISM",
+    oneLiner:
+      "Payment reconciliation that turns four disagreeing signals into explainable findings.",
     description:
-      "Independent payment reconciliation for Flutterwave and Paystack. Durable webhook evidence, independent API verification, and deterministic rules that turn four disagreeing signals — webhook, provider API, merchant ledger, intent — into typed, explainable findings. Live test-mode verified end to end.",
-    tech: ["TypeScript", "NestJS", "PostgreSQL", "Redis", "BullMQ", "Docker", "Flutterwave", "Paystack"],
-    github: "https://github.com/Jasowills/prism",
-    live: null,
-    featured: true,
+      "Independent payment reconciliation for Flutterwave and Paystack. Durable webhook evidence, independent API verification, and deterministic rules that turn four disagreeing signals (webhook, provider API, merchant ledger, intent) into typed, explainable findings. Verified end to end in live test mode.",
+    stack: [
+      "TypeScript",
+      "NestJS",
+      "PostgreSQL",
+      "Redis",
+      "BullMQ",
+      "Docker",
+      "Flutterwave",
+      "Paystack",
+    ],
+    mark: "!",
+    logo: "/logos/prism.svg",
+    accent: "#7C5CFC",
+    repoUrl: "https://github.com/jasowills/prism",
+    liveUrl: null,
   },
   {
-    title: "TIDE",
-    image: "/projects/tide.webp",
-    imageFallback: "/projects/tide.png",
-    category: "backend",
+    id: "tide",
+    name: "TIDE",
+    oneLiner:
+      "Telematics infrastructure, from raw vehicle signals to state, events and actions.",
     description:
-      "Open-source telematics infrastructure that turns raw vehicle signals into state, events, and actions. Normalizes heterogeneous feeds (MQTT, HTTP, Traccar, flespi, OEM APIs) through a single pipeline — validate → dedup → durable log → state engine → versioned rules → NATS JetStream → webhooks — with deterministic replay, FleetSim, and chaos-tested reliability.",
-    tech: ["Go", "NATS JetStream", "PostgreSQL + PostGIS", "Redis", "MQTT", "Docker", "OpenTelemetry"],
-    github: "https://github.com/Jasowills/TIDE",
-    live: null,
-    featured: true,
+      "Open-source telematics infrastructure that turns raw vehicle signals into state, events, and actions. Normalizes heterogeneous feeds (MQTT, HTTP, Traccar, flespi, OEM APIs) through one pipeline: validate, dedup, durable log, state engine, versioned rules, NATS JetStream, webhooks. Deterministic replay, a fleet simulator, and chaos-tested reliability.",
+    stack: [
+      "Go",
+      "NATS JetStream",
+      "PostgreSQL with PostGIS",
+      "Redis",
+      "MQTT",
+      "Docker",
+      "OpenTelemetry",
+    ],
+    mark: "!?",
+    logo: "/logos/tide.svg",
+    accent: "#1F8A7E",
+    repoUrl: "https://github.com/jasowills/TIDE",
+    liveUrl: null,
   },
   {
-    title: "Pulse",
-    image: "/projects/pulse.webp",
-    imageFallback: "/projects/pulse.png",
-    category: "backend",
+    id: "trace",
+    name: "TRACE",
+    oneLiner:
+      "Follow one synthetic event through an ingestion pipeline and prove where it went wrong.",
     description:
-      "A real-time data synchronization library for .NET. Subscribes to typed, filtered change feeds from MongoDB, PostgreSQL, and SQL Server and streams live updates to clients over SignalR — with initial snapshots, automatic reconnect and resync, and persistent resume tokens.",
-    tech: ["C#", ".NET", "SignalR", "MongoDB", "PostgreSQL", "SQL Server"],
-    github: "https://github.com/Jasowills/pulse",
-    live: null,
-    featured: true,
+      "An MCP server that traces synthetic events through a toy ingestion pipeline to check telemetry correctness, so you can see exactly where an event was dropped, duplicated, or reordered.",
+    stack: [
+      "TypeScript",
+      "Node.js",
+      "MCP SDK",
+      "Redis Streams",
+      "PostgreSQL",
+      "Docker",
+    ],
+    mark: "!",
+    logo: "/logos/trace.svg",
+    accent: "#C77417",
+    repoUrl: "https://github.com/jasowills/TRACE",
+    liveUrl: null,
   },
   {
-    title: "Sonar",
-    image: "/projects/sonar.webp",
-    imageFallback: "/projects/sonar.png",
-    category: "fullstack",
+    id: "pulse",
+    name: "Pulse",
+    oneLiner:
+      "Typed, live change feeds from your database to your clients, on .NET.",
+    description:
+      "A real-time data synchronization library for .NET. Subscribes to typed, filtered change feeds from MongoDB, PostgreSQL, and SQL Server and streams live updates to clients over SignalR, with initial snapshots, automatic reconnect and resync, and persistent resume tokens.",
+    stack: [
+      "C#",
+      ".NET",
+      "SignalR",
+      "MongoDB",
+      "PostgreSQL",
+      "SQL Server",
+    ],
+    mark: "!!",
+    logo: "/logos/pulse.svg",
+    accent: "#D95F85",
+    repoUrl: "https://github.com/jasowills/pulse",
+    liveUrl: null,
+  },
+  {
+    id: "sonar",
+    name: "Sonar",
+    oneLiner:
+      "Observability with AI root cause analysis and a public status page.",
     description:
       "A full-stack observability platform with real-time service monitoring, uptime tracking, incident management, deployment tracking, error ingestion with AI root cause analysis, a browser SDK, and a public status page.",
-    tech: ["React", "TypeScript", "NestJS", "GraphQL", "PostgreSQL", "Tailwind CSS"],
-    github: "https://github.com/Jasowills/watchDog",
-    live: "https://sonar-dev.vercel.app",
-    featured: true,
+    stack: [
+      "React",
+      "TypeScript",
+      "NestJS",
+      "GraphQL",
+      "PostgreSQL",
+      "Tailwind CSS",
+    ],
+    mark: "!",
+    logo: "/logos/sonar.svg",
+    accent: "#6B6B70",
+    repoUrl: "https://github.com/jasowills/watchDog",
+    liveUrl: "https://sonar-dev.vercel.app",
   },
+] as const;
+
+export interface BoardColumn {
+  id: BoardColumnId;
+  name: string;
+  logo: string;
+  logoDark?: string;
+  accent: string;
+}
+
+// The coverage board columns. Derived from the same source as the project
+// list so the two sections cannot drift apart, plus the Marklite monogram
+// for the day job.
+export const boardColumns: readonly BoardColumn[] = [
+  ...projects.map((p) => ({
+    id: p.id as BoardColumnId,
+    name: p.name,
+    logo: p.logo,
+    accent: p.accent,
+  })),
   {
-    title: "DocFlow",
-    image: "/projects/docflow.webp",
-    imageFallback: "/projects/docflow.png",
-    category: "fullstack",
-    description:
-      "An AI workflow documentation platform for recording browser flows, generating operational documents, organizing outputs, and supporting shared workspace collaboration.",
-    tech: ["React", "TypeScript", "NestJS", "Supabase", "Chrome Extension"],
-    github: "https://github.com/Jasowills/docflow",
-    live: "https://docflow-ops.vercel.app",
-    featured: true,
+    id: "marklite",
+    name: "Marklite",
+    logo: "/logos/marklite-monogram.svg",
+    logoDark: "/logos/marklite-monogram-dark.svg",
+    accent: "#7A756A",
   },
-  {
-    title: "Folio",
-    image: "/projects/folio.webp",
-    imageFallback: "/projects/folio.png",
-    category: "fullstack",
-    description:
-      "AI-powered resume builder with 40+ ATS-optimized templates, real-time AI chat assistant for resume refinement, PDF export, guest analysis reports, and interview preparation with video practice sessions.",
-    tech: ["React", "TypeScript", "NestJS", "MongoDB", "Groq", "OpenRouter"],
-    github: "https://github.com/Jasowills/folio",
-    live: "https://folio-gray-pi.vercel.app",
-    featured: true,
-  },
-  {
-    title: "Jename",
-    image: "/projects/jename.webp",
-    imageFallback: "/projects/jename.png",
-    category: "fullstack",
-    description:
-      "A modern e-commerce platform for an art and jewelry brand, built with Payload CMS, Next.js, and a custom storefront featuring product management, artist profiles, and contact flows.",
-    tech: ["Next.js", "TypeScript", "Payload CMS", "React"],
-    github: null,
-    live: "https://jenamee.com",
-    featured: true,
-  },
-  {
-    title: "Resortify",
-    image: "/projects/resortify.webp",
-    imageFallback: "/projects/resortify.png",
-    category: "frontend",
-    description:
-      "A hotel reservation system with a polished editorial landing page, live tide widget, and interactive 3D room viewer with real interior scans — bookings, availability, and a full admin dashboard.",
-    tech: ["React", "TypeScript", "Vite", "Three.js", "NestJS", "MongoDB"],
-    github: "https://github.com/Jasowills/Resortify-hotel-reservation-system",
-    live: "https://resortify-hotel.vercel.app",
-    featured: false,
-  },
-  {
-    title: "klyq",
-    image: "/projects/klyq.webp",
-    imageFallback: "/projects/klyq.png",
-    category: "fullstack",
-    description:
-      "A real-time social platform built for meaningful conversations. Live feed with likes and comments arriving the instant they happen, follows-only timelines with no algorithm, and a monochrome x-style interface with a WebGL signal wall.",
-    tech: ["React", "TypeScript", "NestJS", "MongoDB", "Socket.io", "Three.js"],
-    github: "https://github.com/Jasowills/klyq",
-    live: "https://klyq.vercel.app",
-    featured: false,
-  },
-  {
-    title: "MedPay Tracka",
-    image: "/projects/medpay-tracka.webp",
-    imageFallback: "/projects/medpay-tracka.png",
-    category: "backend",
-    description:
-      "Financial tracking backend API for managing income, expenses, analytics, and reporting in personal finance applications.",
-    tech: ["Node.js", "Express", "MongoDB", "JWT"],
-    github: "https://github.com/Jasowills/medpay-tracka-backend",
-    live: null,
-    featured: false,
-  },
-  {
-    title: "Wayfarer",
-    image: "/projects/wayfarer.webp",
-    imageFallback: "/projects/wayfarer.png",
-    category: "fullstack",
-    description:
-      "A global bus and rail booking platform with a heritage rail-poster aesthetic — search and compare trips, book seats, manage bookings, and administer operators. Demo login: demo@wayfarer.com / password123.",
-    tech: ["React", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "Express"],
-    github: "https://github.com/Jasowills/Wayfarer",
-    live: "https://wayfarer-seven-zeta.vercel.app",
-    featured: false,
-  },
-];
+] as const;

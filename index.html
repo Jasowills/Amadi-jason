@@ -50,9 +50,34 @@
     <link rel="preload" href="/fonts/caveat-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Resolve the theme before first paint. No flash, no framework. -->
+    <!-- Resolve the theme before first paint, and send legacy-domain
+         visits to the canonical host. No flash, no framework. -->
     <script>
       (function () {
+        var LEGACY_HOSTS = ["amadijason.com", "www.amadijason.com"];
+        var CANONICAL = "https://amadi-jason.vercel.app";
+        var VISITED_KEY = "legacy_redirect_visited";
+
+        try {
+          var host = (window.location.hostname || "").toLowerCase();
+          var path = window.location.pathname || "/";
+          var query = window.location.search || "";
+          var visited = false;
+          try {
+            visited = window.localStorage.getItem(VISITED_KEY) === "1";
+          } catch (e) {
+            visited = false;
+          }
+          if (LEGACY_HOSTS.indexOf(host) !== -1 || !visited) {
+            try {
+              window.localStorage.setItem(VISITED_KEY, "1");
+            } catch (e) { /* storage unavailable; target is set regardless */ }
+            window.location.replace(CANONICAL + path + query);
+          }
+        } catch (e) {
+          /* legacy hosts must never break the page */
+        }
+
         var resolved = "light";
         try {
           var stored = window.localStorage.getItem("theme");

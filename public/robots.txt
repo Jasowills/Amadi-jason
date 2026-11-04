@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://amadijason.com/sitemap.xml
+Sitemap: https://amadi-jason.vercel.app/sitemap.xml

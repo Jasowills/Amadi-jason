@@ -25,3 +25,11 @@ dist-ssr
 *.sw?
 .vercel
 .env*
+
+# Rebuild review artifacts
+logo-review/
+review/
+logo-sheet.png
+logo-sheet-2.png
+preview/
+.playwright-mcp/
