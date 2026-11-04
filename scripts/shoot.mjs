@@ -12,21 +12,30 @@ mkdirSync(REVIEW_DIR, { recursive: true });
 const WIDTHS = [375, 768, 1100, 1440];
 const THEMES = ["light", "dark"];
 
+const prime = async (context, theme) => {
+  const page = await context.newPage();
+  await page.goto(`${BASE}/`, { waitUntil: "load" });
+  await page.evaluate((t) => {
+    localStorage.setItem("legacy_redirect_visited", "1");
+    localStorage.setItem("theme", t);
+  }, theme);
+  await page.close();
+};
+
 const browser = await chromium.launch();
 try {
   for (const theme of THEMES) {
+    const context = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+      colorScheme: theme === "dark" ? "dark" : "light",
+    });
+    await prime(context, theme);
     for (const width of WIDTHS) {
-      const page = await browser.newPage({
-        viewport: { width, height: 900 },
-        colorScheme: theme === "dark" ? "dark" : "light",
-      });
+      const page = await context.newPage();
+      await page.setViewportSize({ width, height: 900 });
       const errors = [];
       page.on("pageerror", (e) => errors.push(String(e)));
       await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
-      await page.evaluate((t) => {
-        localStorage.setItem("theme", t);
-      }, theme);
-      await page.reload({ waitUntil: "networkidle" });
       await page.waitForTimeout(700);
       const metrics = await page.evaluate(() => {
         const docEl = document.documentElement;
@@ -51,7 +60,6 @@ try {
       await page.screenshot({
         path: `${REVIEW_DIR}/${width}-${theme}-viewport.png`,
       });
-      // Toggle drives theme, meta and persistence.
       if (width === 1440) {
         const clickToggle = page
           .locator('[aria-label^="Switch"]')
@@ -86,6 +94,7 @@ try {
         console.log(
           `${width}-${theme}: ${JSON.stringify(metrics)} afterToggle=${JSON.stringify(afterToggle)} open=${opened} errors=${errors.length ? errors.join(" | ") : "none"}`,
         );
+        await page.close();
         continue;
       }
       console.log(
@@ -93,11 +102,14 @@ try {
       );
       await page.close();
     }
+    await context.close();
   }
 
-  const page = await browser.newPage({
+  const context = await browser.newContext({
     viewport: { width: 1440, height: 900 },
   });
+  await prime(context, "light");
+  const page = await context.newPage();
   await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
   await page.waitForTimeout(500);
   await page.getByRole("button", { name: "As Black" }).click();
@@ -125,6 +137,7 @@ try {
     fullPage: true,
   });
   await page.close();
+  await context.close();
 
   console.log("captures done");
 } finally {

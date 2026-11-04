@@ -13,6 +13,8 @@ try {
   });
   const errors = [];
   page.on("pageerror", (e) => errors.push(String(e)));
+  await page.goto(`${BASE}/`, { waitUntil: "load" });
+  await page.evaluate(() => localStorage.setItem("legacy_redirect_visited", "1"));
   await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
   await page.waitForTimeout(500);
 
