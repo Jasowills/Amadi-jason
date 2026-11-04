@@ -27,7 +27,7 @@ block per domain.
 
 ## Reproducing the review evidence
 
-Two scripts generate everything the rebuild was checked against:
+These scripts generate everything the rebuild was checked against:
 
 - `scripts/render-logos.mjs` (`npm run logos`) renders each logo with
   sharp at 16, 40, 128 and 512px on white, paper and near-black,

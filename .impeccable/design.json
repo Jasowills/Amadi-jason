@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T15:00:00Z",
+  "title": "Design System: Jason Amadi Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#FFFFFF", "tonalRamp": ["#0F0F10", "#1A1A1A", "#5C5C5C", "#A3A3A8", "#EDEDED", "#FFFFFF", "#FFFFFF", "#FFFFFF"] },
+      "paper-dark": { "role": "neutral", "displayName": "Paper (dark)", "canonical": "#0F0F10", "tonalRamp": ["#0F0F10", "#1A1A1A", "#5C5C5C", "#A3A3A8", "#EDEDED", "#FFFFFF", "#FFFFFF", "#FFFFFF"] },
+      "surface": { "role": "neutral", "displayName": "Surface", "canonical": "#F7F7F5", "tonalRamp": ["#17171A", "#1A1A1A", "#5C5C5C", "#A3A3A8", "#EDEDED", "#F7F7F5", "#FFFFFF", "#FFFFFF"] },
+      "surface-dark": { "role": "neutral", "displayName": "Surface (dark)", "canonical": "#17171A", "tonalRamp": ["#17171A", "#1A1A1A", "#5C5C5C", "#A3A3A8", "#EDEDED", "#F7F7F5", "#FFFFFF", "#FFFFFF"] },
+      "surface-2": { "role": "neutral", "displayName": "Surface 2", "canonical": "#EFEFEC", "tonalRamp": ["#1F1F23", "#26262A", "#34343A", "#A3A3A8", "#EDEDED", "#EFEFEC", "#F7F7F5", "#FFFFFF"] },
+      "surface-2-dark": { "role": "neutral", "displayName": "Surface 2 (dark)", "canonical": "#1F1F23", "tonalRamp": ["#1F1F23", "#26262A", "#34343A", "#A3A3A8", "#EDEDED", "#EFEFEC", "#F7F7F5", "#FFFFFF"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#1A1A1A", "tonalRamp": ["#0F0F10", "#1A1A1A", "#5C5C5C", "#676767", "#A3A3A8", "#EDEDED", "#FFFFFF", "#FFFFFF"] },
+      "ink-dark": { "role": "neutral", "displayName": "Ink (dark)", "canonical": "#EDEDED", "tonalRamp": ["#0F0F10", "#1A1A1A", "#5C5C5C", "#676767", "#8D8D94", "#EDEDED", "#FFFFFF", "#FFFFFF"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink 2", "canonical": "#5C5C5C", "tonalRamp": ["#0F0F10", "#1A1A1A", "#26262A", "#5C5C5C", "#A3A3A8", "#EDEDED", "#FFFFFF", "#FFFFFF"] },
+      "ink-2-dark": { "role": "neutral", "displayName": "Ink 2 (dark)", "canonical": "#A3A3A8", "tonalRamp": ["#0F0F10", "#1A1A1A", "#26262A", "#5C5C5C", "#A3A3A8", "#EDEDED", "#FFFFFF", "#FFFFFF"] },
+      "ink-3": { "role": "neutral", "displayName": "Ink 3", "canonical": "#676767", "tonalRamp": ["#0F0F10", "#1A1A1A", "#34343A", "#5C5C5C", "#676767", "#8D8D94", "#EDEDED", "#FFFFFF"] },
+      "ink-3-dark": { "role": "neutral", "displayName": "Ink 3 (dark)", "canonical": "#8D8D94", "tonalRamp": ["#0F0F10", "#1A1A1A", "#34343A", "#5C5C5C", "#676767", "#8D8D94", "#EDEDED", "#FFFFFF"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#E8E8E8", "tonalRamp": ["#0F0F10", "#17171A", "#26262A", "#5C5C5C", "#A3A3A8", "#D6D6D6", "#E8E8E8", "#FFFFFF"] },
+      "hairline-dark": { "role": "neutral", "displayName": "Hairline (dark)", "canonical": "#26262A", "tonalRamp": ["#0F0F10", "#17171A", "#26262A", "#34343A", "#5C5C5C", "#A3A3A8", "#D6D6D6", "#E8E8E8"] },
+      "hairline-2": { "role": "neutral", "displayName": "Hairline 2", "canonical": "#D6D6D6", "tonalRamp": ["#0F0F10", "#17171A", "#34343A", "#5C5C5C", "#A3A3A8", "#D6D6D6", "#E8E8E8", "#FFFFFF"] },
+      "hairline-2-dark": { "role": "neutral", "displayName": "Hairline 2 (dark)", "canonical": "#34343A", "tonalRamp": ["#0F0F10", "#17171A", "#34343A", "#5C5C5C", "#A3A3A8", "#D6D6D6", "#E8E8E8", "#FFFFFF"] },
+      "pen": { "role": "primary", "displayName": "Pen Ink", "canonical": "#2B4A8B", "tonalRamp": ["#0A1B3D", "#2B4A8B", "#93AAE8", "#C4D2F2", "#DCE5F5", "#EAF0FB", "#FFFFFF", "#FFFFFF"] },
+      "pen-dark": { "role": "primary", "displayName": "Pen Ink (dark)", "canonical": "#93AAE8", "tonalRamp": ["#0A1B3D", "#2B4A8B", "#93AAE8", "#B7C8EC", "#DCE5F5", "#EAF0FB", "#FFFFFF", "#FFFFFF"] }
+    },
+    "typographyMeta": {
+      "body": { "displayName": "Body", "purpose": "Prose and all running text. Max measure 58 to 62ch." },
+      "handwriting": { "displayName": "Handwriting", "purpose": "Margin notes and annotation marks only. Never information." },
+      "label": { "displayName": "Label", "purpose": "Section labels, board coordinates, ADR ids. Never decorative." },
+      "title": { "displayName": "Title", "purpose": "Project and role names. The heaviest text on the page." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "state", "value": "150ms ease", "purpose": "Color state changes on controls and links." },
+      { "name": "link-wipe", "value": "150ms ease-out", "purpose": "Link underline swipe-in." },
+      { "name": "draw-in", "value": "600ms ease-out", "purpose": "Hand-drawn bracket or arrow stroke animation, once, reduced-motion safe." },
+      { "name": "logo-raise", "value": "120ms ease", "purpose": "Coverage board logo emphasis on hover, focus, or pin." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "480px" },
+      { "name": "board-mobile", "value": "641px" },
+      { "name": "gutter", "value": "1260px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Icon button (theme toggle)",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "Outline icon button, 40 by 40px, 8px radius. Used for the theme toggle with a Switch to dark or light theme label.",
+      "html": "<button class=\"ds-icon-button\" type=\"button\" aria-label=\"Switch to dark theme\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M14.3 10.8 A6.1 6.1 0 0 1 7.2 3.7 A6.1 6.1 0 1 0 14.3 10.8 Z\"/></svg></button>",
+      "css": ".ds-icon-button { width: 40px; height: 40px; border: 1px solid var(--hairline); background: var(--bg); border-radius: 8px; display: grid; place-items: center; cursor: pointer; color: var(--ink-2); transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease; } .ds-icon-button:hover { color: var(--ink); border-color: var(--hairline-2); background: var(--surface); } .ds-icon-button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }"
+    },
+    {
+      "name": "Board toggle",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "Segmented control for the As White and As Black chess diagrams. Buttons carry aria-pressed and are 40px tall.",
+      "html": "<div class=\"ds-board-toggle\" role=\"group\" aria-label=\"Choose diagram perspective\"><button type=\"button\" aria-pressed=\"true\">As White</button><button type=\"button\" aria-pressed=\"false\">As Black</button></div>",
+      "css": ".ds-board-toggle { display: flex; gap: 4px; border: 1px solid var(--hairline); border-radius: 8px; padding: 3px; background: var(--surface); } .ds-board-toggle button { appearance: none; border: none; background: transparent; font-size: 12px; font-weight: 500; color: var(--ink-2); padding: 6px 14px; border-radius: 6px; cursor: pointer; min-height: 40px; transition: background-color 150ms ease, color 150ms ease; } .ds-board-toggle button[aria-pressed=\"true\"] { background: var(--bg); color: var(--ink); outline: 1px solid var(--hairline-2); } .ds-board-toggle button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }"
+    },
+    {
+      "name": "Project row",
+      "kind": "custom",
+      "refersTo": "project-row",
+      "description": "Text row with a 40px logo tile, name, one-liner, domain line, and a handwritten annotation mark. Expands in place with a native details element.",
+      "html": "<details class=\"ds-project\"><summary class=\"ds-project-summary\"><img class=\"ds-project-logo\" src=\"/logos/prism.svg\" alt=\"PRISM logo\" width=\"40\" height=\"40\"/><span><span class=\"ds-project-name\">PRISM</span><span class=\"ds-project-oneliner\">Payment reconciliation that turns four disagreeing signals into explainable findings.</span><span class=\"ds-project-domains\">Distributed systems, Data ingestion</span></span><span class=\"ds-annotation-mark\" aria-hidden=\"true\">!</span></summary><div class=\"ds-project-detail\"><img class=\"ds-project-logo-lg\" src=\"/logos/prism.svg\" alt=\"\" width=\"72\" height=\"72\"/><div><p>Independent payment reconciliation for Flutterwave and Paystack.</p></div></div></details>",
+      "css": ".ds-project { border-top: 1px solid var(--hairline); } .ds-project-summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 40px minmax(0,1fr) auto; gap: 14px; align-items: center; padding: 16px 8px; border-radius: 8px; } .ds-project-logo { width: 40px; height: 40px; border-radius: 8px; } .ds-project-name { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; display: block; } .ds-project-oneliner { display: block; margin-top: 2px; font-size: 13px; color: var(--ink-2); line-height: 1.55; } .ds-project-domains { display: block; margin-top: 4px; font-size: 11px; color: var(--ink-3); } .ds-annotation-mark { font-family: var(--font-hand); font-size: 26px; line-height: 1; color: var(--pen); } .ds-project-detail { display: grid; grid-template-columns: 72px minmax(0,1fr); gap: 18px; padding: 4px 8px 32px; } .ds-project-summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }"
+    },
+    {
+      "name": "Margin note",
+      "kind": "custom",
+      "refersTo": "section-label",
+      "description": "Handwritten note in Pen Ink with a hand-drawn bracket that draws itself in once when scrolled into view. Hangs in a right gutter at 1260px and wider, drops under its target below.",
+      "html": "<span class=\"ds-margin-note\" style=\"transform: rotate(-2deg)\"><svg class=\"ds-note-bracket\" width=\"18\" height=\"58\" viewBox=\"0 0 18 58\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M13.5 3 C9.5 3 8.5 6.5 8.5 12.5 L8.5 22 C8.5 25.5 7.6 28 3.5 28.5 C7.6 29 8.5 31.5 8.5 35.5 L8.5 45.5 C8.5 51.5 9.5 55 13.5 55\"/></svg><span class=\"ds-note-text\">position before material</span></span>",
+      "css": ".ds-margin-note { font-family: var(--font-hand); font-size: 19px; line-height: 1.3; color: var(--pen); display: inline-flex; align-items: center; gap: 8px; max-width: 240px; } .ds-margin-note .ds-note-bracket path { stroke-dasharray: 220; stroke-dashoffset: 220; } .ds-margin-note.drawn .ds-note-bracket path { animation: ds-draw-in 600ms ease-out forwards; } @keyframes ds-draw-in { to { stroke-dashoffset: 0; } } @media (prefers-reduced-motion: reduce) { .ds-margin-note .ds-note-bracket path { stroke-dashoffset: 0; } }"
+    },
+    {
+      "name": "Chessboard",
+      "kind": "custom",
+      "refersTo": "project-row",
+      "description": "160px SVG board rendered from a FEN string by a hand-written parser. Alternating Surface squares, Ink border, glyph pieces, Mono rank and file labels.",
+      "html": "<svg class=\"ds-chess-board\" width=\"160\" height=\"160\" viewBox=\"0 0 160 160\" role=\"img\" aria-label=\"Chess diagram\"><rect width=\"160\" height=\"160\" fill=\"var(--surface)\"/><rect x=\"20\" y=\"0\" width=\"20\" height=\"20\" fill=\"var(--surface-2)\"/></svg>",
+      "css": ".ds-chess-board { border: 1px solid var(--ink); border-radius: 2px; } .ds-board-ranks, .ds-board-files { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); } .ds-piece { font-family: var(--font-chess); font-size: 15px; fill: var(--ink); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Engineer's Notebook",
+    "overview": "This is a page from the notebook of an engineer who also plays chess: a single column of ink on white paper, and the same page under a lamp in dark mode. The only expressive devices are three small ones, used sparingly: handwritten margin notes in blue pen ink with a hand-drawn bracket or arrow, chess annotation marks beside projects, and link underlines that draw in like a pen stroke on hover. Everything else is plain: hairline dividers, small muted section labels, text rows instead of cards.",
+    "keyCharacteristics": [
+      "One centered column, 720px maximum, on white paper or lamp-lit near-black",
+      "Flat surfaces only; hairlines carry structure",
+      "Handwriting only for margin notes and annotation marks, never for information",
+      "Sentence case everywhere, including section labels",
+      "Nothing here is decorative chrome; every row is a reader's choice"
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Pen ink is the only saturated color on the page. Achieving emphasis any other way (cards, shadows, gradients, badges) is a defect, not a style choice.", "section": "colors" },
+      { "name": "The Flat Surface Rule", "body": "No gradients, drop shadows, glassmorphism, or blur anywhere. Depth is conveyed by hairlines and surface tones, never by light.", "section": "colors" },
+      { "name": "The Handwriting Only Rule", "body": "Caveat never carries body text, essential information, or more than one or two notes per screenful. It is annotation, not information.", "section": "colors" },
+      { "name": "The Sentence Case Rule", "body": "Nothing is set in title case or all caps. Section labels are small, muted, and sentence case.", "section": "typography" },
+      { "name": "The No Light Rule", "body": "Any box-shadow, gradient, or backdrop-filter reaching this surface is a category reflex, not a design decision. Reject it.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do reference tokens (--bg, --surface, --ink, --pen), never raw hex, in components.",
+      "Do keep the measure narrow and the whitespace generous.",
+      "Do keep handwriting to margin notes and annotation marks only.",
+      "Do verify contrast for every text token on every background in both themes.",
+      "Do keep interactive targets at 40px or larger on mobile.",
+      "Do honor prefers-reduced-motion and prefers-color-scheme.",
+      "Do check for horizontal overflow at 375, 768, 1100, and 1440px."
+    ],
+    "donts": [
+      "Don't add cards, stat counters, skill tag lists, tabs, or filter bars.",
+      "Don't use gradients, shadows, glassmorphism, or blur.",
+      "Don't set eyebrow kickers or numbered section headers; the label carries its own weight.",
+      "Don't use em-dashes, en-dashes, or emojis anywhere in copy, comments, commits, or metadata.",
+      "Don't invent facts or metrics; unknown values are TODOs in the data file and the page renders gracefully without them.",
+      "Don't copy the layout of another portfolio; the structural devices (the board, the annotations, the ADR notes) are deliberately unlike the reference that inspired the mood.",
+      "Don't remove the legacy-domain redirect from index.html without a plan for the old address."
+    ]
+  }
+}

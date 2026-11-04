@@ -30,7 +30,7 @@
   --surface-2: #efefec;
   --ink: #1a1a1a;
   --ink-2: #5c5c5c;
-  --ink-3: #8e8e8e;
+  --ink-3: #676767;
   --hairline: #e8e8e8;
   --hairline-2: #d6d6d6;
   --pen: #2b4a8b;
@@ -50,7 +50,7 @@
   --surface-2: #1f1f23;
   --ink: #ededed;
   --ink-2: #a3a3a8;
-  --ink-3: #6e6e74;
+  --ink-3: #8d8d94;
   --hairline: #26262a;
   --hairline-2: #34343a;
   --pen: #93aae8;
@@ -321,7 +321,7 @@ main > .section:first-of-type {
   color: var(--pen);
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1260px) {
   .margin-note {
     position: absolute;
     left: 100%;
@@ -334,7 +334,7 @@ main > .section:first-of-type {
     display: none;
   }
 }
-@media (max-width: 1099px) {
+@media (max-width: 1259px) {
   .margin-note .note-bracket {
     display: none;
   }
@@ -1143,10 +1143,10 @@ main > .section:first-of-type {
   padding-top: 12px;
   padding-bottom: 12px;
 }
-.work-details summary {
-  min-height: 32px;
+.board-logo-btn {
+  min-height: 40px;
+  min-width: 40px;
 }
-
 .work-details summary {
   min-height: 40px;
 }
