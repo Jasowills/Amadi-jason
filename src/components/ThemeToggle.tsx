@@ -10,7 +10,7 @@ const currentTheme = (): Theme =>
 const applyTheme = (next: Theme) => {
   document.documentElement.setAttribute("data-theme", next);
   try {
-    window.localStorage.setItem("theme", next);
+    window.localStorage.setItem("theme-v2", next);
   } catch {
     // Private browsing or storage disabled; the choice just won't persist.
   }

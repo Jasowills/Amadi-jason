@@ -12,6 +12,13 @@ export const LEGACY_HOSTS = [
   "www.amadijason.com",
 ] as const;
 
+export const DEV_HOSTS = ["localhost", "127.0.0.1"] as const;
+
+export const isDevHost = (hostname: string): boolean => {
+  const normalized = hostname.trim().toLowerCase().replace(/:\d+$/, "");
+  return (DEV_HOSTS as readonly string[]).includes(normalized);
+};
+
 const CANONICAL_ORIGIN = "https://amadi-jason.vercel.app";
 const VISITED_KEY = "legacy_redirect_visited";
 
@@ -31,6 +38,9 @@ export const decideLegacyRedirect = (
   const safePath = pathname.startsWith("/") ? pathname : `/${pathname}`;
   const target = `${CANONICAL_ORIGIN}${safePath}${search}`;
 
+  if (isDevHost(hostname)) {
+    return { shouldRedirect: false, target: null, reason: "already-visited" };
+  }
   if ((LEGACY_HOSTS as readonly string[]).includes(normalizedHost)) {
     return { shouldRedirect: true, target, reason: "legacy-host" };
   }

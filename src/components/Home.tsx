@@ -1,28 +1,14 @@
-import { useEffect, useState } from "react";
 import { site } from "../data/site";
-import CoverageBoard from "./CoverageBoard";
+import AcrossSection from "./AcrossSection";
 import ProjectList from "./ProjectList";
 import NotesSection from "./NotesSection";
 import WorkSection from "./WorkSection";
 import ChessSection from "./ChessSection";
 import Elsewhere from "./Elsewhere";
 import MarginNote from "./MarginNote";
-import type { Pin } from "../lib/pin";
 
-// The single page. Section order is fixed by the brief; state for the
-// coverage board's pin lives here so it can dim the project list too.
+// The single page. Section order is fixed by the brief.
 export default function Home() {
-  const [pin, setPin] = useState<Pin>(null);
-
-  useEffect(() => {
-    if (!pin) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPin(null);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [pin]);
-
   return (
     <>
       <div className="intro">
@@ -59,14 +45,22 @@ export default function Home() {
             </a>
             .
           </p>
-          <MarginNote bracket rotate={-2}>
-            position before material
-          </MarginNote>
+          {/* Gutter rendering, wide viewports only: hangs right of the
+              paragraph it annotates, same treatment as the domain rows. */}
+          <span className="gutter-note gutter-note-right">
+            <MarginNote gutter side="right" rotate={-2}>
+              position before material
+            </MarginNote>
+          </span>
+          {/* Inline rendering, under the paragraph on narrow viewports */}
+          <span className="inline-note">
+            <MarginNote rotate={-2}>position before material</MarginNote>
+          </span>
         </div>
       </div>
 
-      <CoverageBoard pin={pin} onPin={setPin} />
-      <ProjectList pin={pin} />
+      <AcrossSection />
+      <ProjectList />
       <NotesSection />
       <WorkSection />
       <ChessSection />

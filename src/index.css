@@ -41,6 +41,26 @@
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --font-chess: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols 2", sans-serif;
 
+  /* Spacing scale: the single source of truth for margins, padding and
+     gaps on layout containers. Rhythm values pinned by the spec that sit
+     between scale steps also live here as tokens (--row-y list row
+     padding, --para paragraph gap, --label-pad the 10px under section
+     labels). --track and --head-gap borrow the scale by default. Their
+     mobile overrides sit in the ≤640px media block below. */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 40px;
+  --s-8: 48px;
+  --row-y: 14px;
+  --para: 16px;
+  --label-pad: 10px;
+  --track: var(--s-8); /* section to section: 48px */
+  --head-gap: var(--s-7); /* header hairline to first paragraph: 40px */
+
   color-scheme: light;
 }
 
@@ -57,6 +77,15 @@
   --focus: #93aae8;
 
   color-scheme: dark;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --row-y: 12px;
+    --para: 14px;
+    --track: var(--s-7); /* 40px between sections */
+    --head-gap: var(--s-6); /* 32px under the header hairline */
+  }
 }
 
 /* ─── Base ─── */
@@ -130,13 +159,16 @@ button {
   }
 }
 
+/* Sections own the gap above them and nothing else. No first-of-type
+   exception: the intro is a plain block and sections are uniform. */
 main > section,
 main > .section {
-  margin-top: 40px;
-}
-main > section:first-of-type,
-main > .section:first-of-type {
-  margin-top: 40px;
+  margin-top: var(--track);
+  /* Offscreen sections skip their layout and paint during load, which
+     trims main-thread work without any async pop-in. The named size
+     keeps the document height honest until a section renders. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 /* ─── Skip link ─── */
@@ -145,7 +177,7 @@ main > .section:first-of-type {
   top: 12px;
   left: 12px;
   z-index: 100;
-  padding: 8px 14px;
+  padding: var(--s-2) var(--s-3);
   background: var(--bg);
   border: 1px solid var(--hairline-2);
   border-radius: 8px;
@@ -161,21 +193,31 @@ main > .section:first-of-type {
 /* ─── Header ─── */
 .site-header {
   border-bottom: 1px solid transparent;
-  padding: 18px 0 0;
+}
+.top-space {
+  padding-top: clamp(72px, 13vh, 128px);
+}
+@media (max-width: 640px) {
+  .top-space {
+    padding-top: 48px;
+  }
 }
 .site-header .column {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 16px;
+  gap: var(--s-4);
+  padding-bottom: var(--s-4);
   border-bottom: 1px solid var(--hairline);
+  /* The header does not add a bottom margin; the first block on the
+     page owns its --head-gap. One owner per space. */
+  margin-bottom: 0;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--s-3);
   text-decoration: none;
   color: inherit;
   width: fit-content;
@@ -191,6 +233,7 @@ main > .section:first-of-type {
   font-family: var(--font-hand);
   font-size: 18px;
   line-height: 1;
+  /* Optical nudge so the handwritten ja sits centered in its box. */
   padding-top: 2px;
 }
 .brand-name {
@@ -206,6 +249,11 @@ main > .section:first-of-type {
   transform: rotate(-3deg);
   display: inline-block;
   margin-left: 2px;
+}
+.brand-text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-2);
 }
 
 .icon-button {
@@ -234,10 +282,12 @@ main > .section:first-of-type {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--s-4);
   border-bottom: 1px solid var(--hairline);
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  /* Pinned by the rhythm spec: 10px from label text to its hairline.
+     Nothing below it: the first row's own padding provides the offset. */
+  padding-bottom: var(--label-pad);
+  margin-bottom: 0;
 }
 .section-label {
   font-size: 12.5px;
@@ -247,7 +297,7 @@ main > .section:first-of-type {
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--s-4);
 }
 .section-note {
   font-family: var(--font-hand);
@@ -257,45 +307,48 @@ main > .section:first-of-type {
   transform: rotate(-1.5deg);
   white-space: nowrap;
 }
-
-.clear-pin {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--ink-3);
-  background: none;
-  border: none;
-  border-bottom: 1px solid var(--hairline-2);
-  padding: 2px 1px;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-}
-.clear-pin:hover {
-  color: var(--ink);
-  border-bottom-color: var(--ink);
+.section-aside {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
 }
 
-/* ─── Underlined links with left to right wipe ─── */
+/* ─── Underlined links with left to right wipe: two flat pseudo element
+   lines instead of gradient-painted stripes ─── */
 .u-link {
+  position: relative;
   color: inherit;
   text-decoration: none;
   padding-bottom: 2px;
-  background-image:
-    linear-gradient(var(--ink), var(--ink)),
-    linear-gradient(var(--hairline-2), var(--hairline-2));
-  background-repeat: no-repeat;
-  background-position: 0 100%, 0 100%;
-  background-size: 0% 1px, 100% 1px;
-  transition: background-size 150ms ease-out;
 }
-.u-link:hover,
-.u-link:focus-visible {
-  background-size: 100% 1px, 100% 1px;
+.u-link::before,
+.u-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--hairline-2);
+}
+.u-link::after {
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 150ms ease-out;
+}
+.u-link:hover::after,
+.u-link:focus-visible::after {
+  transform: scaleX(1);
 }
 
 /* ─── Intro ─── */
+.intro {
+  margin-top: var(--head-gap);
+}
 .intro p {
-  margin: 0 0 18px;
-  max-width: 62ch;
+  margin: 0 0 var(--para);
+  max-width: 58ch;
 }
 .intro p:last-child {
   margin-bottom: 0;
@@ -310,10 +363,11 @@ main > .section:first-of-type {
   font-size: 19px;
   line-height: 1.3;
   color: var(--pen);
-  margin: 10px 0 0 0;
+  /* Handwriting never adds vertical space: 4px attach, nothing after. */
+  margin: var(--s-1) 0 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--s-2);
   max-width: 240px;
 }
 .margin-note .note-arrow {
@@ -321,28 +375,40 @@ main > .section:first-of-type {
   color: var(--pen);
 }
 
-@media (min-width: 1260px) {
-  .margin-note {
-    position: absolute;
-    left: 100%;
-    top: 2px;
-    margin: 0 0 0 36px;
-    width: 180px;
-    align-items: flex-start;
-  }
-  .margin-note .note-lead {
-    display: none;
-  }
+/* Gutter rendering: the wrapper positions, the note flows inside it.
+   The note itself never leaves its wrapper, so nothing can clip or
+   double-offset and create horizontal overflow. */
+.margin-note-gutter {
+  position: static;
+  margin: 0;
+  width: auto;
+  max-width: none;
+  align-items: flex-start;
 }
-@media (max-width: 1259px) {
-  .margin-note .note-bracket {
-    display: none;
-  }
+.margin-note-gutter .note-lead {
+  display: none;
+}
+.margin-note-left {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  text-align: right;
+}
+.margin-note-left .note-lead {
+  display: block;
+  transform: scaleX(-1);
+}
+.margin-note-right {
+  justify-content: flex-start;
+}
+.margin-note-right .note-lead {
+  display: block;
+  transform: scaleX(-1);
 }
 
+/* 220 gives the bracket's longer path enough runway to draw in full */
 .draw path {
-  stroke-dasharray: 140;
-  stroke-dashoffset: 140;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
 }
 .drawn .draw path {
   animation: draw-in 600ms ease-out forwards;
@@ -353,166 +419,62 @@ main > .section:first-of-type {
   }
 }
 
-/* ─── Coverage board ─── */
-.board-scroll {
-  width: 100%;
-}
-.board-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-.board-table col.col-rank {
-  width: 26px;
-}
-.board-table col.col-domain {
-  width: 235px;
-}
-.board-table th,
-.board-table td {
-  padding: 0;
-  text-align: left;
-  font-weight: 400;
-}
-.board-corner {
-  border: none;
-}
-.board-logo-cell {
-  text-align: center;
-  padding: 2px 2px 10px;
-  vertical-align: bottom;
-}
-.board-logo-btn {
-  appearance: none;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 8px;
-  padding: 4px;
-  display: inline-grid;
-  place-items: center;
-  transition: transform 120ms ease, opacity 150ms ease;
-}
-.board-logo-btn img {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-}
-.board-logo-btn:hover {
-  transform: scale(1.08);
-}
-.board-logo-btn[data-dim="true"] {
-  opacity: 0.35;
-}
-.board-logo-btn[data-raised="true"] {
-  transform: scale(1.06);
-}
-
-.board-table tbody tr {
-  height: 64px;
-}
-.board-rank {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--ink-3);
-  text-align: center;
-  vertical-align: middle;
-  user-select: none;
-}
-.board-table tbody tr + tr th,
-.board-table tbody tr + tr td {
-  border-top: 1px solid var(--hairline);
-}
-.domain-btn {
-  appearance: none;
-  background: transparent;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  padding: 10px 12px 10px 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
-  border-radius: 6px;
-}
-.domain-btn .domain-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-}
-.domain-btn .domain-line {
-  font-size: 12px;
-  line-height: 1.45;
-  color: var(--ink-2);
-  max-width: 30ch;
-}
-.board-cell {
-  text-align: center;
-  vertical-align: middle;
-  transition: opacity 150ms ease;
-}
-.cell-a {
-  background: var(--surface);
-}
-.cell-b {
-  background: var(--surface-2);
-}
-.board-mark {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent, var(--ink-3));
-  outline: 1px solid var(--hairline-2);
-  outline-offset: 1.5px;
-}
-.board-row-dim {
-  opacity: 0.35;
-  transition: opacity 150ms ease;
-}
-.board-table tbody tr {
-  transition: opacity 150ms ease;
-}
-.board-foot td {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--ink-3);
-  text-align: center;
-  padding-top: 6px;
-}
-
-/* Mobile board: stacked blocks, no table */
-.board-mobile {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--hairline);
-}
-.board-block {
-  appearance: none;
-  background: transparent;
-  border: none;
+/* ─── What I work across (plain list) ─── */
+.domains {
   border-bottom: 1px solid var(--hairline);
-  padding: 14px 2px;
-  text-align: left;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transition: opacity 150ms ease;
 }
-.board-block-logos {
-  display: flex;
-  gap: 8px;
-  margin-top: 2px;
+.domain-row {
+  position: relative;
+  border-top: 1px solid var(--hairline);
+  padding: var(--row-y) var(--s-2);
 }
-.board-block-logos img {
-  width: 24px;
-  height: 24px;
-  border-radius: 5px;
+.domain-row:first-child {
+  border-top: none;
+}
+.domain-label {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--s-1);
+}
+.domain-line {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 0;
+  line-height: 1.6;
+}
+.gutter-note {
+  display: none;
+}
+.inline-note {
+  display: block;
+  margin-top: var(--s-1);
+}
+/* Wide viewports: notes sit in the gutters from 1100px up, aligned to
+   the domain name line. The column stays centered, so the text never
+   shifts. The note box is 160px wide with a 24px offset: at 1100px the
+   gutters hold exactly that, so a note can never clip the viewport. */
+@media (min-width: 1100px) {
+  .gutter-note {
+    display: block;
+  }
+  .inline-note {
+    display: none;
+  }
+  .gutter-note-right {
+    position: absolute;
+    top: var(--s-3);
+    left: 100%;
+    margin-left: var(--s-5);
+    width: 160px;
+  }
+  .gutter-note-left {
+    position: absolute;
+    top: var(--s-3);
+    right: 100%;
+    margin-right: var(--s-5);
+    width: 160px;
+  }
 }
 
 /* ─── Projects list ─── */
@@ -521,19 +483,18 @@ main > .section:first-of-type {
 }
 .project {
   border-top: 1px solid var(--hairline);
-  transition: opacity 150ms ease;
 }
-.project[data-dim="true"] {
-  opacity: 0.35;
+.project:first-of-type {
+  border-top: none;
 }
 .project-summary {
   list-style: none;
   cursor: pointer;
   display: grid;
   grid-template-columns: 40px minmax(0, 1fr) auto auto;
-  gap: 14px;
+  gap: var(--s-4);
   align-items: center;
-  padding: 16px 8px;
+  padding: var(--row-y) var(--s-2);
   border-radius: 8px;
 }
 .project-summary::-webkit-details-marker {
@@ -552,18 +513,26 @@ main > .section:first-of-type {
 }
 .project-name a {
   color: inherit;
+  /* WCAG 2.5.8: every pointer target needs a 24px square hit area. The
+     title link is text-height (21px), so transparent borders widen its
+     border box without touching the line box, the underline position or
+     any measured layout gap. */
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
 }
 .project-oneliner {
-  margin: 2px 0 0;
+  margin: var(--s-1) 0 0;
   font-size: 13px;
   color: var(--ink-2);
   line-height: 1.55;
 }
-.project-domains {
-  margin: 4px 0 0;
-  font-size: 11px;
-  letter-spacing: 0.01em;
+.project-tags {
+  margin: var(--s-1) 0 0;
+  font-size: 12px;
   color: var(--ink-3);
+  line-height: 1.5;
 }
 .annotation-mark {
   font-family: var(--font-hand);
@@ -571,6 +540,7 @@ main > .section:first-of-type {
   line-height: 1;
   color: var(--pen);
   align-self: start;
+  /* Optical nudge for the handwritten baseline. */
   padding-top: 2px;
   min-width: 30px;
   text-align: right;
@@ -587,8 +557,8 @@ main > .section:first-of-type {
 .project-detail {
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
-  gap: 18px;
-  padding: 4px 8px 32px;
+  gap: var(--s-4);
+  padding: var(--s-1) var(--s-2) var(--s-3);
 }
 .project-logo-lg {
   width: 72px;
@@ -596,35 +566,39 @@ main > .section:first-of-type {
   border-radius: 12px;
 }
 .project-detail p {
-  margin: 0 0 12px;
+  margin: 0 0 var(--s-3);
   font-size: 13.5px;
   line-height: 1.7;
   color: var(--ink);
   max-width: 58ch;
 }
+.project-detail p:last-of-type {
+  margin-bottom: 0;
+}
 .project-stack {
   font-size: 12.5px;
   color: var(--ink-3);
-  margin: 0;
 }
 .project-stack strong {
   font-weight: 500;
   color: var(--ink-2);
 }
 .project-links {
-  margin-top: 10px;
+  margin-top: var(--s-2);
   display: flex;
-  gap: 18px;
+  gap: var(--s-4);
+}
+.project-links a {
   font-size: 13px;
 }
 
 .list-foot {
-  margin-top: 18px;
+  margin-top: var(--s-4);
 }
 .arrow-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--s-2);
   font-size: 13.5px;
   font-weight: 500;
   text-underline-offset: 3px;
@@ -633,37 +607,45 @@ main > .section:first-of-type {
 /* ─── ADR rows ─── */
 .adr-intro {
   color: var(--ink-2);
-  margin: 0 0 8px;
   max-width: 62ch;
+  /* The intro block sits at the same 14px offset from the hairline as
+     every first row in the other sections. */
+  padding-top: var(--row-y);
+  margin: 0 0 var(--para);
 }
 .adr-list {
   border-bottom: 1px solid var(--hairline);
 }
 .adr-row {
+  border-top: 1px solid var(--hairline);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 18px;
+  gap: var(--s-4);
   align-items: baseline;
-  padding: 16px 8px;
-  border-top: 1px solid var(--hairline);
+  padding: var(--row-y) var(--s-2);
   text-decoration: none;
   color: inherit;
   border-radius: 8px;
   transition: background-color 150ms ease;
 }
+.adr-row:first-child {
+  border-top: none;
+}
 .adr-row:hover {
   background: var(--surface);
 }
 .adr-title {
+  display: block;
   font-size: 14.5px;
   font-weight: 500;
-  margin: 0;
+  margin: 0 0 var(--s-1);
   letter-spacing: -0.01em;
 }
 .adr-summary {
-  margin: 3px 0 0;
+  display: block;
   font-size: 13px;
   color: var(--ink-2);
+  margin: 0;
 }
 .adr-id {
   font-family: var(--font-mono);
@@ -675,12 +657,13 @@ main > .section:first-of-type {
 .adr-date {
   display: block;
   font-size: 10.5px;
-  margin-top: 2px;
+  margin-top: var(--s-1);
   color: var(--ink-3);
 }
 
 /* ─── Note pages ─── */
 .note-page {
+  margin-top: var(--head-gap);
   max-width: 720px;
 }
 .back-link {
@@ -690,8 +673,8 @@ main > .section:first-of-type {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 2px;
+  gap: var(--s-2);
+  padding: var(--s-1) var(--s-2);
   border-radius: 6px;
 }
 .back-link:hover {
@@ -702,21 +685,25 @@ main > .section:first-of-type {
   font-size: 11.5px;
   color: var(--ink-3);
   display: flex;
-  gap: 14px;
-  margin: 26px 0 10px;
+  gap: var(--s-4);
+  margin: var(--s-4) 0 var(--s-2);
 }
 .note-title {
   font-size: 26px;
   line-height: 1.25;
   font-weight: 500;
   letter-spacing: -0.02em;
-  margin: 0 0 18px;
+  margin: 0 0 var(--para);
   max-width: 26ch;
 }
 .note-body p {
   font-size: 15.5px;
   color: var(--ink);
+  margin: 0 0 var(--para);
   max-width: 62ch;
+}
+.note-body p:last-of-type {
+  margin-bottom: 0;
 }
 .note-body code {
   font-family: var(--font-mono);
@@ -729,10 +716,17 @@ main > .section:first-of-type {
 .note-body h2 {
   font-size: 17px;
   font-weight: 500;
-  margin-top: 28px;
+  margin: var(--s-5) 0 var(--s-2);
 }
 .note-body ul {
   padding-left: 20px;
+  margin: 0 0 var(--para);
+}
+.note-body li {
+  margin-bottom: var(--s-2);
+}
+.note-body li:last-child {
+  margin-bottom: 0;
 }
 
 /* ─── Work ─── */
@@ -741,12 +735,20 @@ main > .section:first-of-type {
 }
 .work-row {
   border-top: 1px solid var(--hairline);
-  padding: 18px 8px;
+  padding: var(--row-y) var(--s-2);
+}
+.work-row:first-of-type {
+  border-top: none;
+}
+/* An open row keeps the same 12px rhythm the spec pins for the expanded
+   state; closed rows never reserve space because details does that. */
+.work-row:has(.work-details[open]) {
+  padding-bottom: var(--s-3);
 }
 .work-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 16px;
+  gap: var(--s-4);
   align-items: baseline;
 }
 .work-title {
@@ -756,19 +758,24 @@ main > .section:first-of-type {
   letter-spacing: -0.01em;
 }
 .work-dates {
+  text-align: right;
   font-size: 12px;
   color: var(--ink-3);
+  line-height: 1.5;
   white-space: nowrap;
 }
+.work-dates .work-location {
+  display: block;
+}
 .work-summary {
-  margin: 4px 0 0;
+  margin: var(--s-1) 0 0;
   font-size: 13px;
   color: var(--ink-2);
   line-height: 1.6;
   max-width: 62ch;
 }
 .work-details {
-  margin-top: 8px;
+  margin-top: var(--s-2);
 }
 .work-details summary {
   list-style: none;
@@ -778,8 +785,10 @@ main > .section:first-of-type {
   color: var(--ink-2);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 2px;
+  gap: var(--s-2);
+  /* No padding and no min-height here: the toggle is the spacing spec's
+     8px under the summary, measured from raw text edges. */
+  padding: 0;
   border-radius: 6px;
   width: fit-content;
 }
@@ -796,7 +805,7 @@ main > .section:first-of-type {
   transition: transform 150ms ease;
 }
 .work-details ul {
-  margin: 10px 0 4px;
+  margin: var(--s-2) 0 0;
   padding-left: 18px;
   max-width: 66ch;
 }
@@ -804,24 +813,32 @@ main > .section:first-of-type {
   font-size: 13px;
   color: var(--ink-2);
   line-height: 1.65;
-  margin-bottom: 6px;
+  margin: 0 0 var(--s-2);
+}
+.work-details li:last-child {
+  margin: 0;
 }
 
 /* ─── Chess ─── */
 .chess-wrap {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 36px;
+  gap: var(--s-6);
   align-items: start;
+  /* Same offset from the label hairline as the row sections. */
+  padding-top: var(--row-y);
 }
 .chess-rows {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0;
 }
 .chess-row {
   border-top: 1px solid var(--hairline);
-  padding-top: 12px;
+  padding: var(--row-y) 0;
+}
+.chess-row:first-of-type {
+  border-top: none;
 }
 .chess-side {
   font-family: var(--font-mono);
@@ -834,31 +851,27 @@ main > .section:first-of-type {
 .chess-opening {
   font-size: 14.5px;
   font-weight: 500;
-  margin: 2px 0 0;
+  margin: var(--s-1) 0 0;
 }
 .chess-note {
   font-family: var(--font-hand);
   font-size: 18px;
   color: var(--pen);
-  margin: 2px 0 0;
+  margin: var(--s-1) 0 0;
   transform: rotate(-1deg);
-}
-.chess-link {
-  margin-top: 6px;
-  font-size: 13.5px;
 }
 
 .board-shell {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: var(--s-2);
 }
 .board-grid {
   display: grid;
   grid-template-columns: 14px auto;
   grid-template-rows: auto 14px;
-  gap: 4px;
+  gap: var(--s-1);
   align-items: center;
   justify-items: center;
 }
@@ -889,10 +902,10 @@ main > .section:first-of-type {
 }
 .board-toggle {
   display: flex;
-  gap: 4px;
+  gap: var(--s-1);
   border: 1px solid var(--hairline);
   border-radius: 8px;
-  padding: 3px;
+  padding: var(--s-1);
   background: var(--surface);
 }
 .board-toggle button {
@@ -902,10 +915,10 @@ main > .section:first-of-type {
   font-size: 12px;
   font-weight: 500;
   color: var(--ink-2);
-  padding: 6px 14px;
+  padding: var(--s-2) var(--s-4);
   border-radius: 6px;
   cursor: pointer;
-  min-height: 32px;
+  min-height: 40px;
   transition:
     background-color 150ms ease,
     color 150ms ease;
@@ -916,10 +929,18 @@ main > .section:first-of-type {
   outline: 1px solid var(--hairline-2);
 }
 
+/* Chess pieces: filled glyphs are the black side, outline glyphs the white
+   side, both in ink so they read on either square colour and theme. */
+.piece {
+  font-family: var(--font-chess);
+  font-size: 15px;
+  fill: var(--ink);
+}
+
 @media (max-width: 640px) {
   .chess-wrap {
     grid-template-columns: 1fr;
-    gap: 26px;
+    gap: var(--s-5);
   }
   .board-shell {
     align-items: flex-start;
@@ -933,6 +954,9 @@ main > .section:first-of-type {
 }
 
 /* ─── Elsewhere ─── */
+.elsewhere {
+  padding-top: var(--row-y);
+}
 .elsewhere p {
   max-width: 58ch;
   margin: 0;
@@ -941,25 +965,43 @@ main > .section:first-of-type {
   font-family: var(--font-hand);
   font-size: 19px;
   color: var(--pen);
-  margin-top: 14px;
+  /* Handwritten, so 4px attach under the paragraph and nothing after. */
+  margin: var(--s-1) 0 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--s-2);
   max-width: 34ch;
   line-height: 1.35;
 }
 
-/* ─── Footer ─── */
+/* ─── Not found ─── */
+.notfound {
+  margin-top: var(--head-gap);
+  padding: 0 0 var(--s-8);
+}
+.notfound h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 var(--s-3);
+  letter-spacing: -0.01em;
+}
+.notfound p {
+  color: var(--ink-2);
+  margin: 0 0 var(--para);
+}
+
+/* ─── Footer: a hairline and one thin line ─── */
 .site-footer {
-  margin-top: 72px;
+  margin-top: var(--s-7); /* 40px above the hairline at every width */
   border-top: 1px solid var(--hairline);
 }
 .site-footer .column {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 18px 0 26px;
+  align-items: baseline;
+  padding: var(--s-4) 0 var(--s-5); /* 16 under the hairline, 24 to home */
   font-size: 12px;
+  line-height: 1.25;
   color: var(--ink-3);
 }
 
@@ -975,13 +1017,9 @@ main > .section:first-of-type {
   .draw path {
     stroke-dashoffset: 0;
   }
-  .board-logo-btn[data-raised="true"],
-  .board-logo-btn:hover {
-    transform: none;
-  }
 }
 
-/* ─── Print: force light, drop chrome ─── */
+/* ─── Print: force light, drop chrome, render every section ─── */
 @media print {
   :root,
   :root[data-theme="dark"] {
@@ -995,158 +1033,14 @@ main > .section:first-of-type {
     --hairline-2: #bbbbbb;
     --pen: #2b4a8b;
   }
+  main > section,
+  main > .section {
+    content-visibility: visible;
+    contain-intrinsic-size: none;
+  }
   .site-header,
   .board-toggle,
-  .clear-pin,
   .skip-link {
     display: none !important;
   }
-}
-
-/* ─── Additions from the rebuild ─── */
-.brand-text {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-}
-
-.section-aside {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-
-.work-dates {
-  text-align: right;
-  font-size: 12px;
-  color: var(--ink-3);
-  line-height: 1.5;
-  white-space: nowrap;
-}
-.work-dates .work-location {
-  display: block;
-}
-
-/* Chess pieces: filled glyphs are the black side, outline glyphs the white
-   side, both in ink so they read on either square colour and theme. */
-.piece {
-  font-family: var(--font-chess);
-  font-size: 15px;
-  fill: var(--ink);
-}
-
-/* Swap the accessible table for stacked blocks under 641px */
-@media (max-width: 640px) {
-  .board-scroll {
-    display: none;
-  }
-}
-@media (min-width: 641px) {
-  .board-mobile {
-    display: none;
-  }
-}
-
-/* Draw-in needs enough runway for the hand-drawn paths */
-.draw path {
-  stroke-dasharray: 220;
-  stroke-dashoffset: 220;
-}
-
-/* Project detail links row */
-.project-links a {
-  font-size: 13px;
-}
-
-/* Not found */
-.notfound {
-  padding: 64px 0 96px;
-}
-.notfound h2 {
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0 0 12px;
-  letter-spacing: -0.01em;
-}
-.notfound p {
-  color: var(--ink-2);
-  margin: 0 0 18px;
-}
-
-/* Monogram swap for the two themes (Marklite tile) */
-.logo-for-dark {
-  display: none;
-}
-:root[data-theme="dark"] .logo-for-light {
-  display: none;
-}
-:root[data-theme="dark"] .logo-for-dark {
-  display: block;
-}
-.board-block-logos > span {
-  display: inline-flex;
-}
-.board-block[data-dim="true"] {
-  opacity: 0.35;
-}
-
-/* ─── Polish pass ─── */
-.column {
-  width: min(720px, 100% - 48px);
-}
-
-.intro p {
-  max-width: 58ch;
-}
-
-.adr-title,
-.adr-summary {
-  display: block;
-  margin: 0 0 2px;
-}
-.adr-summary {
-  margin-top: 0;
-}
-
-.chess-rows {
-  gap: 0;
-}
-.chess-row {
-  border-top: 1px solid var(--hairline);
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-.chess-row + .chess-row {
-  margin-top: 0;
-}
-.chess-rows a.chess-link {
-  margin-top: 12px;
-}
-
-.board-ranks {
-  grid-template-rows: repeat(8, 20px);
-}
-.board-files {
-  grid-template-columns: repeat(8, 20px);
-}
-
-/* Touch targets at least 40px */
-.domain-btn {
-  min-height: 64px;
-  justify-content: center;
-}
-.board-toggle button {
-  min-height: 40px;
-}
-.board-block {
-  min-height: 44px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-.board-logo-btn {
-  min-height: 40px;
-  min-width: 40px;
-}
-.work-details summary {
-  min-height: 40px;
 }

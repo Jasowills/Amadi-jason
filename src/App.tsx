@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import NotePage from "./components/NotePage";
+import { getNote } from "./lib/notes";
 
 // Minimal history router for / and /notes/<slug>. The deploy rewrites
 // every path to index.html, so there is no server side beyond that.
@@ -42,7 +43,7 @@ export default function App() {
   const isHome = path === "/" || path === "";
 
   useEffect(() => {
-    if (noteMatch) {
+    if (noteMatch && getNote(noteMatch[1])) {
       const slug = noteMatch[1];
       const id = slug.replace(/^adr-/, "ADR-").toUpperCase();
       document.title = `${id}, Jason Amadi`;

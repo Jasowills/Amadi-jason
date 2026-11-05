@@ -1,15 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="TRACE logo: a synthetic event traced along an amber trail through pipeline stage nodes to a green confirmed node">
-  <rect width="64" height="64" rx="14" fill="#29241F"/>
-  <!-- trail, first half amber -->
-  <path d="M12,18 H21 L26.5,29 H37" fill="none" stroke="#E5A03C" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- trail, second half ember orange -->
-  <path d="M37,29 L42.5,40 H52" fill="none" stroke="#D97A2B" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- origin node, hollow -->
-  <circle cx="12" cy="18" r="3.4" fill="none" stroke="#E5A03C" stroke-width="1.8"/>
-  <!-- mid nodes, filled -->
-  <circle cx="26.5" cy="29" r="2.9" fill="#E5A03C"/>
-  <circle cx="37" cy="29" r="2.5" fill="#D97A2B"/>
-  <!-- confirmed destination -->
-  <circle cx="52" cy="40" r="5.2" fill="#3FB970"/>
-  <path d="M49.6,40.1 L51.5,42 L54.9,36.6" fill="none" stroke="#29241F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="TRACE logo: a white stepped arrow on an orange tile">
+  <rect width="64" height="64" rx="14" fill="#F97316"/>
+  <path d="M14 46H28V28H44" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M42 19L55 28L42 37Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="14" cy="46" r="5" fill="#FFFFFF"/>
 </svg>

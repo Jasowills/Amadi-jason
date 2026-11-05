@@ -6,8 +6,9 @@
 
 ## About
 
-- [Home](https://amadi-jason.vercel.app/): intro, coverage board of what I work across,
-  five projects with chess annotations, ADRs, work history, chess, and contact.
+- [Home](https://amadi-jason.vercel.app/): intro, plain list of what I work
+  across, six projects with chess annotations, ADRs, work history, chess,
+  and contact.
 - [ADR-001: Why Postgres, not Mongo, for the core](https://amadi-jason.vercel.app/notes/adr-001)
 - [ADR-002: Monolith first, microservices when earned](https://amadi-jason.vercel.app/notes/adr-002)
 - [ADR-004: Kubernetes on AKS, because SSH and hope doesn't scale](https://amadi-jason.vercel.app/notes/adr-004)
@@ -21,6 +22,7 @@ Selected work, newest first. Source code is on GitHub.
 - [TRACE](https://github.com/jasowills/TRACE): An MCP server that follows synthetic events through an ingestion pipeline and proves where they went wrong. TypeScript, MCP SDK, Redis Streams, PostgreSQL.
 - [Pulse](https://github.com/jasowills/pulse): Typed, live change feeds from your database to your clients, on .NET. C#, SignalR.
 - [Sonar](https://github.com/jasowills/watchDog): Observability with AI root cause analysis and a public status page. Live at https://sonar-dev.vercel.app.
+- [JENAMÉE](https://jenamee.com): live e-commerce for an art and jewelry brand, from custom storefront to CMS. Next.js, React, Payload CMS, Google Cloud.
 
 ## Work
 
@@ -33,4 +35,4 @@ Selected work, newest first. Source code is on GitHub.
 - Email: jasowills01@gmail.com
 - GitHub: https://github.com/jasowills
 - LinkedIn: https://www.linkedin.com/in/jason-amadi/
-- Chess: https://www.chess.com/member/jasowills
+- Chess: https://www.chess.com/member/jasowillls

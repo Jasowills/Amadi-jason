@@ -55,6 +55,7 @@
     <script>
       (function () {
         var LEGACY_HOSTS = ["amadijason.com", "www.amadijason.com"];
+        var DEV_HOSTS = ["localhost", "127.0.0.1"];
         var CANONICAL = "https://amadi-jason.vercel.app";
         var VISITED_KEY = "legacy_redirect_visited";
 
@@ -68,7 +69,8 @@
           } catch (e) {
             visited = false;
           }
-          if (LEGACY_HOSTS.indexOf(host) !== -1 || !visited) {
+          var isDev = DEV_HOSTS.indexOf(host) !== -1;
+        if (!isDev && (LEGACY_HOSTS.indexOf(host) !== -1 || !visited)) {
             try {
               window.localStorage.setItem(VISITED_KEY, "1");
             } catch (e) { /* storage unavailable; target is set regardless */ }
@@ -80,14 +82,9 @@
 
         var resolved = "light";
         try {
-          var stored = window.localStorage.getItem("theme");
+          var stored = window.localStorage.getItem("theme-v2");
           if (stored === "light" || stored === "dark") {
             resolved = stored;
-          } else if (
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-          ) {
-            resolved = "dark";
           }
         } catch (e) {
           resolved = "light";

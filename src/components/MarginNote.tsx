@@ -4,19 +4,23 @@ interface MarginNoteProps {
   children: ReactNode;
   rotate?: number;
   bracket?: boolean;
+  side?: "left" | "right";
+  gutter?: boolean;
 }
 
 const clampRotate = (value: number) =>
   Math.max(-4, Math.min(4, value));
 
-// A handwritten note in blue pen. On wide screens it hangs in the right
-// gutter beside its target; on narrow screens it drops below the target
-// with a small left-pointing arrow. The bracket and arrow draw themselves
-// in once when scrolled into view.
+// A handwritten note in blue pen. On wide screens it hangs in the
+// selected gutter beside its target; below that it drops under the
+// target with a small left-pointing arrow. The bracket and arrow draw
+// themselves in once when scrolled into view.
 export default function MarginNote({
   children,
   rotate = -1.5,
   bracket = false,
+  side = "right",
+  gutter = false,
 }: MarginNoteProps) {
   const ref = useRef<HTMLSpanElement>(null);
 
@@ -47,10 +51,13 @@ export default function MarginNote({
     return () => observer.disconnect();
   }, []);
 
+  const classes = ["margin-note"];
+  if (gutter) classes.push("margin-note-gutter", `margin-note-${side}`);
   return (
     <span
       ref={ref}
-      className="margin-note"
+      aria-hidden="true"
+      className={classes.join(" ")}
       style={{ transform: `rotate(${clampRotate(rotate)}deg)` }}
     >
       <svg

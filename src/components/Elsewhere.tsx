@@ -12,8 +12,16 @@ export default function Elsewhere() {
         <a className="u-link" href={`mailto:${site.email}`}>
           email
         </a>
-        . I read everything and reply within a day, sometimes from a
-        chess.com tab. Also on{" "}
+        . I read everything and reply within a day, sometimes from a{" "}
+        <a
+          className="u-link"
+          href={site.chessProfileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          chess.com
+        </a>{" "}
+        tab. Also on{" "}
         <a
           className="u-link"
           href={site.githubUrl}
@@ -23,18 +31,14 @@ export default function Elsewhere() {
           GitHub
         </a>{" "}
         and{" "}
-        {site.linkedinUrl ? (
-          <a
-            className="u-link"
-            href={site.linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-        ) : (
-          "LinkedIn"
-        )}
+        <a
+          className="u-link"
+          href={site.linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
         .
         </p>
       </div>

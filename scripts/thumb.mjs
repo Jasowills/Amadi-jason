@@ -1,0 +1,14 @@
+import { chromium } from "playwright";
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await page.goto("http://localhost:5174/", { waitUntil: "networkidle" });
+await page.evaluate(() => { localStorage.setItem("legacy_redirect_visited", "1"); localStorage.setItem("theme", "light"); });
+await page.reload({ waitUntil: "networkidle" });
+await page.waitForTimeout(900);
+await page.screenshot({ path: "/private/var/folders/81/y4t1vltx4jb4qr3y2j2ff8q00000gn/T/opencode/top-1440-light.png" });
+await page.evaluate(() => localStorage.setItem("theme", "dark"));
+await page.reload({ waitUntil: "networkidle" });
+await page.waitForTimeout(900);
+await page.screenshot({ path: "/private/var/folders/81/y4t1vltx4jb4qr3y2j2ff8q00000gn/T/opencode/top-1440-dark.png" });
+console.log("captured");
+await browser.close();

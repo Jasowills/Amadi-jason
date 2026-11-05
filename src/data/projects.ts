@@ -1,6 +1,10 @@
-import type { BoardColumnId } from "./domains";
-
-export type ProjectId = "prism" | "tide" | "trace" | "pulse" | "sonar";
+export type ProjectId =
+  | "prism"
+  | "tide"
+  | "trace"
+  | "pulse"
+  | "sonar"
+  | "jenamee";
 export type Annotation = "!" | "!?" | "!!";
 
 export interface Project {
@@ -12,10 +16,19 @@ export interface Project {
   mark: Annotation;
   logo: string;
   accent: string;
+  accentDark?: string;
   repoUrl: string | null;
   liveUrl: string | null;
+  // Optional muted tags line under the one-liner. Only the JENAMEE row
+  // ships one so far; other rows render without it.
+  tags?: string[];
 }
 
+// Newest first. Sonar is the most recent private build; JENAMEE is the
+// newest production system. Source of truth for the JENAMEE spelling:
+// the live site title and og:site_name both read JENAMÉE, as does the
+// project repo's own llms.txt. The repo folder/branch name "Jename" is
+// the pre-rebrand code name.
 export const projects: readonly Project[] = [
   {
     id: "prism",
@@ -36,7 +49,8 @@ export const projects: readonly Project[] = [
     ],
     mark: "!",
     logo: "/logos/prism.svg",
-    accent: "#7C5CFC",
+    accent: "#4F46E5",
+    accentDark: "#8B8FF9",
     repoUrl: "https://github.com/jasowills/prism",
     liveUrl: null,
   },
@@ -58,7 +72,12 @@ export const projects: readonly Project[] = [
     ],
     mark: "!?",
     logo: "/logos/tide.svg",
-    accent: "#1F8A7E",
+    // The logo tile color. Accent fields are metadata only today; no
+    // component consumes them. The dark variant lifts the same cyan hue
+    // because #0891B2 sits at 5.2 to 1 on the dark surface and #22D3EE
+    // keeps that comfortable if any text ever uses it.
+    accent: "#0891B2",
+    accentDark: "#22D3EE",
     repoUrl: "https://github.com/jasowills/TIDE",
     liveUrl: null,
   },
@@ -79,7 +98,8 @@ export const projects: readonly Project[] = [
     ],
     mark: "!",
     logo: "/logos/trace.svg",
-    accent: "#C77417",
+    accent: "#B65E14",
+    accentDark: "#F97316",
     repoUrl: "https://github.com/jasowills/TRACE",
     liveUrl: null,
   },
@@ -100,7 +120,8 @@ export const projects: readonly Project[] = [
     ],
     mark: "!!",
     logo: "/logos/pulse.svg",
-    accent: "#D95F85",
+    accent: "#F43F5E",
+    accentDark: "#FDA4AF",
     repoUrl: "https://github.com/jasowills/pulse",
     liveUrl: null,
   },
@@ -122,34 +143,24 @@ export const projects: readonly Project[] = [
     mark: "!",
     logo: "/logos/sonar.svg",
     accent: "#6B6B70",
+    accentDark: "#9CA3AF",
     repoUrl: "https://github.com/jasowills/watchDog",
     liveUrl: "https://sonar-dev.vercel.app",
   },
-] as const;
-
-export interface BoardColumn {
-  id: BoardColumnId;
-  name: string;
-  logo: string;
-  logoDark?: string;
-  accent: string;
-}
-
-// The coverage board columns. Derived from the same source as the project
-// list so the two sections cannot drift apart, plus the Marklite monogram
-// for the day job.
-export const boardColumns: readonly BoardColumn[] = [
-  ...projects.map((p) => ({
-    id: p.id as BoardColumnId,
-    name: p.name,
-    logo: p.logo,
-    accent: p.accent,
-  })),
   {
-    id: "marklite",
-    name: "Marklite",
-    logo: "/logos/marklite-monogram.svg",
-    logoDark: "/logos/marklite-monogram-dark.svg",
-    accent: "#7A756A",
+    id: "jenamee",
+    name: "JENAMÉE",
+    oneLiner:
+      "Live e-commerce for an art and jewelry brand, from custom storefront to CMS.",
+    description:
+      "A modern e-commerce platform for an art and jewelry brand, live in production. A custom storefront with product management, artist profiles, and contact flows, built on Payload CMS.",
+    stack: ["Next.js", "TypeScript", "React", "Payload CMS", "Google Cloud"],
+    tags: ["Full-stack", "Cloud"],
+    mark: "!",
+    logo: "/logos/jenamee.png",
+    accent: "#E91F5F",
+    accentDark: "#F06995",
+    repoUrl: null,
+    liveUrl: "https://jenamee.com",
   },
-] as const;
+];

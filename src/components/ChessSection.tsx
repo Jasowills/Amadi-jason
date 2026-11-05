@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { site } from "../data/site";
 import SectionLabel from "./SectionLabel";
 import ChessBoard from "./ChessBoard";
-import Arrow from "./Arrow";
 import { type Orientation } from "../lib/fen";
 
 const POSITIONS = {
@@ -24,7 +22,8 @@ const POSITIONS = {
 
 type Side = keyof typeof POSITIONS;
 
-// Off the clock. The other board.
+// Off the clock. The other board. The chess.com profile link lives in
+// the Elsewhere section, not here.
 export default function ChessSection() {
   const [side, setSide] = useState<Side>("white");
   const position = POSITIONS[side];
@@ -49,15 +48,6 @@ export default function ChessSection() {
             <p className="chess-opening">Caro-Kann Defense</p>
             <p className="chess-note">solid first, sharp later</p>
           </div>
-          <a
-            className="u-link arrow-link chess-link"
-            href={site.chessProfileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Play me on chess.com
-            <Arrow direction="up-right" size={13} />
-          </a>
         </div>
 
         <div className="board-shell">
